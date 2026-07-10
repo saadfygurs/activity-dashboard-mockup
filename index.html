@@ -1,0 +1,2231 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Cordata · AV Mockup — Overview</title>
+</head>
+<body>
+<style>
+  :root {
+    --bg: #E5E8EC;
+    --surface: #FFFFFF;
+    --surface-2: #EEF1F3;
+    --ink: #16191F;
+    --ink-2: #58606B;
+    --ink-3: #8A929E;
+    --border: #E0E4E9;
+    --border-2: #D2D7DE;
+    --brand: #1C7C3E;
+    --brand-ink: #135A2B;
+    --brand-soft: #E3F0E7;
+    --good: #1E8E5A;
+    --good-soft: #E1F1E9;
+    --warn: #B9740A;
+    --warn-soft: #F7ECD8;
+    --crit: #C0392B; --slate: #45526A; --slate-soft: #E7EAF0;
+    --shadow: 0 1px 3px rgba(16,24,32,.10), 0 1px 1px rgba(16,24,32,.05);
+    --sans: "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono: "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #101318;
+      --surface: #191D24;
+      --surface-2: #222833;
+      --ink: #E8EBF0;
+      --ink-2: #A3ABB8;
+      --ink-3: #6C7480;
+      --border: #2A313B;
+      --border-2: #353D48;
+      --brand: #48BA6B;
+      --brand-ink: #64CC84;
+      --brand-soft: #13321E;
+      --good: #40BC80;
+      --good-soft: #15382B;
+      --warn: #DDA24A;
+      --warn-soft: #38290F;
+      --crit: #E06455; --slate: #8A97B0; --slate-soft: #232A38;
+      --shadow: 0 1px 3px rgba(16,24,32,.10), 0 1px 1px rgba(16,24,32,.05);
+    }
+  }
+  :root[data-theme="light"] {
+    --bg: #E5E8EC; --surface: #FFFFFF; --surface-2: #EEF1F3; --ink: #16191F;
+    --ink-2: #58606B; --ink-3: #8A929E; --border: #E0E4E9; --border-2: #D2D7DE;
+    --brand: #1C7C3E; --brand-ink: #135A2B; --brand-soft: #E3F0E7;
+    --good: #1E8E5A; --good-soft: #E1F1E9; --warn: #B9740A; --warn-soft: #F7ECD8;
+    --crit: #C0392B; --slate: #45526A; --slate-soft: #E7EAF0; --shadow: 0 1px 3px rgba(16,24,32,.10), 0 1px 1px rgba(16,24,32,.05);
+  }
+  :root[data-theme="dark"] {
+    --bg: #101318; --surface: #191D24; --surface-2: #222833; --ink: #E8EBF0;
+    --ink-2: #A3ABB8; --ink-3: #6C7480; --border: #2A313B; --border-2: #353D48;
+    --brand: #48BA6B; --brand-ink: #64CC84; --brand-soft: #13321E;
+    --good: #40BC80; --good-soft: #15382B; --warn: #DDA24A; --warn-soft: #38290F;
+    --crit: #E06455; --slate: #8A97B0; --slate-soft: #232A38; --shadow: 0 1px 3px rgba(16,24,32,.10), 0 1px 1px rgba(16,24,32,.05);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: var(--sans); line-height: 1.45;
+    -webkit-font-smoothing: antialiased;
+  }
+  .app { max-width: 1160px; margin: 0 auto; padding: 20px clamp(14px, 3vw, 28px) 56px; }
+
+  /* ---------- Top bar ---------- */
+  .topbar {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    gap: 20px; flex-wrap: wrap; background: var(--surface);
+    padding: 13px 18px; border: 1px solid var(--border); border-bottom: 2px solid var(--brand);
+    border-radius: 8px 8px 0 0; box-shadow: var(--shadow); margin-bottom: 12px;
+  }
+  .refresh { font-size: .7rem; color: var(--ink-3); white-space: nowrap; }
+  .refresh b { color: var(--ink-2); font-weight: 600; }
+  .brandmark { display: flex; align-items: center; gap: 12px; }
+  .opella { font-weight: 800; font-size: 1.2rem; color: var(--brand); letter-spacing: -.02em; }
+  .opella::after { content: "."; }
+  .hdiv { width: 1px; height: 28px; background: var(--border); flex: none; }
+  .brand-dot {
+    width: 30px; height: 30px; border-radius: 2px; flex: none;
+    background: var(--brand);
+    display: grid; place-items: center; color: #fff; font-weight: 700; font-size: .82rem;
+    box-shadow: var(--shadow);
+  }
+  .brand-txt h1 { margin: 0; font-size: 1.06rem; font-weight: 600; letter-spacing: 0; }
+  .brand-txt p { margin: 1px 0 0; font-size: .78rem; color: var(--ink-3); }
+
+  .topright { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+  .toprow { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
+  .settings { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .settings .lbl {
+    font-size: .64rem; text-transform: uppercase; letter-spacing: normal;
+    color: var(--ink-3); margin-right: 2px;
+  }
+  .chip {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--surface-2); border: 1px solid var(--border);
+    color: var(--ink-2); font-size: .74rem; font-weight: 600;
+    padding: 4px 9px; border-radius: 3px; white-space: nowrap;
+  }
+  .chip .k { color: var(--ink-3); font-size: .64rem; text-transform: uppercase; letter-spacing: normal; }
+  .chip svg { opacity: .6; }
+
+  .maquette {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: .64rem; text-transform: uppercase; letter-spacing: normal; font-weight: 600;
+    color: var(--warn); background: var(--warn-soft);
+    border: 1px solid color-mix(in srgb, var(--warn) 30%, transparent);
+    padding: 3px 9px; border-radius: 6px;
+  }
+
+  /* ---------- Two zones: OUR layer vs the Power BI report ---------- */
+  .ourlayer { background: var(--slate-soft); border: 1px solid color-mix(in srgb, var(--slate) 22%, transparent); border-radius: 8px; padding: 10px 12px 8px; margin-bottom: 16px; }
+  .ourbar { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; margin-bottom: 8px; }
+  .ourid { font-size: .78rem; color: var(--slate); display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+  .ourid .osq { font-weight: 700; color: var(--slate); }
+  .ourid .ourwhat { font-size: .7rem; color: var(--ink-3); font-weight: 400; }
+  .ourctl { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .ourlayer .tabs { margin: 0; }
+
+  .reportframe { margin-bottom: 12px; }
+  .rptbadge { font-size: .64rem; text-transform: uppercase; letter-spacing: .05em; font-weight: 700; color: var(--brand); margin: 0 2px 6px; display: flex; align-items: center; gap: 8px; }
+  .rptbadge::before { content: "▼"; font-size: .8em; }
+  .rptbadge .rpttiny { font-weight: 400; text-transform: none; letter-spacing: normal; color: var(--ink-3); }
+  .report { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; box-shadow: 0 6px 24px -14px rgba(16,24,32,.4); overflow: hidden; }
+  .rpthead { display: flex; align-items: center; gap: 12px; padding: 12px 18px; background: var(--surface); border-bottom: 2px solid var(--brand); }
+  .rpthead .hspacer { flex: 1; }
+  .rptslicers { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; padding: 8px 18px; background: var(--surface); border-bottom: 1px solid var(--border); }
+  .rptslicers .lbl { font-size: .64rem; text-transform: uppercase; letter-spacing: normal; color: var(--ink-3); font-weight: 600; margin-right: 2px; }
+  .rptcanvas { padding: 16px; background: var(--surface-2); }
+  .rptcanvas .view.active { animation: none; }
+  /* working view (Logic & spec) is ours, not the report → drop the report chrome */
+  .reportframe.working .rptbadge, .reportframe.working .rpthead, .reportframe.working .rptslicers { display: none; }
+  .reportframe.working .report { border-color: color-mix(in srgb, var(--slate) 22%, transparent); box-shadow: none; background: transparent; }
+  .reportframe.working .rptcanvas { background: transparent; padding: 0; }
+
+  /* notes toggle */
+  .toggle {
+    appearance: none; cursor: pointer; font-family: inherit;
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--surface); border: 1px solid var(--border);
+    color: var(--ink-2); font-size: .72rem; font-weight: 600;
+    padding: 5px 10px 5px 8px; border-radius: 3px;
+  }
+  .toggle .sw {
+    width: 30px; height: 17px; border-radius: 999px; background: var(--border-2);
+    position: relative; transition: background .18s; flex: none;
+  }
+  .toggle .sw::after {
+    content: ""; position: absolute; top: 2px; left: 2px; width: 13px; height: 13px;
+    border-radius: 50%; background: #fff; transition: transform .18s; box-shadow: 0 1px 2px rgba(0,0,0,.3);
+  }
+  .toggle[aria-pressed="true"] .sw { background: var(--brand); }
+  .toggle[aria-pressed="true"] .sw::after { transform: translateX(13px); }
+
+  /* ---------- Tabs ---------- */
+  .tabs {
+    display: flex; flex-wrap: wrap; gap: 3px; margin: 6px 0 18px; padding: 5px 6px;
+    background: var(--surface-2); border: 1px solid var(--border);
+    border-radius: 6px; align-items: center;
+  }
+  .tabgrp { font-size: .56rem; text-transform: uppercase; letter-spacing: .07em; font-weight: 700; color: var(--brand); padding: 0 4px; white-space: nowrap; }
+  .tabgrp.wvg { color: var(--slate); border-left: 1px solid var(--border-2); padding-left: 10px; margin-left: 5px; }
+  .tab {
+    appearance: none; border: 0; background: transparent; cursor: pointer;
+    font-family: inherit; color: var(--ink-2); font-size: .82rem; font-weight: 600;
+    padding: 7px 12px; border-radius: 4px; white-space: nowrap;
+    display: flex; align-items: center; gap: 7px; transition: background .15s, color .15s;
+  }
+  .tab .code {
+    font-family: var(--mono); font-size: .68rem; font-weight: 600;
+    color: var(--ink-3); background: var(--surface); border: 1px solid var(--border);
+    padding: 1px 5px; border-radius: 4px;
+  }
+  .tab:hover { color: var(--ink); background: color-mix(in srgb, var(--surface) 60%, transparent); }
+  .tab[aria-selected="true"] { background: var(--surface); color: var(--ink); box-shadow: var(--shadow); }
+  .tab[aria-selected="true"] .code { color: var(--brand); border-color: color-mix(in srgb, var(--brand) 40%, transparent); }
+  .tab.wvtab { color: var(--slate); }
+  .tab.wvtab .code { color: var(--slate); background: var(--slate-soft); border-color: color-mix(in srgb, var(--slate) 26%, transparent); }
+  .tab.wvtab[aria-selected="true"] { background: var(--slate-soft); color: var(--slate); box-shadow: var(--shadow); }
+
+  .tab:focus-visible, .site:focus-visible, .toggle:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+
+  /* ---------- View / cards ---------- */
+  .view { display: none; }
+  .view.active { display: block; animation: fade .28s ease; }
+  @keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .view.active { animation: none; } }
+
+  .card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 8px; box-shadow: var(--shadow);
+  }
+  .eyebrow {
+    font-size: .66rem; text-transform: uppercase; letter-spacing: normal;
+    color: var(--ink-3); font-weight: 600;
+  }
+
+  /* ---------- Design notes (annotation, not part of the dashboard) ---------- */
+  .note {
+    border-left: 2px dashed var(--brand);
+    background: color-mix(in srgb, var(--brand) 6%, transparent);
+    border-radius: 0 8px 8px 0; padding: 9px 12px; font-size: .8rem; color: var(--ink-2);
+  }
+  .note .tag {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: .6rem; text-transform: uppercase; letter-spacing: normal; font-weight: 700;
+    color: var(--brand); margin-bottom: 3px;
+  }
+  .note .tag::before { content: "✎"; font-size: .8rem; }
+  body.notes-off .note { display: none !important; }
+  .feas { margin-top: 14px; }
+  .feas b { color: var(--ink); font-weight: 600; }
+
+  /* ---------- Hero band ---------- */
+  .hero {
+    display: grid; grid-template-columns: 1.15fr .85fr; gap: 14px; margin-bottom: 14px;
+  }
+  .kpi { padding: 20px 24px; display: flex; flex-direction: column; gap: 4px; justify-content: center; }
+  .kpi .big {
+    font-size: clamp(2.7rem, 6.5vw, 3.9rem); font-weight: 600; letter-spacing: 0;
+    line-height: 1; margin: 6px 0 2px; font-variant-numeric: tabular-nums;
+  }
+  .kpi .big .cur { color: var(--ink-3); font-weight: 400; font-size: .42em; margin-left: 6px; letter-spacing: 0; }
+  .kpi .sub { font-size: .78rem; color: var(--ink-3); }
+
+  .heroside { display: flex; flex-direction: column; gap: 14px; }
+  .compare { padding: 16px 18px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .cmp .k { font-size: .68rem; text-transform: uppercase; letter-spacing: normal; color: var(--ink-3); }
+  .cmp .v { font-size: 1.42rem; font-weight: 600; font-variant-numeric: tabular-nums; letter-spacing: 0; margin-top: 3px; display: flex; align-items: baseline; gap: 5px; }
+  .cmp .v small { font-size: .72rem; font-weight: 600; color: var(--ink-3); }
+  .up { color: var(--good); } .down { color: var(--crit); }
+  .arrow { font-size: .8em; }
+
+  .trust {
+    padding: 15px 18px; display: flex; align-items: center; gap: 13px;
+    background: var(--good-soft); border-color: color-mix(in srgb, var(--good) 28%, transparent);
+  }
+  .trust .tick {
+    width: 30px; height: 30px; border-radius: 50%; flex: none;
+    background: var(--good); color: #fff; display: grid; place-items: center;
+  }
+  .trust .t1 { font-weight: 600; font-size: .92rem; color: var(--ink); }
+  .trust .t1 b { color: var(--good); font-variant-numeric: tabular-nums; }
+  .trust .t2 { font-size: .72rem; color: var(--ink-2); margin-top: 1px; }
+
+  .info { padding: 15px 18px; display: flex; align-items: center; gap: 13px; background: var(--surface-2); }
+  .info .ic { width: 30px; height: 30px; border-radius: 2px; flex: none; background: var(--brand-soft); color: var(--brand); display: grid; place-items: center; }
+  .info .t1 { font-weight: 600; font-size: .86rem; color: var(--ink); }
+  .info .t2 { font-size: .72rem; color: var(--ink-2); margin-top: 1px; }
+
+  /* composition strip: actual + forecast = landing */
+  .compo { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; align-items: center; gap: 14px; padding: 15px 22px; margin-bottom: 14px; }
+  .compo .seg .k { font-size: .64rem; text-transform: uppercase; letter-spacing: normal; color: var(--ink-3); }
+  .compo .seg .v { font-size: 1.34rem; font-weight: 600; font-variant-numeric: tabular-nums; letter-spacing: 0; margin-top: 3px; }
+  .compo .seg .v .u { color: var(--ink-3); font-weight: 400; font-size: .62em; margin-left: 3px; }
+  .compo .seg small { font-size: .68rem; color: var(--ink-3); }
+  .compo .op { font-size: 1.3rem; color: var(--ink-3); font-weight: 400; text-align: center; }
+  .compo .seg.res .v { color: var(--brand); }
+  .compo .seg.res .k { color: var(--brand); }
+
+  /* quarterly build-up */
+  .qtable { display: flex; flex-direction: column; gap: 2px; }
+  .qrow { display: grid; grid-template-columns: 42px 1fr auto; align-items: center; gap: 12px; padding: 9px 8px; border-radius: 2px; font-size: .84rem; }
+  .qrow .ql { font-weight: 600; }
+  .qrow .basis { justify-self: start; font-size: .6rem; text-transform: uppercase; letter-spacing: normal; color: var(--ink-3); border: 1px solid var(--border); border-radius: 5px; padding: 1px 6px; white-space: nowrap; }
+  .qrow .qv { text-align: right; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .qrow.trans { background: var(--warn-soft); }
+  .qrow.trans .basis { color: var(--warn); border-color: color-mix(in srgb, var(--warn) 34%, transparent); }
+  .qrow.total { border-top: 1px solid var(--border); margin-top: 5px; padding-top: 12px; }
+  .qrow.total .ql, .qrow.total .qv { font-weight: 700; }
+  .qrow.total .qv { color: var(--brand); }
+  .qrow.total .delta { font-size: .68rem; color: var(--good); font-weight: 600; display: block; }
+
+  .lg-bud { width: 16px; height: 0; border-top: 2px dotted var(--ink-3); }
+
+  @media (max-width: 640px) {
+    .compo { grid-template-columns: 1fr; gap: 8px; }
+    .compo .op { text-align: left; }
+  }
+
+  /* ---------- Lower grid ---------- */
+  .lower { display: grid; grid-template-columns: 1.35fr 1fr; gap: 14px; }
+  .a0-next { display: flex; flex-direction: column; gap: 9px; }
+  .a0-next .panel-cap { margin-bottom: 2px; }
+  .nextcard { display: flex; align-items: center; gap: 12px; width: 100%; text-align: left; appearance: none; cursor: pointer; border: 1px solid var(--border); border-radius: 8px; background: var(--surface-2); padding: 11px 13px; font-family: inherit; transition: border-color .14s, background .14s, transform .1s; }
+  .nextcard:hover { border-color: color-mix(in srgb, var(--brand) 45%, transparent); background: var(--surface); }
+  .nextcard:active { transform: translateY(1px); }
+  .nextcard:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+  .nc-code { font-family: var(--mono); font-weight: 700; font-size: .74rem; color: var(--brand); background: var(--surface); border: 1px solid color-mix(in srgb, var(--brand) 30%, transparent); border-radius: 5px; padding: 2px 8px; flex: none; }
+  .nc-txt { flex: 1; }
+  .nc-txt b { display: block; font-size: .82rem; color: var(--ink); font-weight: 600; }
+  .nc-txt small { display: block; font-size: .71rem; color: var(--ink-3); margin-top: 1px; line-height: 1.35; }
+  .nc-txt small i { color: var(--ink-2); font-style: italic; }
+  .nc-arr { color: var(--brand); font-weight: 700; font-size: 1.05rem; flex: none; }
+  .panel { padding: 18px 20px; }
+  .panel-h { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-bottom: 4px; }
+  .panel-h .q { font-size: .9rem; font-weight: 600; letter-spacing: 0; }
+  .panel-cap { font-size: .74rem; color: var(--ink-3); margin: 2px 0 14px; }
+
+  .legend { display: flex; gap: 16px; flex-wrap: wrap; font-size: .72rem; color: var(--ink-2); margin-top: 6px; }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .lg-line { width: 16px; height: 3px; border-radius: 2px; background: var(--brand); }
+  .lg-dash { width: 16px; height: 0; border-top: 2px dashed var(--brand); }
+  .lg-bar-brand { width: 14px; height: 11px; border-radius: 2px; background: var(--brand); }
+  .lg-dash-ink { width: 16px; height: 0; border-top: 2px dashed var(--ink-2); }
+
+  /* ---------- A0b weekly review ---------- */
+  .hero.even { grid-template-columns: 1fr 1fr; }
+  .sitepill { display: inline-flex; padding: 5px 11px; border: 1px solid var(--border-2); border-radius: 3px; background: var(--slate-soft); color: var(--slate); font-size: .76rem; font-weight: 600; }
+  .secn { color: var(--slate); font-variant-numeric: tabular-nums; font-weight: 700; margin-right: 8px; opacity: .75; }
+  .weekseg { display: inline-flex; border: 1px solid var(--border-2); border-radius: 3px; overflow: hidden; }
+  .weekseg button { appearance: none; border: 0; background: var(--surface); color: var(--ink-2); font-family: inherit; font-size: .76rem; font-weight: 600; padding: 5px 10px; cursor: pointer; border-right: 1px solid var(--border-2); }
+  .weekseg button:last-child { border-right: 0; }
+  .weekseg button[aria-pressed="true"] { background: var(--brand); color: #fff; }
+  .weekseg button:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+  .wkcmp { display: flex; gap: 18px; margin-top: 8px; }
+  .wkcmp .wc { display: flex; flex-direction: column; gap: 2px; }
+  .wkcmp .wl { font-size: .64rem; text-transform: uppercase; letter-spacing: .04em; color: var(--ink-3); font-weight: 600; display: inline-flex; align-items: center; gap: 3px; }
+  .wkcmp .wc b { font-size: .9rem; }
+  .wkcmp .pos { color: var(--good); }
+  .wkcmp .neg { color: var(--crit); }
+
+  figure { margin: 0; }
+  .chartwrap { width: 100%; overflow-x: auto; }
+  svg.chart { display: block; width: 100%; height: auto; min-width: 460px; }
+
+  /* ---------- Sites list ---------- */
+  .sites { display: flex; flex-direction: column; gap: 3px; }
+  .site {
+    display: grid; grid-template-columns: 96px 1fr 62px; align-items: center; gap: 12px;
+    padding: 8px 8px; border-radius: 2px; cursor: pointer; border: 1px solid transparent;
+    transition: background .14s, border-color .14s;
+  }
+  .site:hover { background: var(--surface-2); border-color: var(--border); }
+  .site .name { font-size: .82rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .site .track { height: 9px; border-radius: 5px; background: var(--surface-2); overflow: hidden; }
+  .site .fill { display: block; height: 100%; border-radius: 5px; background: var(--brand); width: 0; transition: width .7s cubic-bezier(.4,0,.2,1); }
+  .site .val { text-align: right; font-size: .82rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .site.flag { background: var(--warn-soft); border-color: color-mix(in srgb, var(--warn) 26%, transparent); }
+  .site.flag .fill { background: var(--warn); }
+  .site.flag .name { color: var(--warn); }
+  .site .name .warn-i { font-size: .72rem; margin-left: 3px; }
+  .cause { grid-column: 1 / -1; font-size: .68rem; color: var(--warn); padding: 0 8px 2px 108px; margin-top: -2px; }
+  @media (prefers-reduced-motion: reduce) { .site .fill { transition: none; } }
+  .site .fill.pos { background: var(--good); }
+  .site .fill.neg { background: var(--crit); }
+  .site .val.pos { color: var(--good); }
+  .site .val.neg { color: var(--crit); }
+  .sites.wide .site { grid-template-columns: 110px 1fr 64px; }
+
+  /* A0 scan — diverging variance-vs-budget bars, worst first */
+  .dvscan { display: flex; flex-direction: column; gap: 1px; }
+  .dvrow { display: grid; grid-template-columns: 98px 1fr 116px; align-items: center; column-gap: 12px; padding: 7px 8px; border-radius: 3px; border: 1px solid transparent; cursor: pointer; transition: background .14s; }
+  .dvrow:hover { background: var(--surface-2); }
+  .dvrow .nm { font-size: .82rem; font-weight: 600; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .dvtrack { position: relative; height: 16px; }
+  .dvtrack::before { content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: var(--border-2); }
+  .dvfill { position: absolute; top: 3px; height: 10px; border-radius: 2px; min-width: 2px; }
+  .dvfill.neg { background: var(--crit); } .dvfill.pos { background: var(--good); } .dvfill.flag { background: var(--warn); }
+  .dvval { text-align: right; font-size: .78rem; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .dvval b { font-weight: 700; }
+  .dvval.neg b { color: var(--crit); } .dvval.pos b { color: var(--good); } .dvval.flag b { color: var(--warn); }
+  .dvval .dvpct { font-weight: 600; font-size: .72rem; color: var(--ink-3); }
+  .dvval .dvpct::before { content: " · "; }
+  .dvrow.flag { background: var(--warn-soft); border-color: color-mix(in srgb, var(--warn) 26%, transparent); }
+  .dvrow.flag .nm { color: var(--warn); }
+  .dvcause { grid-column: 1 / -1; font-size: .68rem; color: var(--warn); padding: 1px 0 0; }
+  .dvaxis { display: grid; grid-template-columns: 98px 1fr 116px; column-gap: 12px; margin-top: 5px; padding: 0 8px; font-size: .62rem; color: var(--ink-3); }
+  .dvaxis .ax { text-align: center; display: flex; justify-content: space-between; }
+  .dvaxis .ax b { color: var(--ink-2); font-weight: 600; }
+
+  .discl {
+    display: flex; align-items: center; gap: 8px; margin-top: 14px;
+    font-size: .72rem; color: var(--ink-3); padding-top: 12px; border-top: 1px solid var(--border);
+  }
+  .discl svg { flex: none; opacity: .7; }
+
+  /* ---------- Stub views ---------- */
+  .stub { padding: 30px 28px; }
+  .stub .q { font-size: 1.05rem; font-weight: 600; letter-spacing: 0; }
+  .stub .role { font-size: .78rem; color: var(--brand); font-weight: 600; margin-bottom: 14px; }
+  .stub .desc { font-size: .88rem; color: var(--ink-2); max-width: 62ch; }
+  .wire { margin-top: 22px; display: grid; gap: 10px; }
+  .wire .bar { height: 13px; border-radius: 6px; background: var(--surface-2); }
+  .wire .row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .wire .block { height: 78px; border-radius: 3px; background: var(--surface-2); border: 1px dashed var(--border-2); }
+  .wire .w60 { width: 60%; } .wire .w40 { width: 40%; } .wire .w80 { width: 80%; }
+  .todo {
+    margin-top: 20px; display: inline-flex; align-items: center; gap: 8px;
+    font-size: .74rem; color: var(--ink-2); background: var(--surface-2);
+    border: 1px solid var(--border); padding: 7px 12px; border-radius: 2px;
+  }
+
+  /* ---------- A4 guided control path (FCST_Control style) ---------- */
+  .steps { display: flex; flex-direction: column; gap: 14px; }
+  .ctrl-h { display: flex; align-items: center; gap: 11px; margin-bottom: 12px; }
+  .ctrl-n { width: 27px; height: 27px; border-radius: 50%; background: var(--brand); color: #fff; font-weight: 700; font-size: .85rem; display: grid; place-items: center; flex: none; }
+  .ctrl-h .ey { font-size: .6rem; text-transform: uppercase; letter-spacing: normal; color: var(--ink-3); font-weight: 700; }
+  .ctrl-h .ti { font-size: .95rem; font-weight: 600; letter-spacing: 0; line-height: 1.15; }
+  .tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 11px; }
+  .tile { background: var(--surface-2); border: 1px solid var(--border); border-radius: 8px; padding: 13px 14px; }
+  .tile .k { font-size: .6rem; text-transform: uppercase; letter-spacing: normal; color: var(--ink-3); font-weight: 600; }
+  .tile .v { font-size: 1.5rem; font-weight: 600; letter-spacing: 0; margin-top: 5px; font-variant-numeric: tabular-nums; }
+  .tile .v .u { font-size: .5em; color: var(--ink-3); font-weight: 400; margin-left: 3px; }
+  .tile .n { font-size: .66rem; color: var(--ink-3); margin-top: 3px; }
+  .tile.good { background: var(--good-soft); border-color: color-mix(in srgb, var(--good) 26%, transparent); }
+  .tile.good .v { color: var(--good); }
+  .tile.warn { background: var(--warn-soft); border-color: color-mix(in srgb, var(--warn) 26%, transparent); }
+  .tile.warn .v { color: var(--warn); }
+  .seg-bar { display: flex; height: 30px; border-radius: 2px; overflow: hidden; border: 1px solid var(--border); }
+  .seg-bar .s { display: grid; place-items: center; font-size: .68rem; font-weight: 600; color: #fff; white-space: nowrap; }
+  .seg-legend { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px; font-size: .74rem; color: var(--ink-2); }
+  .seg-legend span { display: inline-flex; align-items: center; gap: 7px; }
+  .seg-legend i { width: 10px; height: 10px; border-radius: 3px; flex: none; }
+  .seg-legend b { color: var(--ink); }
+  .tieout { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; align-items: center; gap: 10px; }
+  .tnode { background: var(--surface-2); border: 1px solid var(--border); border-radius: 3px; padding: 13px; text-align: center; }
+  .tnode .k { font-size: .62rem; text-transform: uppercase; letter-spacing: normal; color: var(--ink-3); font-weight: 600; }
+  .tnode .v { font-size: 1.3rem; font-weight: 600; font-variant-numeric: tabular-nums; letter-spacing: 0; margin-top: 4px; }
+  .tnode.ref { background: var(--brand-soft); border-color: color-mix(in srgb, var(--brand) 30%, transparent); }
+  .tnode.ref .v { color: var(--brand); }
+  .teq { font-size: 1.2rem; color: var(--good); font-weight: 700; text-align: center; }
+
+  /* ---------- A1 drill matrix ---------- */
+  .mtx { width: 100%; border-collapse: collapse; font-size: .82rem; min-width: 480px; }
+  .mtx th { text-align: left; font-size: .6rem; text-transform: uppercase; letter-spacing: normal; color: var(--ink-3); font-weight: 600; padding: 7px 10px; border-bottom: 1px solid var(--border-2); }
+  .mtx td { padding: 7px 10px; border-bottom: 1px solid var(--border); }
+  .mtx td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .mtx tr.lvl-region td { font-weight: 600; background: var(--surface-2); }
+  .mtx tr.lvl-site td:first-child { padding-left: 22px; }
+  .mtx tr.lvl-line td:first-child { padding-left: 40px; color: var(--ink-2); font-size: .78rem; }
+  .mtx tr.flag td { background: var(--warn-soft); color: var(--warn); }
+  .mtx .cause { font-size: .7rem; color: var(--warn); }
+  .mtx .chev { color: var(--ink-3); margin-right: 6px; font-size: .7em; }
+  .mtx .pos { color: var(--good); } .mtx .neg { color: var(--crit); }
+  .mtx tr.flag .pos, .mtx tr.flag .neg { color: var(--warn); }
+
+  @media (max-width: 680px) {
+    .tiles { grid-template-columns: repeat(2, 1fr); }
+    .tieout { grid-template-columns: 1fr; }
+    .teq { display: none; }
+  }
+
+  /* expandable setting chips (the tucked-away controls) */
+  .chip-dd { position: relative; }
+  .chip-dd > summary { list-style: none; cursor: pointer; }
+  .chip-dd > summary::-webkit-details-marker { display: none; }
+  .chip-dd > summary .car { opacity: .5; font-size: .6em; margin-left: 3px; }
+  .chip-dd[open] > summary { outline: 2px solid color-mix(in srgb, var(--brand) 45%, transparent); outline-offset: 1px; }
+  .chip-menu { position: absolute; right: 0; top: calc(100% + 6px); z-index: 40; min-width: 178px;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 3px; box-shadow: var(--shadow); padding: 5px; display: grid; gap: 1px; }
+  .chip-menu .opt { font-size: .76rem; padding: 6px 9px; border-radius: 6px; color: var(--ink-2); display: flex; align-items: center; gap: 7px; white-space: nowrap; }
+  .chip-menu .opt::before { content: ""; width: .8em; display: inline-block; }
+  .chip-menu .opt:hover { background: var(--surface-2); }
+  .chip-menu .opt.sel { color: var(--ink); font-weight: 600; }
+  .chip-menu .opt.sel::before { content: "✓"; color: var(--brand); font-weight: 700; }
+  .chip-menu .chip-note { font-size: .66rem; color: var(--ink-3); padding: 7px 9px 3px; border-top: 1px solid var(--border); margin-top: 3px; line-height: 1.4; white-space: normal; }
+  .chip-menu .chip-note b { color: var(--ink-2); }
+
+  /* design rationale (max-explanation notes, hidden with the toggle) */
+  .rationale { margin-bottom: 14px; border-left: 2px dashed var(--brand); background: color-mix(in srgb, var(--brand) 5%, transparent); border-radius: 0 8px 8px 0; overflow: hidden; }
+  .rationale > summary { cursor: pointer; list-style: none; padding: 9px 13px; font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: normal; color: var(--brand); display: flex; align-items: center; gap: 8px; }
+  .rationale > summary::-webkit-details-marker { display: none; }
+  .rationale > summary::before { content: "✎"; font-size: 1.1em; }
+  .rationale > summary .car { margin-left: auto; font-size: .9em; transition: transform .15s; }
+  .rationale[open] > summary .car { transform: rotate(90deg); }
+  .rationale .rbody { padding: 3px 15px 14px; display: grid; gap: 10px; }
+  .rationale .rlead { font-size: .8rem; color: var(--ink-2); }
+  .rationale .ritem { font-size: .82rem; color: var(--ink-2); line-height: 1.5; }
+  .rationale .ritem b { color: var(--ink); font-weight: 600; }
+  .rationale .pr { display: inline-block; font-size: .6rem; font-weight: 700; text-transform: uppercase; letter-spacing: normal; color: var(--brand); background: var(--brand-soft); border-radius: 4px; padding: 1px 6px; margin-left: 2px; white-space: nowrap; }
+  .rationale .rgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 9px 18px; }
+  @media (max-width: 640px) { .rationale .rgrid { grid-template-columns: 1fr; } }
+  body.notes-off .rationale { display: none !important; }
+
+  /* per-screen compare (details) */
+  .compare { margin-top: 16px; border: 1px solid var(--border); border-radius: 3px; background: var(--surface); overflow: hidden; box-shadow: var(--shadow); }
+  .compare > summary { cursor: pointer; padding: 12px 16px; font-size: .82rem; font-weight: 600; color: var(--brand); list-style: none; display: flex; align-items: center; gap: 9px; }
+  .compare > summary::-webkit-details-marker { display: none; }
+  .compare > summary::before { content: "▸"; font-size: .8em; transition: transform .15s; }
+  .compare[open] > summary::before { transform: rotate(90deg); }
+  .compare[open] > summary { border-bottom: 1px solid var(--border); }
+  .compare-body { padding: 15px 16px 17px; display: grid; gap: 14px; }
+  .whatchanged ul { margin: 8px 0 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+  .whatchanged li { font-size: .83rem; color: var(--ink-2); display: grid; grid-template-columns: 16px 1fr; gap: 9px; align-items: start; }
+  .whatchanged li::before { content: "→"; color: var(--good); font-weight: 700; }
+  .whatchanged li b { color: var(--ink); font-weight: 600; }
+  .lg-two { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; min-width: 520px; }
+  .lg-tbl { width: 100%; border-collapse: collapse; font-size: .56rem; color: #4a4a45; background: #fff; }
+  .lg-tbl th { background: #eef2ee; text-align: left; padding: 3px 6px; font-weight: 600; color: #566; border-bottom: 1px solid #d8ddd8; white-space: nowrap; }
+  .lg-tbl td { padding: 2px 6px; border-bottom: 1px solid #eef2ee; white-space: nowrap; }
+  .lg-tbl td.n { text-align: right; font-variant-numeric: tabular-nums; }
+  .lg-note { font-size: .58rem; color: #b1542c; font-style: italic; padding: 6px 8px; }
+
+  /* scope switcher (perimeter follows the user) */
+  .scopebar { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; background: var(--surface); border: 1px solid var(--border); border-radius: 3px; padding: 8px 12px; margin-bottom: 14px; box-shadow: var(--shadow); }
+  .scopebar .lbl { font-size: .64rem; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-3); font-weight: 600; }
+  .scopeseg, .measseg { display: inline-flex; border: 1px solid var(--border-2); border-radius: 3px; overflow: hidden; }
+  .scopeseg button, .measseg button { appearance: none; border: 0; background: var(--surface); color: var(--ink-2); font-family: inherit; font-size: .76rem; font-weight: 600; padding: 5px 11px; cursor: pointer; border-right: 1px solid var(--border-2); }
+  .scopeseg button:last-child, .measseg button:last-child { border-right: 0; }
+  .scopeseg button[aria-pressed="true"] { background: var(--brand); color: #fff; }
+  .measseg button[aria-pressed="true"] { background: var(--slate); color: #fff; }
+  .measseg button:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+  .scopebar .rls { font-size: .72rem; color: var(--ink-3); margin-left: auto; }
+  .scopebar .rls b { color: var(--ink-2); font-weight: 600; }
+
+  /* dashboard map */
+  table.mapt { width: 100%; border-collapse: collapse; font-size: .82rem; min-width: 560px; }
+  table.mapt th { text-align: left; font-size: .6rem; text-transform: uppercase; letter-spacing: .05em; color: var(--ink-3); font-weight: 600; padding: 8px 10px; border-bottom: 1px solid var(--border-2); }
+  table.mapt td { padding: 7px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  table.mapt tr.grp td { background: var(--surface-2); font-weight: 600; color: var(--ink); border-bottom: 1px solid var(--border-2); font-size: .78rem; }
+  table.mapt .pg { color: var(--ink-2); }
+  table.mapt .pg code { font-family: inherit; color: var(--ink-3); }
+  table.mapt .to { font-weight: 600; color: var(--brand); white-space: nowrap; }
+  table.mapt .to.di { color: var(--ink-2); }
+  table.mapt .to.gone { color: var(--crit); }
+  table.mapt .to.out { color: var(--warn); }
+  table.mapt .why { color: var(--ink-3); font-size: .76rem; }
+
+  /* "to confirm in the data model" tag */
+  .tbc { display: inline-flex; align-items: center; gap: 4px; font-size: .56rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--ink-3); background: var(--surface-2); border: 1px solid var(--border-2); border-radius: 3px; padding: 1px 5px; vertical-align: middle; white-space: nowrap; }
+
+  /* logic view: diagram + persona usage matrix + checklist */
+  svg.logic { display: block; width: 100%; height: auto; min-width: 560px; }
+  table.usage { width: 100%; border-collapse: collapse; font-size: .82rem; min-width: 540px; }
+  table.usage th { font-size: .6rem; text-transform: uppercase; letter-spacing: .05em; color: var(--ink-3); font-weight: 600; padding: 8px 6px; border-bottom: 1px solid var(--border-2); text-align: center; }
+  table.usage th:first-child { text-align: left; }
+  table.usage td { padding: 8px 6px; border-bottom: 1px solid var(--border); text-align: center; }
+  table.usage td:first-child { text-align: left; font-weight: 600; color: var(--ink); }
+  table.usage .p { color: var(--brand); font-weight: 700; }
+  table.usage .s { color: var(--ink-3); }
+  table.usage .no { color: var(--border-2); }
+  .usage-leg { display: flex; gap: 16px; font-size: .74rem; color: var(--ink-2); margin-top: 10px; }
+  .usage-leg b { color: var(--brand); }
+
+  ul.checklist { list-style: none; padding: 0; margin: 4px 0 0; display: grid; gap: 9px; }
+  ul.checklist li { display: grid; grid-template-columns: 16px 1fr; gap: 10px; font-size: .84rem; color: var(--ink-2); align-items: start; }
+  ul.checklist li::before { content: ""; width: 13px; height: 13px; border: 1.5px solid var(--border-2); border-radius: 3px; margin-top: 3px; }
+  /* settled lists (principles): a filled green tick-dot, not an empty checkbox */
+  ul.checklist.settled li::before { content: ""; width: 7px; height: 7px; border: 0; border-radius: 50%; background: var(--brand); margin: 6px 3px 0; }
+
+  /* working view band (for us — not the live dashboard) */
+  .wv { display: flex; align-items: center; gap: 10px; background: #3E4A5C; color: #DCE3ED; font-size: .74rem; font-weight: 600; padding: 8px 14px; border-radius: 8px; margin-bottom: 14px; }
+  .wv .tagc { font-size: .56rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; background: rgba(255,255,255,.15); padding: 2px 7px; border-radius: 4px; white-space: nowrap; }
+  .wv b { color: #fff; }
+
+  /* working-view content in slate — distinct from the green PBI dashboard */
+  #logic svg.logic text[fill="var(--brand)"], #logic svg.logic circle[fill="var(--brand)"], #logic svg.logic polygon[fill="var(--brand)"] { fill: var(--slate); }
+  #logic svg.logic line[stroke="var(--brand)"] { stroke: var(--slate); }
+  #logic table.usage .p, #logic .usage-leg b { color: var(--slate); }
+  #logic .pcard .ptag { color: var(--slate); background: var(--slate-soft); border-color: color-mix(in srgb, var(--slate) 26%, transparent); }
+  #logic .panel-h .q, #map .panel-h .q { color: var(--ink); }
+  #map .mapt .to { color: var(--slate); }
+  #map .mapt .to.di { color: var(--ink-2); }
+  #map .mapt .to.gone { color: var(--crit); }
+  #map .mapt .to.out { color: var(--warn); }
+  ul.checklist li b { color: var(--ink); }
+  ul.checklist li .ask { font-size: .74rem; color: var(--ink-3); display: block; margin-top: 1px; }
+
+  .personas { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .pcard { border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; background: var(--surface); }
+  .pcard .ph { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; margin-bottom: 5px; }
+  .pcard .pn { font-weight: 600; font-size: .92rem; color: var(--ink); }
+  .pcard .ptag { font-size: .56rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--brand); background: var(--brand-soft); border: 1px solid color-mix(in srgb, var(--brand) 26%, transparent); border-radius: 3px; padding: 1px 6px; white-space: nowrap; }
+  .pcard .prole { font-size: .78rem; color: var(--ink-2); margin-bottom: 7px; }
+  .pcard .pq { font-size: .82rem; font-style: italic; color: var(--ink); margin-bottom: 7px; }
+  .pcard .pscope { font-size: .72rem; color: var(--ink-3); }
+  .pcard .pscope b { color: var(--ink-2); font-weight: 600; }
+  @media (max-width: 680px) { .personas { grid-template-columns: 1fr; } }
+
+  /* glossary / definitions */
+  .gloss .grp2 { font-size: .64rem; text-transform: uppercase; letter-spacing: .06em; color: var(--brand); font-weight: 700; margin: 18px 0 2px; }
+  .gloss .grp2:first-child { margin-top: 4px; }
+  .gloss .term { display: grid; grid-template-columns: 190px 1fr; gap: 18px; padding: 9px 0; border-top: 1px solid var(--border); }
+  .gloss .t { font-weight: 600; color: var(--ink); font-size: .85rem; }
+  .gloss .t .sub { display: block; font-size: .7rem; color: var(--ink-3); font-weight: 400; margin-top: 1px; }
+  .gloss .d { font-size: .84rem; color: var(--ink-2); line-height: 1.5; }
+  @media (max-width: 620px) { .gloss .term { grid-template-columns: 1fr; gap: 3px; } }
+
+  /* KPI tooltip — definition at point of use (Power BI tooltip pattern) */
+  .ihint { position: relative; display: inline-flex; align-items: center; justify-content: center; width: 14px; height: 14px; border-radius: 50%; border: 1px solid var(--ink-3); color: var(--ink-3); font-size: .58rem; font-weight: 700; cursor: help; margin-left: 6px; vertical-align: middle; flex: none; }
+  .ihint .tip { position: absolute; bottom: calc(100% + 9px); left: 50%; transform: translateX(-50%); width: 236px; background: #22262E; color: #F0F2F5; font-size: .72rem; font-weight: 400; line-height: 1.45; padding: 9px 11px; border-radius: 6px; opacity: 0; visibility: hidden; transition: opacity .14s; z-index: 60; text-transform: none; letter-spacing: normal; text-align: left; pointer-events: none; box-shadow: 0 6px 20px -6px rgba(0,0,0,.4); }
+  .ihint .tip b { color: #fff; }
+  .ihint .tip::after { content: ""; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border: 5px solid transparent; border-top-color: #22262E; }
+  .ihint:hover .tip, .ihint:focus .tip { opacity: 1; visibility: visible; }
+  /* top-band tooltips (scopebar + hero) have no room above → open downward */
+  .scopebar .ihint .tip, .hero .ihint .tip { bottom: auto; top: calc(100% + 9px); }
+  .scopebar .ihint .tip::after, .hero .ihint .tip::after { top: auto; bottom: 100%; border-top-color: transparent; border-bottom-color: #22262E; }
+
+  /* flow map — A0 as the answer, three branches */
+  .flowmap { display: grid; grid-template-columns: minmax(200px, 244px) 1fr; gap: 22px; align-items: start; margin-top: 4px; }
+  .fm-hub { display: flex; flex-direction: column; gap: 8px; }
+  .fm-node { display: flex; gap: 10px; align-items: flex-start; border: 1px solid var(--border); border-radius: 8px; padding: 9px 11px; background: var(--surface); box-shadow: var(--shadow); }
+  .fm-code { font-family: var(--mono); font-size: .72rem; font-weight: 700; color: var(--brand); background: var(--surface-2); border: 1px solid color-mix(in srgb, var(--brand) 30%, transparent); border-radius: 5px; padding: 2px 7px; flex: none; }
+  .fm-txt b { font-size: .82rem; display: block; color: var(--ink); }
+  .fm-txt small { font-size: .72rem; color: var(--ink-3); display: block; margin-top: 2px; line-height: 1.4; }
+  .fm-txt i { color: var(--ink-2); font-style: italic; }
+  .fm-lead { border-color: color-mix(in srgb, var(--brand) 45%, transparent); background: color-mix(in srgb, var(--brand) 6%, transparent); }
+  .fm-lead .fm-code { color: #fff; background: var(--brand); border-color: var(--brand); }
+  .fm-hubtag { font-size: .6rem; text-transform: uppercase; letter-spacing: .05em; color: var(--ink-3); font-weight: 600; text-align: center; margin-top: 1px; }
+  .fm-branches { display: flex; flex-direction: column; gap: 13px; }
+  .fm-branch { border-left: 2px solid color-mix(in srgb, var(--brand) 38%, transparent); padding-left: 14px; display: flex; flex-direction: column; gap: 7px; position: relative; }
+  .fm-branch::before { content: ""; position: absolute; left: -2px; top: 13px; width: 9px; height: 2px; background: color-mix(in srgb, var(--brand) 38%, transparent); }
+  .fm-axis { font-size: .64rem; text-transform: uppercase; letter-spacing: .04em; font-weight: 700; color: var(--brand); }
+  .fm-axis span { color: var(--ink-3); font-weight: 600; }
+  @media (max-width: 680px) { .flowmap { grid-template-columns: 1fr; gap: 14px; } }
+
+  /* the five screens, defined in words */
+  .screendefs .sdrow { display: grid; grid-template-columns: 138px 1fr; gap: 16px; padding: 10px 0; border-top: 1px solid var(--border); }
+  .screendefs .sdrow:first-child { border-top: 0; }
+  .sdcode { font-weight: 600; color: var(--slate); font-size: .9rem; }
+  .sdcode small { display: block; color: var(--ink-3); font-weight: 400; font-size: .72rem; margin-top: 1px; }
+  .sddef { font-size: .84rem; color: var(--ink-2); line-height: 1.5; }
+  .sddef b { color: var(--ink); font-weight: 600; }
+  @media (max-width: 620px) { .screendefs .sdrow { grid-template-columns: 1fr; gap: 3px; } }
+
+  .footer { margin-top: 26px; font-size: .72rem; color: var(--ink-3); text-align: center; }
+  .footer b { color: var(--ink-2); font-weight: 600; }
+
+  /* ---------- Before / After comparison ---------- */
+  .recon-banner {
+    display: flex; align-items: flex-start; gap: 9px; margin-bottom: 16px;
+    font-size: .78rem; color: var(--ink-2); background: var(--warn-soft);
+    border: 1px solid color-mix(in srgb, var(--warn) 30%, transparent);
+    padding: 10px 13px; border-radius: 3px;
+  }
+  .recon-banner b { color: var(--warn); }
+  .cmp-h { font-size: .66rem; text-transform: uppercase; letter-spacing: normal; font-weight: 700; margin: 0 0 10px; }
+  .cmp-h.before { color: var(--crit); }
+  .cmp-h.after { color: var(--good); }
+
+  /* legacy dashboard reconstruction (framed, screenshot-like, stays light both themes) */
+  .legacy { background: #eaf1ea; border: 1px solid #cdd6cd; border-radius: 2px; overflow: hidden; color: #2b302b; font-size: .72rem; }
+  .lg-chrome { background: #1f3b28; color: #b9cdbe; font-size: .58rem; padding: 4px 10px; display: flex; gap: 11px; flex-wrap: wrap; }
+  .lg-split { display: grid; grid-template-columns: 156px 1fr; }
+  .lg-nav { background: #274734; color: #d9e5db; padding: 6px 0 10px; font-size: .6rem; line-height: 1.5; }
+  .lg-nav .brand { text-align: center; color: #eef4ee; font-weight: 700; letter-spacing: normal; padding: 4px 0 7px; opacity: .9; }
+  .lg-nav .grp { padding: 5px 9px 1px; color: #9dbaa3; font-weight: 600; }
+  .lg-nav .it { padding: 2px 9px 2px 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .lg-nav .it.on { background: #142319; color: #fff; font-weight: 600; }
+  .lg-nav .it.dbg { color: #f2b3a8; }
+  .lg-main { background: #eef4ee; min-width: 0; }
+  .lg-brand { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; padding: 7px 12px 6px; background: #fff; border-bottom: 1px solid #dde6dd; }
+  .lg-brand .op { font-weight: 700; color: #1f7a3d; font-size: .82rem; letter-spacing: 0; }
+  .lg-brand .ti { font-weight: 700; color: #39392f; font-size: .72rem; }
+  .lg-brand .meta { color: #b1542c; font-size: .55rem; font-style: italic; white-space: nowrap; }
+  .slicers { display: flex; flex-direction: column; gap: 4px; padding: 7px 10px; background: #e2ebe2; border-bottom: 1px solid #d2dcd2; }
+  .slrow { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; }
+  .slicer { background: #fff; border: 1px solid #c0cac0; border-radius: 3px; padding: 2px 6px; font-size: .59rem; color: #46514a; white-space: nowrap; }
+  .slicer.on { background: #2f5c3c; color: #fff; border-color: #2f5c3c; }
+  .slicer.bad { border-color: #C0392B; color: #C0392B; background: #fbeeec; }
+  .slicer.btn { background: #f2f2ee; color: #808079; }
+  .lg-kpirow { display: grid; grid-template-columns: 94px 1.2fr .82fr .82fr .82fr; gap: 7px; padding: 10px 12px 6px; }
+  .lg-scen { background: #fff; border: 1px solid #d5ddd5; border-radius: 3px; padding: 5px 7px; font-size: .55rem; color: #566; }
+  .lg-scen .h { font-weight: 700; color: #445; margin: 3px 0 1px; }
+  .lg-scen .o::before { content: "○ "; color: #99a; }
+  .lg-scen .o.sel::before { content: "● "; color: #1f7a3d; }
+  .lg-scen .o.sel { color: #1f7a3d; font-weight: 600; }
+  .lg-card { background: #fff; border: 1px solid #d5ddd5; border-radius: 3px; padding: 7px 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+  .lg-card .lab { font-size: .53rem; color: #7c8a7f; text-transform: uppercase; letter-spacing: normal; line-height: 1.2; }
+  .lg-card .num { font-size: 1.02rem; font-weight: 700; color: #2a2f2a; margin-top: 4px; font-variant-numeric: tabular-nums; }
+  .lg-card .gnum { font-size: .92rem; font-weight: 700; color: #2f5c3c; margin-top: 3px; }
+  .lg-mini { display: flex; align-items: flex-end; gap: 4px; height: 30px; margin-top: 6px; }
+  .lg-mini i { width: 9px; background: #7fa085; border-radius: 1px; display: block; }
+  .lg-sites { margin: 2px 12px 12px; background: #fff; border: 1px solid #e0e7e0; border-radius: 3px; padding: 9px 11px; display: flex; flex-direction: column; gap: 5px; }
+  .lg-sites .sh { font-size: .55rem; color: #7c8a7f; text-transform: uppercase; letter-spacing: normal; margin-bottom: 2px; }
+  .lg-sites .sb { display: grid; grid-template-columns: 66px 1fr 40px; gap: 8px; align-items: center; font-size: .58rem; color: #566; }
+  .lg-sites .sb .track2 { height: 7px; background: #eef2ee; border-radius: 2px; overflow: hidden; }
+  .lg-sites .sb .bar { height: 100%; background: #a7bfab; border-radius: 2px; }
+  .lg-sites .sb .v { text-align: right; font-variant-numeric: tabular-nums; }
+
+
+  .cmp2 { display: grid; grid-template-columns: 1fr 1fr; margin-top: 16px; border: 1px solid var(--border); border-radius: 3px; overflow: hidden; }
+  .cmp2 .col { padding: 16px 18px; }
+  .cmp2 .col.before { background: var(--surface-2); border-right: 1px solid var(--border); }
+  .cmp2 .col.after { background: var(--good-soft); }
+  .cmp2 .drow { padding: 9px 0; border-top: 1px solid color-mix(in srgb, var(--ink-3) 22%, transparent); font-size: .82rem; }
+  .cmp2 .drow:first-of-type { border-top: 0; }
+  .cmp2 .dk { font-size: .64rem; text-transform: uppercase; letter-spacing: normal; color: var(--ink-3); margin-bottom: 2px; }
+  .cmp2 .col.before .dv { color: var(--ink-2); }
+  .cmp2 .col.after .dv { color: var(--ink); font-weight: 600; }
+  @media (max-width: 640px) {
+    .legacy-body { grid-template-columns: 1fr; }
+    .cmp2 { grid-template-columns: 1fr; }
+    .cmp2 .col.before { border-right: 0; border-bottom: 1px solid var(--border); }
+  }
+
+  @media (max-width: 760px) {
+    .hero { grid-template-columns: 1fr; }
+    .lower { grid-template-columns: 1fr; }
+  }
+</style>
+
+<div class="app">
+
+  <!-- ===== OUR LAYER — navigation & annotations (not part of Power BI) ===== -->
+  <div class="ourlayer">
+    <div class="ourbar">
+      <div class="ourid"><span class="osq">◇ Cordata · AV redesign — interactive mockup</span> <span class="ourwhat">the tabs, controls and notes on this band are how we present and explain — they are not part of the Power BI report</span></div>
+      <div class="ourctl">
+        <span class="maquette">● Mockup · fictitious figures</span>
+        <button class="toggle" id="notesBtn" aria-pressed="true">Design notes <span class="sw"></span></button>
+      </div>
+    </div>
+    <nav class="tabs" role="tablist" aria-label="AV dashboard navigation">
+      <span class="tabgrp">Dashboard · Power BI</span>
+      <button class="tab" role="tab" aria-selected="true"  data-view="a0"><span class="code">A0</span> Overview</button>
+      <button class="tab" role="tab" aria-selected="false" data-view="a0b"><span class="code">A0b</span> Weekly review</button>
+      <button class="tab" role="tab" aria-selected="false" data-view="a1"><span class="code">A1</span> Sites &amp; detail</button>
+      <button class="tab" role="tab" aria-selected="false" data-view="a2"><span class="code">A2</span> Actual + forecast</button>
+      <button class="tab" role="tab" aria-selected="false" data-view="a3"><span class="code">A3</span> Y&amp;S variances</button>
+      <button class="tab" role="tab" aria-selected="false" data-view="a4"><span class="code">A4</span> Reconciliation</button>
+      <button class="tab" role="tab" aria-selected="false" data-view="defs"><span class="code">≡</span> Definitions</button>
+      <button class="tab" role="tab" aria-selected="false" data-view="di"><span class="code">⚙</span> Data integrity</button>
+      <span class="tabgrp wvg">For us · working view</span>
+      <button class="tab wvtab" role="tab" aria-selected="false" data-view="logic"><span class="code">▤</span> Logic &amp; spec</button>
+    </nav>
+  </div>
+
+  <!-- ===== THE POWER BI REPORT — as it will appear ===== -->
+  <div class="reportframe" id="reportframe">
+    <div class="rptbadge">Power BI report — as it will appear <span class="rpttiny">· toggle “Design notes” off (top-right) for the clean version</span></div>
+    <div class="report">
+      <header class="rpthead">
+        <span class="opella">Opella</span>
+        <span class="hdiv"></span>
+        <div class="brand-txt">
+          <h1>Activity — Added Value</h1>
+          <p>MNS Finance · month to date</p>
+        </div>
+        <span class="hspacer"></span>
+        <span class="refresh">Last refresh · <b>08 Jul 2026, 06:12</b></span>
+      </header>
+      <div class="rptslicers">
+        <span class="lbl">Filters</span>
+        <details class="chip-dd"><summary class="chip"><span class="k">Period</span> This month <span class="car">▾</span></summary>
+          <div class="chip-menu">
+            <div class="opt sel">This month (MTD)</div>
+            <div class="opt">Last month</div>
+            <div class="opt">Custom range…</div>
+            <div class="chip-note">Default: <b>current month to date</b>. Replaces the 12 month buttons.</div>
+          </div>
+        </details>
+        <details class="chip-dd"><summary class="chip"><span class="k">Scope</span> AUTO <span class="car">▾</span></summary>
+          <div class="chip-menu">
+            <div class="opt sel">AUTO — your perimeter</div>
+            <div class="opt">By region</div>
+            <div class="opt">By site</div>
+            <div class="opt">All sites</div>
+            <div class="chip-note"><b>AUTO</b> = the sites you own. To go deeper, drill in <b>A1</b> — no need to tick 14 sites.</div>
+          </div>
+        </details>
+        <details class="chip-dd"><summary class="chip"><span class="k">Cut-off</span> AUTO <span class="car">▾</span></summary>
+          <div class="chip-menu">
+            <div class="opt sel">AUTO</div>
+            <div class="opt">GR</div><div class="opt">DLV</div><div class="opt">TECO</div>
+            <div class="opt">EARLIEST</div><div class="opt">LATEST</div><div class="opt">CLOSE</div>
+            <div class="chip-note"><b>Expert setting.</b> AUTO picks the right dating basis. Rarely changed — for the GCC controller, not the site.</div>
+          </div>
+        </details>
+        <details class="chip-dd"><summary class="chip"><span class="k">Scenario</span> Bud26 <span class="car">▾</span></summary>
+          <div class="chip-menu">
+            <div class="opt">Act 25</div><div class="opt">Act 26</div>
+            <div class="opt sel">Bud 26</div><div class="opt">Local currency</div>
+            <div class="chip-note">FX basis. <b>Bud26</b> is the default for the “vs Budget” comparison.</div>
+          </div>
+        </details>
+        <details class="chip-dd"><summary class="chip"><span class="k">Standard</span> current <span class="car">▾</span></summary>
+          <div class="chip-menu">
+            <div class="opt sel">Std 26 (current)</div>
+            <div class="opt">Std 25</div><div class="opt">Std N</div>
+            <div class="chip-note">Standard cost version. Default = <b>current standard</b>.</div>
+          </div>
+        </details>
+      </div>
+      <div class="rptcanvas">
+
+  <!-- ============ A0 ============ -->
+  <section class="view active" id="a0" role="tabpanel">
+    <div class="note" style="margin-bottom:14px">
+      <span class="tag">Design note — not shown on the live dashboard</span>
+      The question this screen answers: <b>"Does my month's activity match budget — and can I trust it?"</b> Primary user: the <b>site finance business partner</b> (e.g. Adèle, Lisieux) — a light user who must get the answer with <b>zero onboarding</b>. Toggle "Design notes" off to see exactly what ships.
+    </div>
+
+    <details class="rationale">
+      <summary>Design system — the 8 principles behind every screen <span class="car">▸</span></summary>
+      <div class="rbody">
+        <div class="rlead">Built from two inputs: field interviews (site FBP like Adèle, GCC insight lead like Taís) and best practice for financial dashboards. The same eight rules drive every screen — so the dashboard is learned once.</div>
+        <div class="ritem"><b>1 · One screen = one question.</b> Each tab answers exactly one question, written in plain words at the top of its note. If a screen needs two questions, it becomes two screens. Kills the “everything on one page” reflex.</div>
+        <div class="ritem"><b>2 · The figure before the filter.</b> The number is the biggest element and comes first; controls are demoted to collapsed chips. You read, then rarely adjust — not the reverse.</div>
+        <div class="ritem"><b>3 · Visible trust.</b> “Does it reconcile?” is answered on the face of the screen (the green badge), because the real adoption blocker is confidence, not layout. Reconciliation is a feature, not a debug view.</div>
+        <div class="ritem"><b>4 · Progressive disclosure.</b> General → specific. Big number first, drill for detail (A0 → A1 → transactional). Nothing is deleted; it moves one level down.</div>
+        <div class="ritem"><b>5 · No SAP jargon up front.</b> Business words on the surface (Activity, site, budget). GR / DLV / TECO / GMID / LMID live behind an expert reveal or in Data integrity.</div>
+        <div class="ritem"><b>6 · One visual language.</b> Same card, type scale, colour semantics and layout grammar everywhere. Opella green anchors the brand and structure; amber = watch, red = critical — colour is always semantic, never decorative.</div>
+        <div class="ritem"><b>7 · Smart defaults.</b> The system pre-picks period, scope, cut-off, scenario and standard for ~95% of cases, shows them read-only so you know what you’re looking at, and lets the expert expand them. Zero buttons <i>required</i>, not zero buttons <i>possible</i>.</div>
+        <div class="ritem"><b>8 · File it, don’t trash it.</b> Debug and control visuals (missing standards, refresh, transactional detail) move to a Data integrity page — out of the client path, still there for the team.</div>
+      </div>
+    </details>
+
+    <details class="rationale">
+      <summary>This screen (A0), decision by decision <span class="car">▸</span></summary>
+      <div class="rbody">
+        <div class="ritem"><b>The big “128.4 M€” first.</b> Month-to-date activity is the largest thing on the screen; everything else clusters around it. <span class="pr">Figure before filter</span></div>
+        <div class="ritem"><b>The “it reconciles −0.3%” badge.</b> The single most important addition. The current screen has two 97–99% gauges that never answer “does it tie out?”. This does — and it’s what wins back the users who fled to their ERP. <span class="pr">Visible trust</span></div>
+        <div class="ritem"><b>Settings collapsed to chips.</b> The ~50-control wall of the current screen becomes five read-only chips (top-right), each expandable. The choice is deferred, not removed. <span class="pr">Smart defaults</span></div>
+        <div class="ritem"><b>A0 stays the answer, not a mini-A1/A2.</b> No forecast curve, no full breakdown here — those are A2 (time) and A1 (space). A0 keeps one job: the figure and the trust. Explicit cards point one level down. <span class="pr">One screen = one question</span></div>
+        <div class="ritem"><b>Sites, deviating first + cause.</b> Ocoyoacac is surfaced with its reason, not buried in an alphabetical list. <span class="pr">Figure before filter</span></div>
+        <div class="ritem"><b>“Est. landing [?]”.</b> The [?] flags an open question — does this measure exist? We mark assumptions rather than fake certainty.</div>
+        <div class="ritem"><b>Deliberately left out:</b> the gauges (precision theatre without an answer) and the slicer bandeau — moved or removed.</div>
+      </div>
+    </details>
+
+    <div class="scopebar">
+      <span class="lbl">You are viewing</span>
+      <span class="scopeseg" role="group" aria-label="Perimeter">
+        <button data-scope="site" aria-pressed="false">Site · Lisieux</button>
+        <button data-scope="region" aria-pressed="false">Region · AMEA</button>
+        <button data-scope="all" aria-pressed="true">Group · All</button>
+      </span>
+      <span class="lbl">Measure<span class="ihint" tabindex="0">i<span class="tip"><b>Value € vs Volume</b> — <b>Value (€)</b> is the industrial value added (volumes × standard cost). <b>Volume (units)</b> is the physical quantity produced. Same perimeter, two lenses: a site can be high-volume but low-value, or the reverse. Value is what closes against the ledger; volume is what the plant runs.</span></span></span>
+      <span class="measseg" role="group" aria-label="Measure">
+        <button data-meas="val" aria-pressed="true">Value €</button>
+        <button data-meas="vol" aria-pressed="false">Volume (u)</button>
+      </span>
+      <span class="rls">Perimeter follows the user — <b>Row-Level Security</b>. A site partner only ever sees their own site.</span>
+    </div>
+
+    <div class="hero">
+      <div class="card kpi">
+        <span class="eyebrow"><span id="a0-eyebrow">Activity · Month to date</span><span class="ihint" tabindex="0">i<span class="tip" id="a0-eyetip"><b>Activity (AV)</b> — the month's industrial value added (machine and labour hours turned into value), cumulative to date. Computed from volumes × standard costs.</span></span></span>
+        <div class="big"><span id="a0-mtd">128.4</span><span class="cur" id="a0-unit">M€</span></div>
+        <div class="sub"><span id="a0-scope">All sites · group</span> · July 2026 · MTD</div>
+      </div>
+      <div class="heroside">
+        <div class="card compare">
+          <div class="cmp">
+            <div class="k">vs Budget 26<span class="ihint" tabindex="0">i<span class="tip"><b>vs Budget 26</b> — this month's activity against the 2026 budget for the same perimeter, in % and absolute.</span></span></div>
+            <div class="v up" id="a0-bud"><span class="arrow">▲</span>+2.1 %<small>·&nbsp;+€2.6M</small></div>
+          </div>
+          <div class="cmp">
+            <div class="k">vs Forecast RF<span class="ihint" tabindex="0">i<span class="tip"><b>vs Forecast RF</b> — activity against the latest rolling forecast (RF). Shows whether the month is tracking the most recent expectation, not just the annual budget.</span></span></div>
+            <div class="v down" id="a0-rf"><span class="arrow">▼</span>−1.4 %<small>·&nbsp;−€1.8M</small></div>
+          </div>
+        </div>
+        <div class="card trust">
+          <div class="tick"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>
+          <div>
+            <div class="t1">It reconciles · <b id="a0-gap">−0.3%</b><span class="ihint" tabindex="0">i<span class="tip"><b>AV Gap</b> — AV Movement (Core) minus AV Ledger (ERP), as a %. Within ±0.5% = reconciled. Drivers: cut-off, ILDA (target vs actual), Atina↔Polaris articulation, PPV↔AV reclass, local.</span></span></div>
+            <div class="t2">Movement ↔ Ledger reconciled · last refresh 06:12</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lower">
+      <div class="card panel">
+        <div class="panel-h"><span class="q" id="a0-btitle">By site · anything off?</span></div>
+        <div class="panel-cap" id="a0-bcap">€ impact vs budget, worst first — what's dragging the month? (% shown too). Beyond ±5% flagged. Full drill in A1.</div>
+        <div class="dvscan" id="sites"></div>
+        <div class="dvaxis"><span></span><span class="ax"><span>unfavorable ◀</span><b>0 · € vs budget</b><span>▶ favorable</span></span><span></span></div>
+        <div class="discl">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+          A scan, not the investigation. Double-click a row, or open <b>A1</b> for the full region → site → line drill with causes.
+        </div>
+      </div>
+
+      <div class="card panel a0-next">
+        <div class="panel-h"><span class="q">From here — only if you need to</span></div>
+        <div class="panel-cap">A0 is the answer. If it's green, you're done. Go one level down for the parts, or the trajectory.</div>
+        <button class="nextcard" data-goto="a1"><span class="nc-code">A1</span><span class="nc-txt"><b>Where it comes from</b><small>Region → site → line, find where it deviates. <i>· space</i></small></span><span class="nc-arr">→</span></button>
+        <button class="nextcard" data-goto="a2"><span class="nc-code">A2</span><span class="nc-txt"><b>Where it's heading</b><small>Actual + forecast to the full-year landing. <i>· time</i></small></span><span class="nc-arr">→</span></button>
+        <button class="nextcard" data-goto="a4"><span class="nc-code">A4</span><span class="nc-txt"><b>Does it tie out</b><small>The proof behind the badge — ledger &amp; TM1. <i>· trust</i></small></span><span class="nc-arr">→</span></button>
+      </div>
+    </div>
+
+    <div class="note feas">
+      <span class="tag">Power BI feasibility — this screen</span>
+      <b>Native:</b> KPI card, comparison tiles, site bars, page-navigation buttons (the "from here" cards), conditional colouring (Ocoyoacac). ·
+      <b>Custom DAX:</b> the reconciliation gap behind the badge. ·
+      <b>Workarounds:</b> per-bar "cause" caption (better as a matrix or tooltip). The forecast landing and the actual/forecast switch now live once, on A2.
+    </div>
+
+    <details class="compare">
+      <summary>Compare with today — Daily Overview by Site/EM Hub</summary>
+      <div class="compare-body">
+        <div class="cmp-h before">Before — the current AV overview</div>
+        <div class="chartwrap"><div class="legacy" style="min-width:520px">
+          <div class="lg-brand"><span class="op">Opella.</span><span class="ti">Site Daily Activity (ver 02)</span><span class="meta">~50 controls on the page</span></div>
+          <div class="slicers">
+            <div class="slrow"><span class="slicer btn">Clear all slicers</span><span class="slicer on">Full AV</span><span class="slicer">Step STD</span><span class="slicer" style="margin-left:auto">2025</span><span class="slicer on">2026</span></div>
+            <div class="slrow"><span class="slicer on">AUTO</span><span class="slicer">GR</span><span class="slicer">DLV</span><span class="slicer bad">TECO</span><span class="slicer">EARLIEST</span><span class="slicer">LATEST</span><span class="slicer">CLOSE</span></div>
+            <div class="slrow"><span class="slicer">Jan</span><span class="slicer">Feb</span><span class="slicer">Mar</span><span class="slicer">Apr</span><span class="slicer">May</span><span class="slicer on">Jun</span><span class="slicer">Jul</span><span class="slicer">…</span><span class="slicer">Dec</span></div>
+            <div class="slrow"><span class="slicer">DIR</span><span class="slicer">EM</span><span class="slicer">AMEA</span><span class="slicer">EULA</span><span class="slicer">N AMER</span><span class="slicer">Chattanooga</span><span class="slicer">Cologne</span><span class="slicer">Compiegne</span><span class="slicer btn">›</span></div>
+          </div>
+          <div class="lg-kpirow">
+            <div class="lg-scen"><div class="h">FX Scenario</div><div class="o">Act25</div><div class="o sel">Bud26</div><div class="o">Local</div><div class="h">Std scenario</div><div class="o sel">Std 26</div><div class="o">Std N</div></div>
+            <div class="lg-card"><div class="lab">MTD Activity ACT</div><div class="num">131,200 K€</div></div>
+            <div class="lg-card"><div class="lab">vs Full Month BUD</div><div class="gnum">97%</div></div>
+            <div class="lg-card"><div class="lab">vs Last RF</div><div class="gnum">99%</div></div>
+            <div class="lg-card"><div class="lab">Actual·Bud·RF</div><div class="lg-mini"><i style="height:60%"></i><i style="height:88%"></i><i style="height:74%"></i></div></div>
+          </div>
+        </div></div>
+        <div class="whatchanged">
+          <div class="cmp-h after">What changed</div>
+          <ul>
+            <li><b>~50 slicers, toggles &amp; buttons → 0 required.</b> Smart defaults (AUTO · Bud26 · Std) collapse into three read-only chips.</li>
+            <li><b>Two 97–99% gauges → one “it reconciles −0.3%” badge.</b> The gauges never answered “does it tie out?”; the badge does.</li>
+            <li><b>Alphabetical site bars → deviating sites first, with the cause.</b> No more scanning to find the problem.</li>
+            <li><b>Cut-off / Full AV / Step STD raw toggles → absorbed into the default;</b> the actual/forecast switch now lives once, in A2.</li>
+            <li><b>_STD_Missing / _Refresh left the client navigation → moved to Data integrity.</b></li>
+          </ul>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ Stubs ============ -->
+  <section class="view" id="a1" role="tabpanel">
+    <div class="note" style="margin-bottom:14px">
+      <span class="tag">Design note — not shown on the live dashboard</span>
+      The question this screen answers: <b>"Where does the number come from — which region, site and line, and where does it deviate?"</b> This is the <b>space axis</b>: it decomposes the A0 figure. The multi-site control surface, for the GCC insight lead (e.g. Taís) who must account for 100% of the activity — not the single-site partner, who already lives on their own site (A0 / A0b). Deviating sites float to the top, cause already qualified.
+    </div>
+
+    <details class="rationale">
+      <summary>This screen (A1), decision by decision <span class="car">▸</span></summary>
+      <div class="rbody">
+        <div class="ritem"><b>Hierarchy replaces the slicers.</b> Region → site → line, drilled — not a wall of region/site tick-boxes. Navigation does the filtering. <span class="pr">Progressive disclosure</span></div>
+        <div class="ritem"><b>Deviating sites float to the top.</b> This deliberately breaks strict hierarchy: the job here is “find where it deviates”, so the deviation leads. <span class="pr">Figure before filter</span></div>
+        <div class="ritem"><b>The cause is qualified.</b> Not just “there’s a gap” but “cut-off (GR/DLV)” — the difference between a dashboard and a to-do list. <span class="pr">Visible trust</span></div>
+        <div class="ritem"><b>Same hero as A0.</b> The number carries over unchanged, so the user never re-learns the screen. <span class="pr">One visual language</span></div>
+        <div class="ritem"><b>Who it serves.</b> The GCC insight lead (Taís) who must control 100% of the activity — this is her working surface, one level below A0.</div>
+      </div>
+    </details>
+
+    <div class="scopebar">
+      <span class="lbl">You are viewing</span>
+      <span class="scopeseg" role="group" aria-label="Perimeter">
+        <button data-scope="site" aria-pressed="false">Site · Lisieux</button>
+        <button data-scope="region" aria-pressed="false">Region · AMEA</button>
+        <button data-scope="all" aria-pressed="true">Group · All</button>
+      </span>
+      <span class="lbl">Measure<span class="ihint" tabindex="0">i<span class="tip"><b>Value € vs Volume</b> — <b>Value (€)</b> is the industrial value added (volumes × standard cost). <b>Volume (units)</b> is the physical quantity produced. Same perimeter, two lenses.</span></span></span>
+      <span class="measseg" role="group" aria-label="Measure">
+        <button data-meas="val" aria-pressed="true">Value €</button>
+        <button data-meas="vol" aria-pressed="false">Volume (u)</button>
+      </span>
+      <span class="rls">Same perimeter as A0. You drill within <b>your</b> scope — a site partner sees their lines, the regional lead their sites.</span>
+    </div>
+
+    <div class="hero">
+      <div class="card kpi">
+        <span class="eyebrow"><span id="a1-eyebrow">Activity · Month to date</span><span class="ihint" tabindex="0">i<span class="tip" id="a1-eyetip"><b>Activity (AV)</b> — the month's industrial value added (machine and labour hours turned into value), cumulative to date. Computed from volumes × standard costs.</span></span></span>
+        <div class="big"><span id="a1-mtd">128.4</span><span class="cur" id="a1-unit">M€</span></div>
+        <div class="sub"><span id="a1-scope">All sites · group</span> · region → site → line</div>
+      </div>
+      <div class="heroside">
+        <div class="card compare">
+          <div class="cmp"><div class="k">vs Budget 26</div><div class="v up" id="a1-bud"><span class="arrow">▲</span>+2.1 %</div></div>
+          <div class="cmp"><div class="k">Sites deviating<span class="ihint" tabindex="0">i<span class="tip"><b>Sites deviating</b> — count of sites whose activity is more than ±5% off budget. These are floated to the top of the matrix below.</span></span></div><div class="v down"><span id="a1-dev">1</span><small>&nbsp;· &gt;±5%</small></div></div>
+        </div>
+        <div class="card info">
+          <div class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M7 12h10M10 18h4"/></svg></div>
+          <div>
+            <div class="t1">Sorted: deviating first</div>
+            <div class="t2">Then by contribution — no hunting for the problem</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card panel">
+      <div class="panel-h"><span class="q">Region → site → line</span></div>
+      <div class="panel-cap">Expand a row to drill down. Deviating sites are pulled to the top and flagged with the cause.</div>
+      <div class="chartwrap">
+        <table class="mtx">
+          <thead><tr><th>Region / site / line</th><th class="num" id="a1-actcol">Activity (M€)</th><th class="num">vs Budget</th><th>Status</th></tr></thead>
+          <tbody id="a1-matrix">
+            <tr class="lvl-site flag"><td><span class="chev">▾</span>Ocoyoacac · AMEA <b>⚠</b></td><td class="num">24.6</td><td class="num">−9.9%</td><td>Cut-off gap (GR/DLV) — not reconciled today</td></tr>
+            <tr class="lvl-line flag"><td>Line PACK-02</td><td class="num">14.1</td><td class="num">−12.3%</td><td>TECO pending</td></tr>
+            <tr class="lvl-line flag"><td>Line GRAN-01</td><td class="num">10.5</td><td class="num">−0.4%</td><td>ok</td></tr>
+            <tr class="lvl-region"><td><span class="chev">▾</span>EULA</td><td class="num">61.4</td><td class="num"><span class="neg">−0.6%</span></td><td>within tolerance</td></tr>
+            <tr class="lvl-site"><td><span class="chev">▸</span>Lisieux</td><td class="num">34.2</td><td class="num"><span class="pos">+0.5%</span></td><td>within tolerance</td></tr>
+            <tr class="lvl-site"><td><span class="chev">▸</span>Compiègne</td><td class="num">28.7</td><td class="num"><span class="neg">−2.5%</span></td><td>within tolerance</td></tr>
+            <tr class="lvl-region"><td><span class="chev">▸</span>N. America</td><td class="num">42.4</td><td class="num"><span class="pos">+3.1%</span></td><td></td></tr>
+            <tr class="lvl-site"><td><span class="chev">▸</span>Chattanooga</td><td class="num">26.9</td><td class="num"><span class="pos">+10.9%</span></td><td>above budget — check</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="discl">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+        Double-click a line to open its transactional detail (Data integrity). The overview badge stays true here — same reconciliation logic.
+      </div>
+    </div>
+
+    <div class="note feas">
+      <span class="tag">Power BI feasibility — this screen</span>
+      <b>Native:</b> matrix with hierarchy drill (region → site → line), conditional formatting for deviating rows, sort by a deviation measure. ·
+      <b>Custom:</b> the “cause” column — a measure mapping each gap to cut-off / PPV / local adjustment.
+    </div>
+
+    <details class="compare">
+      <summary>Compare with today — the by-site table</summary>
+      <div class="compare-body">
+        <div class="cmp-h before">Before — flat table, all columns at once</div>
+        <div class="chartwrap"><div class="legacy" style="min-width:520px">
+          <div class="lg-brand"><span class="op">Opella.</span><span class="ti">Daily Overview — reconciliation table by site</span><span class="meta">no hierarchy, no cause</span></div>
+          <div class="slicers"><div class="slrow"><span class="slicer on">AUTO</span><span class="slicer bad">TECO</span><span class="slicer">months…</span><span class="slicer">regions…</span><span class="slicer">14 sites…</span></div></div>
+          <table class="lg-tbl">
+            <thead><tr><th>MC_type</th><th>Region</th><th>Site</th><th class="n">Actual Movement</th><th class="n">Actual Ledger</th><th class="n">Actual TM1</th><th class="n">Bud TM1</th><th class="n">RF TM1</th></tr></thead>
+            <tbody>
+              <tr><td>DIR</td><td>N AMER</td><td>Chattanooga</td><td class="n">26,900</td><td class="n">27,050</td><td class="n">27,050</td><td class="n">24,300</td><td class="n">25,100</td></tr>
+              <tr><td>DIR</td><td>EULA</td><td>Cologne</td><td class="n">28,700</td><td class="n">28,760</td><td class="n">28,760</td><td class="n">28,900</td><td class="n">28,850</td></tr>
+              <tr><td>DIR</td><td>EULA</td><td>Compiegne</td><td class="n">22,500</td><td class="n">22,420</td><td class="n">22,420</td><td class="n">23,050</td><td class="n">23,000</td></tr>
+              <tr><td>DIR</td><td>AMEA</td><td>Ocoyoacac</td><td class="n">24,600</td><td class="n">27,300</td><td class="n">27,300</td><td class="n">27,900</td><td class="n">27,850</td></tr>
+              <tr><td>DIR</td><td>EULA</td><td>Lisieux</td><td class="n">34,200</td><td class="n">34,050</td><td class="n">34,050</td><td class="n">34,000</td><td class="n">34,100</td></tr>
+            </tbody>
+          </table>
+          <div class="lg-note">alphabetical, every measure at once — the deviating site (Ocoyoacac) is just another row</div>
+        </div></div>
+        <div class="whatchanged">
+          <div class="cmp-h after">What changed</div>
+          <ul>
+            <li><b>Flat alphabetical table → a hierarchy region → site → line</b> you drill into.</li>
+            <li><b>No cause anywhere → deviating sites floated to the top, cause qualified</b> (cut-off / PPV / adjustment).</li>
+            <li><b>The same slicer wall repeated on the page → gone;</b> this screen inherits A0's zero-control defaults.</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ A0b — Weekly review (site) ============ -->
+  <section class="view" id="a0b" role="tabpanel">
+    <div class="note" style="margin-bottom:14px">
+      <span class="tag">Design note — not shown on the live dashboard</span>
+      The question this screen answers: <b>"Is my week on track vs the production plan (PDP) and budget — machine by machine?"</b> Built for the <b>site finance partner</b> (Adèle, Lisieux), who reviews activity <b>week by week for the Wednesday committee</b>. Her real reference is the <b>PDP (Plan Directeur de Production)</b>, not only budget — and she needs <b>value and volume together</b>, down to the machine. This is the report that lets her drop her Excel.
+    </div>
+
+    <details class="rationale">
+      <summary>This screen (A0b), decision by decision <span class="car">▸</span></summary>
+      <div class="rbody">
+        <div class="rlead">This screen exists because persona n°1 doesn't use the dashboard today: she rebuilds this weekly in Excel from Athena. Give her this and she stops.</div>
+        <div class="ritem"><b>Weekly, not monthly.</b> The committee runs weekly. The PDP is loaded monthly in Kinaxis; the week split is done by hand by supply today — so the weekly view is the gap. <span class="pr">One screen = one question</span></div>
+        <div class="ritem"><b>vs PDP, not only budget.</b> Her true reference is the production plan. Budget is secondary here. Both are shown. <span class="pr">Figure before filter</span></div>
+        <div class="ritem"><b>Value and volume side by side.</b> She reads both at once, not one or the other — so no toggle here, both lenses are on the page. <span class="pr">One visual language</span></div>
+        <div class="ritem"><b>Down to the machine.</b> Per machine (resource code, available in Athena / Kinaxis) — this validates the "line/machine" level and is feasible fast. <span class="pr">Progressive disclosure</span></div>
+        <div class="ritem"><b>Site-level by design.</b> This is the site FBP's screen (RLS floor = Management Center). Example shown: Lisieux.</div>
+      </div>
+    </details>
+
+    <div class="scopebar">
+      <span class="lbl">Site-level screen</span>
+      <span class="sitepill">Lisieux · site</span>
+      <span class="lbl" style="margin-left:14px">Week</span>
+      <span class="weekseg" role="group" aria-label="Week">
+        <button data-week="W23" aria-pressed="false">W23</button>
+        <button data-week="W24" aria-pressed="false">W24</button>
+        <button data-week="W25" aria-pressed="false">W25</button>
+        <button data-week="W26" aria-pressed="false">W26</button>
+        <button data-week="W27" aria-pressed="true">W27</button>
+      </span>
+      <span class="rls">Her weekly review, for the <b>Wednesday committee</b>. Fictitious figures.</span>
+    </div>
+
+    <div class="hero even">
+      <div class="card kpi">
+        <span class="eyebrow">Value added · week <span id="a0b-wk1">W27</span><span class="ihint" tabindex="0">i<span class="tip"><b>Value added (€)</b> for the week — volumes × standard cost, summed over the week's postings for the site.</span></span></span>
+        <div class="big"><span id="a0b-va">8.1</span><span class="cur">M€</span></div>
+        <div class="sub">Lisieux · week to date</div>
+        <div class="wkcmp">
+          <span class="wc"><span class="wl">vs PDP<span class="ihint" tabindex="0">i<span class="tip"><b>PDP — Plan Directeur de Production.</b> The master production plan (loaded monthly in Kinaxis, split to week by supply). The site partner's primary reference.</span></span></span> <b id="a0b-vapdp" class="neg">▼ −3.6 %</b></span>
+          <span class="wc"><span class="wl">vs Budget</span> <b id="a0b-vabud" class="pos">▲ +2.5 %</b></span>
+        </div>
+      </div>
+      <div class="card kpi">
+        <span class="eyebrow">Volume · week <span id="a0b-wk2">W27</span><span class="ihint" tabindex="0">i<span class="tip"><b>Volume (units)</b> for the week — the physical quantity produced. Read alongside value: the PDP is expressed in volumes.</span></span></span>
+        <div class="big"><span id="a0b-vol">38</span><span class="cur">M u</span></div>
+        <div class="sub">Lisieux · week to date</div>
+        <div class="wkcmp">
+          <span class="wc"><span class="wl">vs PDP</span> <b id="a0b-volpdp" class="neg">▼ −5.0 %</b></span>
+          <span class="wc"><span class="wl">vs Budget</span> <b id="a0b-volbud" class="pos">▲ +2.7 %</b></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="lower">
+      <div class="card panel">
+        <div class="panel-h"><span class="q">Value added by week vs PDP</span></div>
+        <div class="panel-cap">Weekly value added (M€) · the dashed line is the PDP target for the week. W27 is the current week.</div>
+        <div class="chartwrap">
+          <svg class="chart" viewBox="0 0 640 210" role="img" aria-label="Weekly value added versus PDP target">
+            <g stroke="var(--border)" stroke-width="1">
+              <line x1="44" y1="30" x2="620" y2="30"/><line x1="44" y1="90" x2="620" y2="90"/><line x1="44" y1="150" x2="620" y2="150"/>
+            </g>
+            <g fill="var(--ink-3)" font-size="10" font-family="var(--mono)" text-anchor="end">
+              <text x="38" y="34">10</text><text x="38" y="94">5</text><text x="38" y="154">0</text>
+            </g>
+            <!-- bars: W23..W27, scale 0..10 M€ over 120px (y150 base, y30 top) -->
+            <g>
+              <rect x="70"  y="58.8" width="58" height="91.2" rx="3" fill="var(--brand)" opacity="0.35"/>
+              <rect x="182" y="54"   width="58" height="96"   rx="3" fill="var(--brand)" opacity="0.35"/>
+              <rect x="294" y="61.2" width="58" height="88.8" rx="3" fill="var(--brand)" opacity="0.35"/>
+              <rect x="406" y="50.4" width="58" height="99.6" rx="3" fill="var(--brand)" opacity="0.35"/>
+              <rect x="518" y="52.8" width="58" height="97.2" rx="3" fill="var(--brand)"/>
+            </g>
+            <!-- PDP target line ~8.4 => y = 150 - 8.4*12 = 49.2 -->
+            <polyline points="70,50.6 128,50.6 182,49.2 240,49.2 294,49.2 352,49.2 406,48 464,48 518,49.2 576,49.2" fill="none" stroke="var(--ink-2)" stroke-width="1.6" stroke-dasharray="3 3"/>
+            <g fill="var(--ink-2)" font-size="10.5" font-weight="600" font-family="var(--sans)" text-anchor="middle">
+              <text x="99" y="166">W23</text><text x="211" y="166">W24</text><text x="323" y="166">W25</text><text x="435" y="166">W26</text><text x="547" y="166" fill="var(--brand)">W27</text>
+            </g>
+            <g fill="var(--ink-3)" font-size="9" font-family="var(--sans)" text-anchor="middle">
+              <text x="99" y="52">7.6</text><text x="211" y="47">8.0</text><text x="323" y="55">7.4</text><text x="435" y="43">8.3</text><text x="547" y="46" fill="var(--brand)" font-weight="700">8.1</text>
+            </g>
+            <text x="576" y="44" fill="var(--ink-2)" font-size="9" text-anchor="end" font-family="var(--sans)">PDP</text>
+          </svg>
+        </div>
+        <figcaption class="legend">
+          <span><i class="lg-bar-brand"></i> Value added / week</span>
+          <span><i class="lg-dash-ink"></i> PDP target</span>
+        </figcaption>
+      </div>
+
+      <div class="card panel">
+        <div class="panel-h"><span class="q">By machine · week <span id="a0b-wk3">W27</span></span></div>
+        <div class="panel-cap">Resource code · value and volume, each against PDP and budget. Machines below PDP rise to the top.</div>
+        <div class="chartwrap">
+          <table class="mtx">
+            <thead><tr><th>Machine</th><th class="num">VA (M€)</th><th class="num">Vol (M u)</th><th class="num">vs PDP</th><th class="num">vs Bud</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr class="lvl-line flag"><td>GRAN-01</td><td class="num">2.4</td><td class="num">11</td><td class="num"><span class="neg">−6.0%</span></td><td class="num"><span class="neg">−1.0%</span></td><td>Below PDP — behind plan</td></tr>
+              <tr class="lvl-line"><td>PACK-02</td><td class="num">3.1</td><td class="num">15</td><td class="num"><span class="neg">−4.0%</span></td><td class="num"><span class="pos">+2.0%</span></td><td>On track</td></tr>
+              <tr class="lvl-line"><td>COAT-01</td><td class="num">0.9</td><td class="num">4</td><td class="num"><span class="neg">−2.0%</span></td><td class="num"><span class="pos">+1.0%</span></td><td>On track</td></tr>
+              <tr class="lvl-line"><td>LIQ-03</td><td class="num">1.7</td><td class="num">8</td><td class="num"><span class="pos">+1.0%</span></td><td class="num"><span class="pos">+5.0%</span></td><td>Ahead of plan</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="discl">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+          The per-machine level (resource code) validates A1's line level and is available in Athena / Kinaxis.
+        </div>
+      </div>
+    </div>
+
+    <div class="note feas">
+      <span class="tag">Power BI feasibility — this screen</span>
+      <b>Native:</b> weekly bar chart, PDP reference line, per-machine matrix, conditional colouring, value &amp; volume side by side. ·
+      <b>To build:</b> the <b>weekly PDP split</b> (PDP is monthly in Kinaxis, split to week by supply today — the real data dependency) · the per-machine resource-code mapping (feasible fast from Athena / Kinaxis).
+    </div>
+
+    <details class="compare">
+      <summary>Compare with today — Adèle's Excel weekly</summary>
+      <div class="compare-body">
+        <div class="cmp-h before">Before — rebuilt by hand every week</div>
+        <div class="chartwrap"><div class="legacy" style="min-width:480px">
+          <div class="lg-brand"><span class="op">Athena → Excel → PowerPoint</span><span class="ti">weekly activity</span><span class="meta">manual, off-system</span></div>
+          <table class="lg-tbl">
+            <thead><tr><th>Machine</th><th class="n">VA</th><th class="n">Vol</th><th class="n">PDP</th><th class="n">Bud</th></tr></thead>
+            <tbody>
+              <tr><td>PACK-02</td><td class="n">3,100</td><td class="n">15,000</td><td class="n">3,230</td><td class="n">3,040</td></tr>
+              <tr><td>GRAN-01</td><td class="n">2,400</td><td class="n">11,000</td><td class="n">2,550</td><td class="n">2,420</td></tr>
+              <tr><td>LIQ-03</td><td class="n">1,700</td><td class="n">8,000</td><td class="n">1,680</td><td class="n">1,620</td></tr>
+            </tbody>
+          </table>
+          <div class="lg-note">extracted from Athena, split to week by hand, pasted into the committee deck</div>
+        </div></div>
+        <div class="whatchanged">
+          <div class="cmp-h after">What changed</div>
+          <ul>
+            <li><b>A weekly Excel rebuilt by hand → a live weekly screen</b> in the dashboard, refreshed with everything else.</li>
+            <li><b>Value only, or volume only → both, side by side,</b> each vs PDP and vs budget.</li>
+            <li><b>vs budget only → vs the PDP first</b> (her real reference), machine by machine.</li>
+            <li><b>Feeds the Wednesday committee directly</b> — no more copy-paste into a deck.</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <section class="view" id="a2" role="tabpanel">
+    <div class="note" style="margin-bottom:14px">
+      <span class="tag">Design note — not shown on the live dashboard</span>
+      The question this screen answers: <b>"Where is the full year heading — in one continuous view, without switching report?"</b> This is the <b>time axis</b>: it extends the A0 figure forward, it doesn't drill into it (that's A1). Actuals and forecast live on two separate dashboards today; A2 merges them into one line to year-end.
+    </div>
+
+    <details class="rationale">
+      <summary>This screen (A2), decision by decision <span class="car">▸</span></summary>
+      <div class="rbody">
+        <div class="ritem"><b>The landing is the headline.</b> Not a monthly number — the question is “where does the year land”, so the estimated landing is the big figure. <span class="pr">One screen = one question</span></div>
+        <div class="ritem"><b>The composition strip.</b> Actual to date + Remaining forecast = Landing, shown as literal arithmetic. It makes the merge of the two old dashboards visible. <span class="pr">Visible trust</span></div>
+        <div class="ritem"><b>One continuous line, solid → dashed.</b> Continuity is the whole point; the handover (“Actual ends”) is marked, never hidden. <span class="pr">One visual language</span></div>
+        <div class="ritem"><b>Quarterly build-up, Q3 highlighted.</b> Shows exactly where the actual→forecast switch falls. <span class="pr">Progressive disclosure</span></div>
+        <div class="ritem"><b>“Forecast basis · RF, volume-driven”.</b> Honest about methodology (actuals ≠ forecasts, we start from volumes) without SAP jargon. <span class="pr">No jargon up front</span></div>
+      </div>
+    </details>
+
+    <div class="scopebar">
+      <span class="lbl">You are viewing</span>
+      <span class="scopeseg" role="group" aria-label="Perimeter">
+        <button data-scope="site" aria-pressed="false">Site · Lisieux</button>
+        <button data-scope="region" aria-pressed="false">Region · AMEA</button>
+        <button data-scope="all" aria-pressed="true">Group · All</button>
+      </span>
+      <span class="lbl">Measure<span class="ihint" tabindex="0">i<span class="tip"><b>Value € vs Volume</b> — the landing read either as value added (€) or as physical volume (units). Same forecast, two lenses.</span></span></span>
+      <span class="measseg" role="group" aria-label="Measure">
+        <button data-meas="val" aria-pressed="true">Value €</button>
+        <button data-meas="vol" aria-pressed="false">Volume (u)</button>
+      </span>
+      <span class="rls">Same perimeter as A0 — the landing is <b>yours</b>. A site partner sees their site's landing, the regional lead their portfolio's.</span>
+    </div>
+
+    <div class="hero">
+      <div class="card kpi">
+        <span class="eyebrow">Estimated full-year landing<span class="ihint" tabindex="0">i<span class="tip"><b>Estimated landing</b> — actuals through the closed months plus forecast for the open ones, projected to year-end. Whether this exists as a measure is still to confirm.</span></span></span> <span class="tbc">measure to confirm</span>
+        <div class="big"><span id="a2-landing">1,522</span><span class="cur" id="a2-unit">M€</span></div>
+        <div class="sub"><span id="a2-scope">All sites · group</span> · FY2026 · actual + forecast</div>
+      </div>
+      <div class="heroside">
+        <div class="card compare">
+          <div class="cmp">
+            <div class="k">vs Budget FY</div>
+            <div class="v up" id="a2-bud"><span class="arrow">▲</span>+1.1 %<small>·&nbsp;+€17M</small></div>
+          </div>
+          <div class="cmp">
+            <div class="k">vs Previous RF</div>
+            <div class="v down" id="a2-rf"><span class="arrow">▼</span>−0.6 %<small>·&nbsp;−€9M</small></div>
+          </div>
+        </div>
+        <div class="card info">
+          <div class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg></div>
+          <div>
+            <div class="t1">Forecast basis · RF, volume-driven</div>
+            <div class="t2">Actuals close month by month, then hand over to forecast</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card compo">
+      <div class="seg">
+        <div class="k">Actual to date · Jan–Jul</div>
+        <div class="v"><span id="a2-actual">863</span><span class="u a2u">M€</span> <small>closed</small></div>
+      </div>
+      <div class="op">+</div>
+      <div class="seg">
+        <div class="k">Remaining forecast · Aug–Dec</div>
+        <div class="v"><span id="a2-remaining">659</span><span class="u a2u">M€</span> <small>RF</small></div>
+      </div>
+      <div class="op">=</div>
+      <div class="seg res">
+        <div class="k">Estimated landing</div>
+        <div class="v"><span id="a2-landing-res">1,522</span><span class="u a2u">M€</span></div>
+      </div>
+    </div>
+
+    <div class="lower">
+      <div class="card panel">
+        <div class="panel-h"><span class="q">One continuous trajectory to year-end</span></div>
+        <div class="panel-cap">Cumulative activity (M€) · one line: actual becomes forecast where the month closes — no report switch.</div>
+        <figure>
+          <div class="chartwrap">
+            <svg class="chart" viewBox="0 0 640 232" role="img" aria-label="Cumulative activity, actual then forecast, versus budget, to estimated landing">
+              <defs>
+                <linearGradient id="area2" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="var(--brand)" stop-opacity="0.20"/>
+                  <stop offset="1" stop-color="var(--brand)" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+              <g stroke="var(--border)" stroke-width="1">
+                <line x1="48" y1="30"  x2="620" y2="30"/>
+                <line x1="48" y1="105" x2="620" y2="105"/>
+                <line x1="48" y1="180" x2="620" y2="180"/>
+              </g>
+              <g fill="var(--ink-3)" font-size="10" font-family="var(--mono)" text-anchor="end">
+                <text x="40" y="34">1600</text>
+                <text x="40" y="109">800</text>
+                <text x="40" y="184">0</text>
+              </g>
+              <!-- budget reference (faint dotted) -->
+              <polyline points="48,168.3 99.1,156.5 150.2,144.75 201.3,132.9 252.5,121.2 303.6,109.5 354.7,97.7 405.8,85.9 456.9,74.1 508,62.4 559.1,50.6 610.2,38.9"
+                        fill="none" stroke="var(--ink-3)" stroke-width="1.6" stroke-dasharray="1.5 4" opacity="0.7"/>
+              <!-- area under actual -->
+              <path d="M48,168.9 99.1,157.5 150.2,146.7 201.3,134.9 252.5,122.7 303.6,111.1 354.7,99.1 L354.7,180 L48,180 Z" fill="url(#area2)"/>
+              <!-- actual solid -->
+              <polyline points="48,168.9 99.1,157.5 150.2,146.7 201.3,134.9 252.5,122.7 303.6,111.1 354.7,99.1"
+                        fill="none" stroke="var(--brand)" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/>
+              <!-- forecast dashed -->
+              <polyline points="354.7,99.1 405.8,86.8 456.9,74.7 508,62.25 559.1,50.1 610.2,37.3"
+                        fill="none" stroke="var(--brand)" stroke-width="2.4" stroke-dasharray="2 5" stroke-linecap="round" opacity="0.85"/>
+              <!-- handover marker -->
+              <line x1="354.7" y1="26" x2="354.7" y2="180" stroke="var(--ink-3)" stroke-width="1" stroke-dasharray="3 3" opacity="0.6"/>
+              <circle cx="354.7" cy="99.1" r="4.2" fill="var(--surface)" stroke="var(--brand)" stroke-width="2.4"/>
+              <text x="354.7" y="20" fill="var(--ink-2)" font-size="10" font-weight="600" text-anchor="middle" font-family="var(--sans)">Actual ends</text>
+              <!-- landing callout -->
+              <circle cx="610.2" cy="37.3" r="4.5" fill="var(--brand)"/>
+              <text x="610.2" y="30" fill="var(--brand)" font-size="10.5" font-weight="700" text-anchor="end" font-family="var(--sans)" id="a2-chartland">Landing 1,522 M€</text>
+              <g fill="var(--ink-3)" font-size="10" font-family="var(--sans)" text-anchor="middle">
+                <text x="48" y="202">Jan</text>
+                <text x="150.2" y="202">Mar</text>
+                <text x="252.5" y="202">May</text>
+                <text x="354.7" y="202">Jul</text>
+                <text x="456.9" y="202">Sep</text>
+                <text x="559.1" y="202">Nov</text>
+              </g>
+            </svg>
+          </div>
+          <figcaption class="legend">
+            <span><i class="lg-line"></i> Actual</span>
+            <span><i class="lg-dash"></i> Forecast</span>
+            <span><i class="lg-bud"></i> Budget FY</span>
+          </figcaption>
+        </figure>
+      </div>
+
+      <div class="card panel">
+        <div class="panel-h"><span class="q">How the year builds up</span></div>
+        <div class="panel-cap">By quarter · the handover from actual to forecast falls inside Q3.</div>
+        <div class="qtable">
+          <div class="qrow"><span class="ql">Q1</span><span class="basis">Actual</span><span class="qv">355 M€</span></div>
+          <div class="qrow"><span class="ql">Q2</span><span class="basis">Actual</span><span class="qv">380 M€</span></div>
+          <div class="qrow trans"><span class="ql">Q3</span><span class="basis">Actual + forecast</span><span class="qv">388 M€</span></div>
+          <div class="qrow"><span class="ql">Q4</span><span class="basis">Forecast</span><span class="qv">399 M€</span></div>
+          <div class="qrow total"><span class="ql">FY</span><span class="basis" style="border:0;color:var(--ink-3)">landing</span><span class="qv">1,522 M€<span class="delta">▲ +1.1% vs Budget</span></span></div>
+        </div>
+        <div class="discl">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+          Drill a quarter to see its months (actual and forecast side by side).
+        </div>
+      </div>
+    </div>
+
+    <div class="note feas">
+      <span class="tag">Power BI feasibility — this screen</span>
+      <b>Native:</b> cumulative line, budget reference line, quarterly matrix, drillthrough, landing data label. ·
+      <b>Custom DAX:</b> the actual/forecast <b>switch</b> measure (actual = closed months only, forecast = open months only), estimated-landing measure. ·
+      <b>Workarounds:</b> "Actual ends" vertical marker; the single seamless line = two series sharing the handover point, one solid + one dashed (per-series line style).
+    </div>
+
+    <details class="compare">
+      <summary>Compare with today — two separate dashboards</summary>
+      <div class="compare-body">
+        <div class="cmp-h before">Before — actuals and forecast live apart</div>
+        <div class="chartwrap"><div class="lg-two">
+          <div class="legacy">
+            <div class="lg-brand"><span class="op">RF Activity</span><span class="ti">forecast (α)</span></div>
+            <div class="slicers"><div class="slrow"><span class="slicer">scope</span><span class="slicer on">RF</span><span class="slicer">GMID…</span><span class="slicer">plant…</span></div></div>
+            <div style="padding:12px;background:#fff"><div class="lg-mini" style="height:56px"><i style="height:70%"></i><i style="height:50%"></i><i style="height:80%"></i><i style="height:60%"></i><i style="height:45%"></i></div><div class="lg-note">forecast months only</div></div>
+          </div>
+          <div class="legacy">
+            <div class="lg-brand"><span class="op">CORE_Finance</span><span class="ti">actuals AV</span></div>
+            <div class="slicers"><div class="slrow"><span class="slicer on">AUTO</span><span class="slicer">Bud26</span><span class="slicer">months…</span><span class="slicer">sites…</span></div></div>
+            <div style="padding:12px;background:#fff"><div class="lg-mini" style="height:56px"><i style="height:55%"></i><i style="height:65%"></i><i style="height:60%"></i><i style="height:70%"></i></div><div class="lg-note">actual months only — different report</div></div>
+          </div>
+        </div></div>
+        <div class="lg-note" style="text-align:center;color:var(--crit)">To read the year, you open two reports and stitch them in your head.</div>
+        <div class="whatchanged">
+          <div class="cmp-h after">What changed</div>
+          <ul>
+            <li><b>Two dashboards (RF Activity + CORE_Finance) → one continuous line.</b> Actual becomes forecast where the month closes — no report switch.</li>
+            <li><b>No full-year figure anywhere → the estimated landing is surfaced</b> (Actual to date + Remaining forecast = Landing).</li>
+            <li><b>Mental stitching → a single actual/forecast switch measure</b> does it.</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <section class="view" id="a3" role="tabpanel">
+    <div class="note" style="margin-bottom:14px">
+      <span class="tag">Design note — not shown on the live dashboard</span>
+      The question this screen answers: <b>"Which variances are moving the number — by driver and by site — before I open a single PO?"</b>
+      A <b>variance</b> is the gap between standard cost (the plan) and actual, with a name for the cause. <b>Yield</b> = did we get the expected output from the inputs (process efficiency)? <b>Substitution</b> = did we use the planned materials, or swap one for another (the recipe mix)? Together (Y&amp;S) they explain how the real transformation deviated from the standard recipe — a genuine slice of the AV Movement ↔ Ledger gap. Others sit alongside: PPV (purchase price), material price, FX. <span class="tbc">exact Opella modelling to confirm with Taís / Kiki</span>
+      The missing <b>summary layer</b>: today Yield &amp; Substitution exists only as raw per-PO tables. A3 adds the overview on top; the detail stays one level down.
+    </div>
+
+    <details class="rationale">
+      <summary>This screen (A3), decision by decision <span class="car">▸</span></summary>
+      <div class="rbody">
+        <div class="ritem"><b>A summary added on top, detail kept below.</b> We don’t replace the per-PO report — we give it a head: which drivers, which sites, what weight. <span class="pr">Progressive disclosure</span></div>
+        <div class="ritem"><b>PPV surfaced as the dominant driver.</b> It’s the biggest bar and named in the info tile — the thing that actually moves the number comes first. <span class="pr">Figure before filter</span></div>
+        <div class="ritem"><b>By-site, worst first, with cause.</b> Same grammar as A1 — variance is read the same way everywhere. <span class="pr">One visual language</span></div>
+        <div class="ritem"><b>Colour semantics.</b> Red = unfavorable, green = favorable — the same meaning as every other screen, never decorative. <span class="pr">One visual language</span></div>
+        <div class="ritem"><b>The cleanup.</b> Plant-cloned reports (Chattanooga, Germany…) and “Duplicate of Analysis per PO” consolidate into one summary + one detail. <span class="pr">File it, don’t trash it</span></div>
+      </div>
+    </details>
+
+    <div class="scopebar">
+      <span class="lbl">You are viewing</span>
+      <span class="scopeseg" role="group" aria-label="Perimeter">
+        <button data-scope="site" aria-pressed="false">Site · Lisieux</button>
+        <button data-scope="region" aria-pressed="false">Region · AMEA</button>
+        <button data-scope="all" aria-pressed="true">Group · All</button>
+      </span>
+      <span class="rls">Same perimeter as A0 — the variances shown are <b>yours</b>. The driver and site breakdown below is illustrative.</span>
+    </div>
+
+    <div class="hero">
+      <div class="card kpi">
+        <span class="eyebrow">Total variance vs standard</span>
+        <div class="big"><span id="a3-total">−3.2</span><span class="cur">M€</span></div>
+        <div class="sub"><span id="a3-scope">All sites · group</span> · unfavorable · MTD</div>
+      </div>
+      <div class="heroside">
+        <div class="card compare">
+          <div class="cmp"><div class="k">vs prior month</div><div class="v up"><span class="arrow">▲</span>+0.4<small>&nbsp;M€ better</small></div></div>
+          <div class="cmp"><div class="k">vs budget variance</div><div class="v down"><span class="arrow">▼</span>−0.6<small>&nbsp;M€</small></div></div>
+        </div>
+        <div class="card info">
+          <div class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><rect x="7" y="10" width="3" height="7"/><rect x="14" y="6" width="3" height="11"/></svg></div>
+          <div>
+            <div class="t1">Main driver · PPV</div>
+            <div class="t2">Purchase Price Variance — 66% of the total</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lower">
+      <div class="card panel">
+        <div class="panel-h"><span class="q">Variances by driver</span></div>
+        <div class="panel-cap">What moves the number (M€) · PPV is the dominant driver. <span class="tbc">PPV / Material / FX to confirm</span></div>
+        <div class="sites wide">
+          <div class="site" tabindex="0"><span class="name">PPV</span><span class="track"><span class="fill neg" data-w="100"></span></span><span class="val neg">−2.1</span></div>
+          <div class="site" tabindex="0"><span class="name">Yield</span><span class="track"><span class="fill neg" data-w="33"></span></span><span class="val neg">−0.7</span></div>
+          <div class="site" tabindex="0"><span class="name">Material price</span><span class="track"><span class="fill neg" data-w="24"></span></span><span class="val neg">−0.5</span></div>
+          <div class="site" tabindex="0"><span class="name">FX</span><span class="track"><span class="fill pos" data-w="6"></span></span><span class="val pos">+0.1</span></div>
+        </div>
+        <div class="discl">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+          Red = unfavorable, green = favorable. Click a driver to see the sites and POs behind it.
+        </div>
+      </div>
+
+      <div class="card panel">
+        <div class="panel-h"><span class="q">Variances by site</span></div>
+        <div class="panel-cap">Where the variance concentrates (M€) · worst first.</div>
+        <div class="sites">
+          <div class="site flag" tabindex="0"><span class="name">Ocoyoacac <span class="warn-i">⚠</span></span><span class="track"><span class="fill" data-w="100"></span></span><span class="val">−1.1</span>
+            <div class="cause">PPV on active ingredient — check standard</div>
+          </div>
+          <div class="site" tabindex="0"><span class="name">Suzano</span><span class="track"><span class="fill neg" data-w="73"></span></span><span class="val neg">−0.8</span></div>
+          <div class="site" tabindex="0"><span class="name">Compiègne</span><span class="track"><span class="fill neg" data-w="55"></span></span><span class="val neg">−0.6</span></div>
+          <div class="site" tabindex="0"><span class="name">Lisieux</span><span class="track"><span class="fill neg" data-w="36"></span></span><span class="val neg">−0.4</span></div>
+          <div class="site" tabindex="0"><span class="name">Other sites</span><span class="track"><span class="fill neg" data-w="27"></span></span><span class="val neg">−0.3</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card panel" style="margin-top:14px">
+      <div class="panel-h"><span class="q">Per-PO detail — one level down</span></div>
+      <div class="panel-cap">The existing Yield &amp; Substitution report becomes this drill level (yield vs substitution split, by component).</div>
+      <div class="chartwrap">
+        <table class="mtx">
+          <thead><tr><th>PO · component</th><th class="num">Actual qty</th><th class="num">Target qty</th><th class="num">Yield var</th><th class="num">Subst. var</th><th class="num">Total (K€)</th></tr></thead>
+          <tbody>
+            <tr class="lvl-site flag"><td>PO 100288 · Cetyl alcohol</td><td class="num">650</td><td class="num">658</td><td class="num">−101</td><td class="num">−78</td><td class="num">−179</td></tr>
+            <tr class="lvl-site"><td>PO 100288 · Glycerin 99%</td><td class="num">328</td><td class="num">330</td><td class="num">−5</td><td class="num">−12</td><td class="num">−17</td></tr>
+            <tr class="lvl-site"><td>PO 500188 · Essentiale forte</td><td class="num">1,516</td><td class="num">1,503</td><td class="num">+229</td><td class="num">+387</td><td class="num">+616</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="note feas">
+      <span class="tag">Power BI feasibility — this screen</span>
+      <b>Native:</b> bar charts, matrix, drill from summary to per-PO. ·
+      <b>Reuses:</b> the existing variance measures (PPV / Yield / Material Price / FX) and the current per-PO Yield &amp; Substitution report as the detail level. ·
+      <b>New:</b> the summary aggregation on top — plus a cleanup: today's plant-cloned reports (Chattanooga, Germany…) and the “Duplicate of Analysis per PO” page consolidate into one summary + one detail.
+    </div>
+
+    <details class="compare">
+      <summary>Compare with today — Yield_Substitution_Beta</summary>
+      <div class="compare-body">
+        <div class="cmp-h before">Before — per-PO tables only, cloned per plant</div>
+        <div class="chartwrap"><div class="legacy" style="min-width:520px">
+          <div class="lg-split">
+            <aside class="lg-nav">
+              <div class="grp">Yield_Substitution_Beta_v02</div>
+              <div class="it on">Yield_Subs_Report_Chattanooga</div>
+              <div class="it">Yield_Subs_Report_Germany</div>
+              <div class="it">Analysis per PO</div>
+              <div class="it">CKIS_Table</div>
+              <div class="it dbg">Duplicate of Analysis per PO</div>
+            </aside>
+            <div class="lg-main">
+              <div class="slicers"><div class="slrow"><span class="slicer">PO ID…</span><span class="slicer">LMID_CODE…</span><span class="slicer">Mat_Level</span><span class="slicer">Plant</span></div></div>
+              <table class="lg-tbl">
+                <thead><tr><th>PO ID PROD</th><th>Component</th><th class="n">Actual Qty</th><th class="n">Target Qty</th><th class="n">Yield_Var</th><th class="n">Sub_Var</th></tr></thead>
+                <tbody>
+                  <tr><td>100288</td><td>a_Header</td><td class="n">−6,452</td><td class="n">−6,452</td><td class="n">0.00</td><td class="n"></td></tr>
+                  <tr><td>100288</td><td>Cetyl alcohol</td><td class="n">650</td><td class="n">658</td><td class="n">−101</td><td class="n">−78</td></tr>
+                  <tr><td>100288</td><td>Glycerin 99%</td><td class="n">328</td><td class="n">330</td><td class="n">−5</td><td class="n">−12</td></tr>
+                  <tr><td>500188</td><td>Essentiale</td><td class="n">1,516</td><td class="n">1,503</td><td class="n">229</td><td class="n">387</td></tr>
+                </tbody>
+              </table>
+              <div class="lg-note">no summary — you read variances PO by PO; one report cloned per plant</div>
+            </div>
+          </div>
+        </div></div>
+        <div class="whatchanged">
+          <div class="cmp-h after">What changed</div>
+          <ul>
+            <li><b>Raw per-PO tables only → a summary by driver and by site on top.</b> You see what moves the number before opening a PO.</li>
+            <li><b>PPV / Yield / Material / FX buried in columns → PPV surfaced as the dominant driver.</b></li>
+            <li><b>Reports cloned per plant + a “Duplicate of Analysis per PO” page → one summary + one detail.</b></li>
+          </ul>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <section class="view" id="a4" role="tabpanel">
+    <div class="note" style="margin-bottom:14px">
+      <span class="tag">Design note — not shown on the live dashboard</span>
+      The question this screen answers: <b>"Does Core reconcile with the ledger — and with TM1 — and if not, exactly why?"</b> This is the trust engine: it feeds the A0 badge, and once the dashboard is auto-pushed to TM1 it becomes the company reference. Layout deliberately follows the <b>numbered guided path of CORE_FCST_Control</b> — a control screen is a sequence, so numbering earns its place here.
+    </div>
+
+    <details class="rationale">
+      <summary>This screen (A4), decision by decision <span class="car">▸</span></summary>
+      <div class="rbody">
+        <div class="ritem"><b>A numbered guided path ①→④.</b> The one place numbering is earned: a control screen is a sequence, so the numbers encode real order. Mirrors CORE_FCST_Control, the fastest-adopted internal dashboard. <span class="pr">Structure = information</span></div>
+        <div class="ritem"><b>Colour-coded tiles first.</b> The gap at a glance (Movement · Ledger · Gap · sites out of tolerance), and it feeds the A0 badge. <span class="pr">Figure before filter</span></div>
+        <div class="ritem"><b>A waterfall, not just a number.</b> The gap is decomposed by driver (cut-off / ILDA / Atina↔Polaris / PPV reclass / local) so it explains itself. <span class="pr">Visible trust</span></div>
+        <div class="ritem"><b>MA / MG / SA in words.</b> The SAP posting types, labeled as automatic / manual / finance adjustment. <span class="pr">No jargon up front</span></div>
+        <div class="ritem"><b>The TM1 tie-out.</b> Makes the “auto-pushed company reference” ambition visible — Movement ≈ Ledger ≈ TM1. <span class="pr">Visible trust</span></div>
+        <div class="ritem"><b>Why numbered here but not on A0.</b> A0 is <i>scanned</i> (figure first); A4 is <i>walked</i> (step by step). Numbering must encode a real sequence, or it’s decoration.</div>
+      </div>
+    </details>
+
+    <div class="scopebar">
+      <span class="lbl">You are viewing</span>
+      <span class="scopeseg" role="group" aria-label="Perimeter">
+        <button data-scope="site" aria-pressed="false">Site · Lisieux</button>
+        <button data-scope="region" aria-pressed="false">Region · AMEA</button>
+        <button data-scope="all" aria-pressed="true">Group · All</button>
+      </span>
+      <span class="rls">Same perimeter as A0 — the reconciliation shown is for <b><span id="a4-scope">All sites · group</span></b>.</span>
+    </div>
+
+    <div class="steps">
+      <div class="card panel">
+        <div class="ctrl-h"><span class="ctrl-n">1</span><div><div class="ey">Control</div><div class="ti">Movement vs Ledger — the gap at a glance</div></div></div>
+        <div class="tiles">
+          <div class="tile"><div class="k">AV Movement · Core</div><div class="v"><span id="a4-move">128.4</span><span class="u">M€</span></div><div class="n">volumes × standard costs</div></div>
+          <div class="tile"><div class="k">AV Ledger · ERP</div><div class="v"><span id="a4-ledger">128.8</span><span class="u">M€</span></div><div class="n">after entries &amp; accruals</div></div>
+          <div class="tile"><div class="k">AV Gap</div><div class="v" id="a4-gap">−0.3%</div><div class="n">Movement vs Ledger</div></div>
+          <div class="tile warn"><div class="k">Sites out of tolerance</div><div class="v"><span id="a4-oot">1</span></div><div class="n">deviating sites</div></div>
+        </div>
+      </div>
+
+      <div class="card panel">
+        <div class="ctrl-h"><span class="ctrl-n">2</span><div><div class="ey">Control</div><div class="ti">Where the gap comes from <span class="tbc">split to confirm</span></div></div></div>
+        <div class="panel-cap">From AV Movement to AV Ledger, by driver (M€) — cut-off, ILDA (target vs actual), Atina↔Polaris articulation, PPV↔AV reclass, local. The y-axis is zoomed to the gap.</div>
+        <div class="chartwrap">
+          <svg class="chart" viewBox="0 0 640 200" role="img" aria-label="Bridge from AV Movement to AV Ledger by driver">
+            <line x1="30" y1="170" x2="620" y2="170" stroke="var(--border)" stroke-width="1"/>
+            <g stroke="var(--ink-3)" stroke-width="1" stroke-dasharray="3 3" opacity="0.55">
+              <line x1="83" y1="133" x2="129" y2="133"/>
+              <line x1="175" y1="77" x2="220" y2="77"/>
+              <line x1="266" y1="49" x2="312" y2="49"/>
+              <line x1="358" y1="67" x2="404" y2="67"/>
+              <line x1="450" y1="58" x2="495" y2="58"/>
+              <line x1="541" y1="95" x2="587" y2="95"/>
+            </g>
+            <rect x="37" y="133" width="46" height="37" rx="2" fill="var(--brand)"/>
+            <rect x="129" y="77" width="46" height="56" rx="2" fill="var(--good)"/>
+            <rect x="220" y="49" width="46" height="28" rx="2" fill="var(--good)"/>
+            <rect x="312" y="49" width="46" height="18" rx="2" fill="var(--crit)"/>
+            <rect x="404" y="58" width="46" height="9" rx="2" fill="var(--good)"/>
+            <rect x="495" y="58" width="46" height="37" rx="2" fill="var(--crit)"/>
+            <rect x="587" y="95" width="46" height="75" rx="2" fill="var(--brand)"/>
+            <g font-size="9" font-family="var(--mono)" text-anchor="middle">
+              <text x="60" y="128" fill="var(--ink-2)">128.4</text>
+              <text x="152" y="72" fill="var(--good)">+0.6</text>
+              <text x="243" y="44" fill="var(--good)">+0.3</text>
+              <text x="335" y="44" fill="var(--crit)">−0.2</text>
+              <text x="427" y="53" fill="var(--good)">+0.1</text>
+              <text x="518" y="53" fill="var(--crit)">−0.4</text>
+              <text x="610" y="90" fill="var(--ink-2)">128.8</text>
+            </g>
+            <g font-size="8.5" font-family="var(--sans)" text-anchor="middle" fill="var(--ink-3)">
+              <text x="60" y="188">Movement</text>
+              <text x="152" y="188">Cut-off</text>
+              <text x="243" y="188">ILDA</text>
+              <text x="335" y="188">Atina↔Pol.</text>
+              <text x="427" y="188">PPV reclass</text>
+              <text x="518" y="188">Local adj.</text>
+              <text x="610" y="188">Ledger</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <div class="card panel">
+        <div class="ctrl-h"><span class="ctrl-n">3</span><div><div class="ey">Control</div><div class="ti">Postings behind the movement</div></div></div>
+        <div class="panel-cap">Document types that drive Core ↔ ERP differences.</div>
+        <div class="seg-bar">
+          <div class="s" style="width:88%;background:var(--brand)">MA · 88%</div>
+          <div class="s" style="width:8%;background:var(--warn)">8%</div>
+          <div class="s" style="width:4%;background:var(--ink-3)">4%</div>
+        </div>
+        <div class="seg-legend">
+          <span><i style="background:var(--brand)"></i><b>MA</b> — automatic (Athena)</span>
+          <span><i style="background:var(--warn)"></i><b>MG</b> — manual interface correction</span>
+          <span><i style="background:var(--ink-3)"></i><b>SA</b> — finance adjustment (e.g. PPV)</span>
+        </div>
+      </div>
+
+      <div class="card panel">
+        <div class="ctrl-h"><span class="ctrl-n">4</span><div><div class="ey">Control</div><div class="ti">Tie-out to TM1 — the company reference</div></div></div>
+        <div class="tieout">
+          <div class="tnode"><div class="k">AV Movement · Core</div><div class="v">128.4 M€</div></div>
+          <div class="teq">≈</div>
+          <div class="tnode"><div class="k">AV Ledger · ERP</div><div class="v">128.8 M€</div></div>
+          <div class="teq">≈</div>
+          <div class="tnode ref"><div class="k">TM1 · reference</div><div class="v">128.8 M€</div></div>
+        </div>
+        <div class="discl">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+          All three tie within tolerance → this feeds the A0 “it reconciles” badge, and is the figure auto-pushed to TM1.
+        </div>
+      </div>
+    </div>
+
+    <div class="note feas">
+      <span class="tag">Power BI feasibility — this screen</span>
+      <b>Native:</b> KPI cards, waterfall visual, segmented bar, matrix, numbered shapes + section headers (exactly the FCST_Control pattern). ·
+      <b>Reuses:</b> existing AV Movement / AV Ledger / reconciliation measures, SAP doc type (MA/MG/SA), TM1 columns. ·
+      <b>Custom DAX:</b> the gap-driver split (cut-off / ILDA / Atina↔Polaris / PPV reclass / local) if not already modelled.
+    </div>
+
+    <details class="compare">
+      <summary>Compare with today — Daily Activity Movement vs Ledger</summary>
+      <div class="compare-body">
+        <div class="cmp-h before">Before — four dense tables on one page</div>
+        <div class="chartwrap"><div class="legacy" style="min-width:540px">
+          <div class="lg-brand"><span class="op">Opella.</span><span class="ti">Movement vs Ledger</span><span class="meta">4 tables at once, no guidance</span></div>
+          <div class="slicers"><div class="slrow"><span class="slicer on">AUTO</span><span class="slicer bad">TECO</span><span class="slicer">months…</span><span class="slicer">Bud26</span><span class="slicer">sites…</span></div></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px;background:#f6f6f2">
+            <table class="lg-tbl"><thead><tr><th>Site</th><th class="n">AV Move</th><th class="n">AV Ledger</th><th class="n">diff</th><th class="n">%diff</th></tr></thead><tbody>
+              <tr><td>HCMC</td><td class="n">1,021</td><td class="n">1,024</td><td class="n">−3</td><td class="n">−0.3%</td></tr>
+              <tr><td>HCMC</td><td class="n">1,274</td><td class="n">1,274</td><td class="n">0</td><td class="n">0.0%</td></tr>
+              <tr><td>Total</td><td class="n">6,493</td><td class="n">6,521</td><td class="n">−28</td><td class="n">−0.4%</td></tr>
+            </tbody></table>
+            <table class="lg-tbl"><thead><tr><th>PO_ID</th><th>OPEN</th><th>DLV</th><th>CLOSED</th><th class="n">Qty</th></tr></thead><tbody>
+              <tr><td>RN0N4…</td><td>07-03</td><td>07-06</td><td>07-06</td><td class="n">205</td></tr>
+              <tr><td>RN15C…</td><td>07-01</td><td>07-06</td><td>07-06</td><td class="n">9,936</td></tr>
+              <tr><td>RN19P…</td><td>07-01</td><td>07-06</td><td>07-06</td><td class="n">2,400</td></tr>
+            </tbody></table>
+          </div>
+          <div class="lg-note">overview + order status + movement base + ledger FI/CO — all stacked, no path through them</div>
+        </div></div>
+        <div class="whatchanged">
+          <div class="cmp-h after">What changed</div>
+          <ul>
+            <li><b>Four dense tables at once → a numbered guided path ①→④.</b></li>
+            <li><b>The gap was a number, never explained → a waterfall by driver</b> (cut-off / ILDA / Atina↔Polaris / PPV reclass / local).</li>
+            <li><b>No visible tie to TM1 → an explicit Movement ≈ Ledger ≈ TM1 tie-out.</b></li>
+            <li><b>Follows CORE_FCST_Control</b> — the fastest-adopted internal dashboard (opened from a link, no onboarding). Its gradation is the benchmark, not an outside idea.</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <section class="view" id="di" role="tabpanel">
+    <div class="card stub">
+      <div class="q">Data integrity</div>
+      <div class="role">Technical page — filed, not trashed</div>
+      <div class="desc">The home for debug and control visuals (missing standards, refresh, datafeed, transactional detail) — moved out of client pages. Principle: file it, don't trash it. The business user never meets it; the team finds it when needed.</div>
+      <div class="wire">
+        <div class="bar w80"></div><div class="bar w60"></div><div class="bar w40"></div>
+      </div>
+      <div class="todo">🖉 Destination for _STD_Missing, _Refresh, CKIS, transactional-detail visuals</div>
+    </div>
+    <div class="note feas"><span class="tag">Power BI feasibility</span> Native tables/matrices; existing visuals relocated, not rebuilt.</div>
+  </section>
+
+  <section class="view" id="logic" role="tabpanel">
+    <div class="wv"><span class="tagc">◇ Working view · the spec</span> <span><b>For us</b>, not a live dashboard page. The single design-and-spec layer: the logic, the personas, the two lenses, the weekly screen, the migration map, and what stays to confirm. This is the view to present — and to hand to Kiki &amp; Roland.</span></div>
+    <div class="note" style="margin-bottom:14px">
+      <span class="tag">How to read this</span>
+      Everything the redesign decides, in one place. Numbered sections, top to bottom: what it is and the principles, how the mockup is built, the screens and how they relate, the two lenses and the weekly screen, who reads what, scope and measures, the migration and the method, and the open points to confirm.
+    </div>
+
+    <div class="card panel">
+      <div class="panel-h"><span class="q"><span class="secn">01</span> Purpose &amp; success</span></div>
+      <div class="sddef" style="font-size:.86rem">One journey, general → particular, scoped per user (Row-Level Security). Around forty client pages collapse into <b>six screens plus a technical page</b>. Success is measured in <b>adoption</b>: the figure is trusted, and a site user gets it with <b>zero onboarding</b>. The pilot family is <b>AV (Activity)</b>; the method and templates then carry to the other families. Fictitious figures throughout — the point is the structure.</div>
+    </div>
+
+    <div class="card panel">
+      <div class="panel-h"><span class="q"><span class="secn">02</span> The eight design principles</span></div>
+      <div class="panel-cap">The rules behind every screen, from field interviews (Adèle, Taís) and financial-dashboard best practice. The dashboard is learned once, then reused.</div>
+      <ul class="checklist settled" style="margin-top:2px">
+        <li style="grid-template-columns:1fr"><span><b>1 · One screen = one question.</b> Each tab answers exactly one question, in plain words at the top. Two questions → two screens. Kills the "everything on one page" reflex.</span></li>
+        <li style="grid-template-columns:1fr"><span><b>2 · The figure before the filter.</b> The number is the biggest element and comes first; controls are demoted to collapsed chips. You read, then rarely adjust.</span></li>
+        <li style="grid-template-columns:1fr"><span><b>3 · Visible trust.</b> "Does it reconcile?" is answered on the face of the screen (the green badge). The adoption blocker is confidence, not layout — reconciliation is a feature, not a debug view.</span></li>
+        <li style="grid-template-columns:1fr"><span><b>4 · Progressive disclosure.</b> General → specific. Big number first, drill for detail. Nothing is deleted; it moves one level down.</span></li>
+        <li style="grid-template-columns:1fr"><span><b>5 · No SAP jargon up front.</b> Business words on the surface (Activity, site, budget). GR / DLV / TECO / GMID live behind an expert reveal or in Data integrity.</span></li>
+        <li style="grid-template-columns:1fr"><span><b>6 · One visual language.</b> Same card, type scale, colour semantics and layout everywhere. Opella green anchors structure; amber = watch, red = critical — colour is always semantic, never decorative.</span></li>
+        <li style="grid-template-columns:1fr"><span><b>7 · Smart defaults.</b> The system pre-picks period, scope, cut-off, scenario and standard for ~95% of cases, shows them read-only, and lets the expert expand. Zero buttons <i>required</i>, not zero buttons <i>possible</i>.</span></li>
+        <li style="grid-template-columns:1fr"><span><b>8 · File it, don't trash it.</b> Debug and control visuals move to the Data integrity page — out of the client path, still there for the team.</span></li>
+      </ul>
+    </div>
+
+    <div class="card panel">
+      <div class="panel-h"><span class="q"><span class="secn">03</span> How this mockup is built — two layers</span></div>
+      <div class="panel-cap">So the audience never confuses our scaffolding with the report itself.</div>
+      <div class="sddef" style="font-size:.84rem"><b>Our layer</b> (the top band): the tabs (A0 → A4, this working view), the mockup controls and the design notes — none of it exists in Power BI; it is how we navigate and explain. <b>The Power BI report</b> (framed below): the dashboard exactly as it will appear, with its own Opella header and Filters bar. Toggle <b>Design notes</b> off to strip our annotations and see only what ships. A working view like this one drops the report frame entirely — it is ours, not a live page.</div>
+    </div>
+
+    <div class="card panel">
+      <div class="panel-h"><span class="q"><span class="secn">04</span> The screens at a glance</span></div>
+      <div class="panel-cap">Each screen answers exactly one question, for one primary reader.</div>
+      <div class="chartwrap">
+        <table class="mapt">
+          <thead><tr><th style="width:15%">Screen</th><th style="width:30%">Question</th><th style="width:23%">Primary reader</th><th style="width:32%">Key measures</th></tr></thead>
+          <tbody>
+            <tr><td class="pg"><b>A0</b> Overview</td><td>Is my month on track, and can I trust it?</td><td>Site finance partner</td><td>Activity MTD · vs Budget / RF · reconciliation badge · VA/Vol</td></tr>
+            <tr><td class="pg"><b>A0b</b> Weekly review</td><td>Is my week on track vs PDP, machine by machine?</td><td>Site finance partner</td><td>Weekly VA &amp; Volume · vs PDP / Budget · per machine</td></tr>
+            <tr><td class="pg"><b>A1</b> Sites &amp; detail</td><td>Which site / line deviates, and why?</td><td>Insight lead (GCC)</td><td>Region → site → line · cause · VA/Vol</td></tr>
+            <tr><td class="pg"><b>A2</b> Actual + forecast</td><td>Where does the year land?</td><td>Lead + site partner</td><td>Continuous actual → forecast · estimated landing · VA/Vol</td></tr>
+            <tr><td class="pg"><b>A3</b> Y&amp;S variances</td><td>Which variances move it?</td><td>Variance analysis</td><td>PPV / Yield / Material / FX by site</td></tr>
+            <tr><td class="pg"><b>A4</b> Reconciliation</td><td>Does Core tie out with ledger &amp; TM1?</td><td>Central controlling</td><td>Movement / Ledger / TM1 · gap by driver</td></tr>
+            <tr><td class="pg"><b>DI</b> Data integrity</td><td>Are the data clean?</td><td>Data team</td><td>Missing standards · refresh · transactional</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card panel">
+      <div class="panel-h"><span class="q"><span class="secn">05</span> How the screens relate — A0 is the answer</span></div>
+      <div class="panel-cap">Not one line from general to specific. A0 gives the number; three questions branch off it — <b>space</b>, <b>time</b>, <b>cause &amp; proof</b>.</div>
+      <div class="flowmap">
+        <div class="fm-hub">
+          <div class="fm-node fm-lead">
+            <span class="fm-code">A0</span>
+            <div class="fm-txt"><b>Overview — the answer</b><small>My month, and can I trust it?</small></div>
+          </div>
+          <div class="fm-node">
+            <span class="fm-code">A0b</span>
+            <div class="fm-txt"><b>Weekly review</b><small>The same number, week by week and per machine, vs PDP — the site partner's cadence</small></div>
+          </div>
+          <div class="fm-hubtag">Site finance partner · the entry point</div>
+        </div>
+        <div class="fm-branches">
+          <div class="fm-branch">
+            <div class="fm-axis">Where it comes from <span>· space</span></div>
+            <div class="fm-node"><span class="fm-code">A1</span><div class="fm-txt"><b>Sites &amp; detail</b><small>Break the number down region → site → line, find where it deviates. <i>The multi-site control surface — insight lead (GCC).</i></small></div></div>
+          </div>
+          <div class="fm-branch">
+            <div class="fm-axis">Where it's heading <span>· time</span></div>
+            <div class="fm-node"><span class="fm-code">A2</span><div class="fm-txt"><b>Actual + forecast</b><small>Extend the number to the full-year landing, one continuous line. <i>A different axis: time, not drill.</i></small></div></div>
+          </div>
+          <div class="fm-branch">
+            <div class="fm-axis">Why it moves &amp; does it tie <span>· cause + proof</span></div>
+            <div class="fm-node"><span class="fm-code">A3</span><div class="fm-txt"><b>Y&amp;S variances</b><small>Which variances (PPV, yield, material, FX) move it, and on which sites.</small></div></div>
+            <div class="fm-node"><span class="fm-code">A4</span><div class="fm-txt"><b>Reconciliation</b><small>Proof it holds — ties out with the ledger and TM1, gap by driver. <i>Central control.</i></small></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="discl">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
+        Read it as a sentence: my number <b>(A0)</b> → where it comes from <b>(A1)</b> → where it's heading <b>(A2)</b> → why it moves <b>(A3)</b> → proof it holds <b>(A4)</b>. Data integrity sits behind all of it, for the team.
+      </div>
+    </div>
+
+    <div class="card panel">
+      <div class="panel-h"><span class="q">The screens, in words</span></div>
+      <div class="panel-cap">What each screen is, in one line.</div>
+      <div class="screendefs">
+        <div class="sdrow"><div class="sdcode">A0<small>Overview</small></div><div class="sddef"><b>The answer.</b> Your month's Activity at a glance, and whether it reconciles — the headline figure, the gap to budget and forecast, the trust badge. Scoped to your perimeter. The screen most site users start and end on.</div></div>
+        <div class="sdrow"><div class="sdcode">A0b<small>Weekly review</small></div><div class="sddef"><b>The same number, week by week.</b> The site partner's other screen: value and volume, per machine, vs the production plan (PDP) and budget, for her Wednesday committee. Sits next to A0 — her month, then her week. Replaces her Excel.</div></div>
+        <div class="sdrow"><div class="sdcode">A1<small>Sites &amp; detail</small></div><div class="sddef"><b>Where it comes from</b> <i>· space.</i> Break the number down region → site → line, deviating sites floated up with the cause. The multi-site control surface — the GCC insight lead's screen, not the single-site partner's.</div></div>
+        <div class="sdrow"><div class="sdcode">A2<small>Actual + forecast</small></div><div class="sddef"><b>Where it's heading</b> <i>· time.</i> Actuals and forecast merged into one continuous line, to read the full-year landing. A different axis from A1 — it extends the number, it doesn't drill it. The redesign's key deliverable.</div></div>
+        <div class="sdrow"><div class="sdcode">A3<small>Y&amp;S variances</small></div><div class="sddef"><b>Why it moves</b> <i>· cause.</i> Which variances (PPV, yield, material price, FX) move the number and on which sites, set above the existing per-PO detail.</div></div>
+        <div class="sdrow"><div class="sdcode">A4<small>Reconciliation</small></div><div class="sddef"><b>Proof it holds</b> <i>· trust.</i> Ties Core out with the ledger and TM1, explains the gap by driver. Feeds the A0 badge.</div></div>
+        <div class="sdrow"><div class="sdcode">Data integrity<small>technical page</small></div><div class="sddef"><b>The back room.</b> Debug and control visuals (missing standards, refresh, transactional detail), off the client path. For the team, not the business user.</div></div>
+      </div>
+    </div>
+
+    <div class="card panel">
+      <div class="panel-h"><span class="q"><span class="secn">06</span> The two lenses — Value € vs Volume</span></div>
+      <div class="panel-cap">The same activity, read two ways. A synced toggle on A0, A1 and A2; both shown together on A0b.</div>
+      <div class="screendefs">
+        <div class="sdrow"><div class="sdcode">Value €<small>the € lens</small></div><div class="sddef"><b>Industrial value added,</b> volumes × standard cost. The common denominator across unlike products, and the figure that closes against the ledger. This is what MNS "sells" to ComOps at standard.</div></div>
+        <div class="sdrow"><div class="sdcode">Volume u<small>the unit lens</small></div><div class="sddef"><b>The physical quantity produced.</b> Heterogeneous units (boxes of 1,000, semi-finished) that are not summed across unlike products, so they read per site / line / machine. The <b>PDP is expressed in volumes</b> — the site partner needs this lens.</div></div>
+      </div>
+      <div class="discl">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
+        <b>Design rule:</b> the toggle switches the number, the unit, the breakdown <b>and the definition behind the little "i"</b> — a Volume figure never carries the Value definition. Value and volume are not proportional: a low-cost site can be high-volume, low-value. <span class="tbc">toggle to confirm with Kiki</span>
+      </div>
+    </div>
+
+    <div class="card panel">
+      <div class="panel-h"><span class="q"><span class="secn">07</span> The weekly review (A0b) — persona n°1's screen</span></div>
+      <div class="panel-cap">Why it exists, and what it needs. The site finance partner (Adèle, Lisieux) doesn't use the dashboard today — she rebuilds this weekly in Excel from Athena.</div>
+      <ul class="checklist" style="margin-top:2px">
+        <li style="grid-template-columns:1fr"><span><b>The cadence is weekly.</b> Her committee runs every Wednesday. The dashboard is monthly today — the weekly view is the gap.</span></li>
+        <li style="grid-template-columns:1fr"><span><b>The reference is the PDP</b> (Plan Directeur de Production), not only budget. Both are shown; PDP first.</span></li>
+        <li style="grid-template-columns:1fr"><span><b>Value and volume together,</b> not one or the other — so no toggle here, both lenses are on the page.</span></li>
+        <li style="grid-template-columns:1fr"><span><b>Down to the machine</b> (resource code, from Athena / Kinaxis). Validates A1's line level and is feasible fast.</span></li>
+        <li style="grid-template-columns:1fr"><span><b>The dependency:</b> the PDP is loaded monthly in Kinaxis; the <b>weekly split is manual</b> today (done by supply). That split is the one thing to build.</span></li>
+      </ul>
+      <div class="discl">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+        The killer move: if the dashboard outputs this weekly report, she drops Excel — and it feeds the committee directly.
+      </div>
+    </div>
+
+    <div class="card panel">
+      <div class="panel-h"><span class="q"><span class="secn">08</span> The personas</span></div>
+      <div class="panel-cap">The full landscape, mapped with Aurélien. Users sit on a <b>granularity ladder — site → region → global</b>, which is exactly the scope switcher. It repeats across finance, operations and supply chain.</div>
+      <div class="personas">
+        <div class="pcard">
+          <div class="ph"><span class="pn">Site finance partner (FBP)</span><span class="ptag">Primary target</span></div>
+          <div class="prole">One per site, owns the site's performance (e.g. Adèle, Lisieux). Activity = the MNS revenue, the only favourable line in their P&amp;L, so it matters a lot.</div>
+          <div class="pq">“Is my month on track vs budget, forecast and last year?”</div>
+          <div class="pscope"><b>Finance · site.</b> A light user who must work with zero onboarding.</div>
+        </div>
+        <div class="pcard">
+          <div class="ph"><span class="pn">Regional finance partner</span><span class="ptag">Same need, coarser</span></div>
+          <div class="prole">Consolidates several sites (e.g. Shane, Philippines). Same need as the site FBP, just less detail — evolution by product and by site.</div>
+          <div class="pq">“How is my region's activity moving, by product and site?”</div>
+          <div class="pscope"><b>Finance · region.</b> Reads A0–A2 at portfolio scope.</div>
+        </div>
+        <div class="pcard">
+          <div class="ph"><span class="pn">GCC financier &amp; reconciliation</span><span class="ptag">Power user · owner</span></div>
+          <div class="prole">In the regional hubs, the financiers who reconcile the systems (e.g. Atina vs Polaris in the Americas) and make sure the number matches the activity the site realised. Taís leads this workstream and the reconciliations — an ally, not just a reader.</div>
+          <div class="pq">“Does this figure match the site's activity — and where do the two systems disagree?”</div>
+          <div class="pscope"><b>Finance · per site (reconciliation).</b> Lives in the detail — A1, A3, A4.</div>
+        </div>
+        <div class="pcard">
+          <div class="ph"><span class="pn">Site &amp; business leadership</span><span class="ptag">Headline only</span></div>
+          <div class="prole">The site head and their committee, the regional business head, up to MNS leadership. Read the total activity, almost daily. Less detail, more headline.</div>
+          <div class="pq">“How is our activity trending, right now?”</div>
+          <div class="pscope"><b>Operations · site to group.</b> A0 at their scope. A line chief exists below, but Core Data may not serve line level yet.</div>
+        </div>
+        <div class="pcard">
+          <div class="ph"><span class="pn">Supply chain teams</span><span class="ptag">Forecast side</span></div>
+          <div class="prole">A large audience. Each month they submit their site's forecast through the forecast-control page and the MIT (manual input template); the site financier then validates the € valorisation.</div>
+          <div class="pq">“Are my volumes and their valuation right for the month?”</div>
+          <div class="pscope"><b>Supply chain · site.</b> Mostly on the forecast tool, feeding A2.</div>
+        </div>
+        <div class="pcard">
+          <div class="ph"><span class="pn">Central controlling &amp; data</span><span class="ptag">Steering · maintains</span></div>
+          <div class="prole">Controlling reconciles and steers, feeds TM1 (e.g. Alexia); the data team builds and maintains the reports (e.g. Kiki).</div>
+          <div class="pq">“Does it tie out — and are the data and refresh clean?”</div>
+          <div class="pscope"><b>Central.</b> A4 and the data-integrity page.</div>
+        </div>
+      </div>
+      <div class="discl">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
+        Access stops at the site (Management Center) — <b>no sub-site level</b>, to keep personnel costs private. Alexia is an informant on usage, not a target; she opens access to the field testers.
+      </div>
+    </div>
+
+    <div class="card panel">
+      <div class="panel-h"><span class="q"><span class="secn">09</span> Who uses what</span></div>
+      <div class="panel-cap">The same screens, read by different profiles at their own scope.</div>
+      <div class="chartwrap">
+        <table class="usage">
+          <thead><tr><th>Persona</th><th>A0</th><th>A0b</th><th>A1</th><th>A2</th><th>A3</th><th>A4</th><th>Data<br>integrity</th></tr></thead>
+          <tbody>
+            <tr><td>Site finance partner</td><td class="p">●</td><td class="p">●</td><td class="s">○</td><td class="s">○</td><td class="no">·</td><td class="s">○</td><td class="no">·</td></tr>
+            <tr><td>Regional finance partner</td><td class="p">●</td><td class="s">○</td><td class="p">●</td><td class="p">●</td><td class="s">○</td><td class="s">○</td><td class="no">·</td></tr>
+            <tr><td>GCC financier (technical)</td><td class="s">○</td><td class="s">○</td><td class="p">●</td><td class="s">○</td><td class="p">●</td><td class="p">●</td><td class="s">○</td></tr>
+            <tr><td>Site &amp; business leadership</td><td class="p">●</td><td class="s">○</td><td class="s">○</td><td class="s">○</td><td class="no">·</td><td class="no">·</td><td class="no">·</td></tr>
+            <tr><td>Supply chain teams</td><td class="no">·</td><td class="s">○</td><td class="no">·</td><td class="s">○</td><td class="no">·</td><td class="no">·</td><td class="no">·</td></tr>
+            <tr><td>Central controlling &amp; data</td><td class="no">·</td><td class="no">·</td><td class="no">·</td><td class="no">·</td><td class="s">○</td><td class="p">●</td><td class="p">●</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="usage-leg"><span><b>●</b> primary reader</span><span>○ secondary</span><span>· not used</span></div>
+    </div>
+
+    <div class="card panel">
+      <div class="panel-h"><span class="q"><span class="secn">10</span> Scope &amp; access</span></div>
+      <div class="sddef" style="font-size:.84rem"><b>RLS by Management Center (site).</b> A site partner sees their own site; a region their sites; global, all. The perimeter follows the user and syncs across A0, A1 and A2. <b>No sub-site level</b> (cost centre ≈ line), to keep personnel costs private — the access floor is the site. A0b is a site-level screen by design.</div>
+    </div>
+
+    <div class="card panel">
+      <div class="panel-h"><span class="q"><span class="secn">11</span> Measures — native vs to build</span></div>
+      <ul class="checklist" style="margin-top:2px">
+        <li style="grid-template-columns:1fr"><span><b>Native (reuse):</b> activity (AV), volumes, vs budget, by site &amp; by line/machine, Movement / Ledger / TM1, postings MA/MG/SA, Yield &amp; Substitution.</span></li>
+        <li style="grid-template-columns:1fr"><span><b>vs PDP &amp; weekly:</b> PDP is loaded monthly in Kinaxis — the <b>weekly split</b> is manual today (supply), to build. Per-machine resource code available in Athena / Kinaxis.</span></li>
+        <li style="grid-template-columns:1fr"><span><b>VA ⇄ Volume:</b> both exist natively; the synced toggle and its adaptive definition are the build.</span></li>
+        <li style="grid-template-columns:1fr"><span><b>To build / confirm:</b> estimated landing · actual→forecast switch · cause-per-site · gap-by-driver (cut-off / ILDA / Atina↔Polaris / PPV reclass) · PPV / Material / FX split.</span></li>
+      </ul>
+    </div>
+
+    <div class="card panel">
+      <div class="panel-h"><span class="q"><span class="secn">12</span> Migration map — every current page → what replaces it</span></div>
+      <div class="panel-cap">Family <b>Activity (AV)</b>. Around forty client pages collapse into six screens plus Data integrity; two disappear outright. Expense (GL_Based) is a separate family with its own redesign.</div>
+      <div class="chartwrap">
+        <table class="mapt">
+          <thead><tr><th style="width:44%">Today · report and page</th><th style="width:20%">Replaced by</th><th style="width:36%">Why</th></tr></thead>
+          <tbody>
+            <tr class="grp"><td colspan="3">CORE_Finance — actuals AV</td></tr>
+            <tr><td class="pg">Daily Overview by Site/EM Hub</td><td class="to">A0 + A1</td><td class="why">The overview, then the site drill.</td></tr>
+            <tr><td class="pg">Daily Activity Resources</td><td class="to">A1 + A0b</td><td class="why">By line and machine, under the site; the weekly view for the site partner.</td></tr>
+            <tr><td class="pg">Daily Activity Detail</td><td class="to">A1 <span style="color:var(--ink-3)">+ Data integrity</span></td><td class="why">Summary in A1, raw transactional filed away.</td></tr>
+            <tr><td class="pg">Daily Activity Movement vs Ledger</td><td class="to">A4</td><td class="why">Becomes the numbered reconciliation.</td></tr>
+            <tr><td class="pg"><code>_STD_Missing</code> · <code>_Refresh</code> · AI_Datafeed</td><td class="to di">Data integrity</td><td class="why">Controls and feeds, out of the client path.</td></tr>
+            <tr class="grp"><td colspan="3">RF Activity — forecast</td></tr>
+            <tr><td class="pg">RF_Pre_Released</td><td class="to">A2</td><td class="why">Merged into the continuous actual + forecast view.</td></tr>
+            <tr><td class="pg">Disclaimer</td><td class="to gone">Removed</td><td class="why">Folded into the report.</td></tr>
+            <tr class="grp"><td colspan="3">Yield_Substitution_Beta</td></tr>
+            <tr><td class="pg">Yield_Subs per plant · Analysis per PO</td><td class="to">A3 detail</td><td class="why">One report, not one per plant; per-PO drill under the new summary.</td></tr>
+            <tr><td class="pg">CKIS_Table</td><td class="to di">Data integrity</td><td class="why">Reference table.</td></tr>
+            <tr><td class="pg">Duplicate of Analysis per PO</td><td class="to gone">Removed</td><td class="why">Duplicate, consolidated.</td></tr>
+            <tr class="grp"><td colspan="3">CORE_FCST_Control — forecast control</td></tr>
+            <tr><td class="pg">Commit_Control_Beta</td><td class="to di">Stays (control)</td><td class="why">A control tool. Its numbered path is the benchmark for A4.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card panel">
+      <div class="panel-h"><span class="q"><span class="secn">13</span> Method &amp; effort</span></div>
+      <div class="sddef" style="font-size:.84rem">Per dashboard: mockup → test with 3 users → release within the week. <b>AV first</b> as the lab: a one-week sprint, ~3 days of Kiki, four-hands. Then the next families reuse the method and templates. Reliability of the data stays a parallel workstream (Alexia, Kiki), not this scope. We decide once (KPIs of reference, template, the two lenses) and apply family by family.</div>
+    </div>
+
+    <div class="card panel">
+      <div class="panel-h"><span class="q"><span class="secn">14</span> Concepts to verify against the data model</span></div>
+      <div class="panel-cap">Fictitious <b>figures</b> are fine. These derived <b>concepts</b> are not confirmed as existing fields — check against dbt, or with Kiki and Roland, before promising them.</div>
+      <ul class="checklist">
+        <li><span><b>Estimated landing</b> (A0, A2). <span class="ask">Does a year-end projection measure (actual through close, then forecast) exist, or is it to build?</span></span></li>
+        <li><span><b>The “cause” per deviating site</b> (A0, A1). <span class="ask">Is there a field or rule that attributes each gap to a cause (cut-off, PPV, adjustment), or is it derived?</span></span></li>
+        <li><span><b>AV Gap decomposed by driver</b> (A4 waterfall). <span class="ask">The drivers are named officially, but is the gap split by driver actually modeled?</span></span></li>
+        <li><span><b>Variances PPV / Material Price / FX</b> (A3). <span class="ask">Yield &amp; Substitution exist in the report. Are PPV, Material Price and FX modeled per site too?</span></span></li>
+        <li><span><b>Actual → forecast switch</b> (A2). <span class="ask">Buildable from existing series. Confirm the handover logic (which month closes actual).</span></span></li>
+        <li><span><b>Weekly PDP split &amp; per-machine</b> (A0b). <span class="ask">PDP is monthly in Kinaxis; the weekly split is manual (supply) — can it be sourced? Is the per-machine resource code clean in Athena / Kinaxis?</span></span></li>
+        <li><span><b>VA ⇄ Volume toggle</b> (A0, A1, A2). <span class="ask">Both measures exist; confirm the volume aggregation rule and that the toggle is wanted (with Kiki).</span></span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="view" id="defs" role="tabpanel">
+    <div class="note" style="margin-bottom:14px">
+      <span class="tag">Power BI pattern — a real report page</span>
+      In Power BI, definitions live in the model (measure descriptions), surface on hover (tooltips), and are collected on a page like this one. No attached document. This is that page — every term the redesign uses, in one place.
+    </div>
+
+    <div class="card panel">
+      <div class="panel-h"><span class="q">Definitions</span></div>
+      <div class="panel-cap">Official definitions where we have them (source: Taís / Alexia). <span class="tbc">to confirm</span> marks what still needs the team.</div>
+      <div class="gloss">
+        <div class="grp2">Reference KPIs</div>
+        <div class="term"><div class="t">Activity (AV)<span class="sub">Added Value</span></div><div class="d">The month's industrial value added (machine and labour hours turned into value), cumulative to date. The headline figure of the overview.</div></div>
+        <div class="term"><div class="t">AV Movement<span class="sub">Core</span></div><div class="d">AV computed in Core from production volumes × standard costs. The operational view, used as the performance reference.</div></div>
+        <div class="term"><div class="t">AV Ledger<span class="sub">ERP</span></div><div class="d">AV recorded in the ERP after all entries, accruals and local adjustments. The official financial reference.</div></div>
+        <div class="term"><div class="t">AV Gap (%)</div><div class="d">AV Movement minus AV Ledger, as a percentage. The tie-out measure. Known drivers: cut-off (GR/DLV/TECO), ILDA (target vs actual), Atina↔Polaris articulation, PPV↔AV reclassification, local adjustments.</div></div>
+        <div class="term"><div class="t">Estimated landing <span class="tbc">to confirm</span></div><div class="d">Projected full-year activity: actual through month close, then forecast. The existence of a modeled measure is to confirm.</div></div>
+
+        <div class="grp2">Variances monitored</div>
+        <div class="term"><div class="t">Variance <span class="sub">the principle</span></div><div class="d">The gap between <b>standard cost</b> (the plan) and <b>actual</b>, attributed to a named cause. Everything runs at standard; the variances explain why reality differs. They are the content of A3.</div></div>
+        <div class="term"><div class="t">Yield variance <span class="sub">Y&amp;S</span></div><div class="d">Did the process give the expected output from the inputs? Standard says <i>X input → Y output</i>; if the actual yield is lower (losses, a reaction running below spec), more input is consumed per unit produced — an unfavorable yield variance. The efficiency of the transformation.</div></div>
+        <div class="term"><div class="t">Substitution variance <span class="sub">Y&amp;S · mix</span></div><div class="d">Did we use the planned materials, or swap one for another? When an input is replaced (e.g. a different excipient or source) versus the standard recipe, the cost impact of that changed mix is the substitution variance. <span class="tbc">exact definition to confirm with Taís / Kiki</span></div></div>
+        <div class="term"><div class="t">PPV<span class="sub">Purchase Price Variance</span></div><div class="d">Difference between standard and actual purchase price of materials. A major driver of manufacturing performance (purchase-value side, read alongside AV).</div></div>
+        <div class="term"><div class="t">Material price variance</div><div class="d">Impact of raw-material price deviations compared to standard costs.</div></div>
+        <div class="term"><div class="t">FX variance</div><div class="d">Impact of exchange-rate fluctuations on production costs and purchases.</div></div>
+
+        <div class="grp2">Posting types (SAP document types)</div>
+        <div class="term"><div class="t">MA</div><div class="d">Automatic posting generated by Athena.</div></div>
+        <div class="term"><div class="t">MG</div><div class="d">Manual posting related to interface corrections or operational adjustments.</div></div>
+        <div class="term"><div class="t">SA</div><div class="d">Manual finance adjustment (e.g. a PPV adjustment).</div></div>
+
+        <div class="grp2">Cut-off — activity dating basis</div>
+        <div class="term"><div class="t">AUTO</div><div class="d">The system picks the right dating basis. The default; the site user never changes it.</div></div>
+        <div class="term"><div class="t">GR · DLV · TECO</div><div class="d">Goods receipt · delivery · technical completion dates. Different methodologies that shift how activity is dated.</div></div>
+        <div class="term"><div class="t">EARLIEST · LATEST · CLOSE</div><div class="d">Boundary and close dates for the period. Expert settings.</div></div>
+
+        <div class="grp2">Scenarios &amp; standards</div>
+        <div class="term"><div class="t">Bud26</div><div class="d">Budget 2026. The default basis for the “vs Budget” comparison.</div></div>
+        <div class="term"><div class="t">RF<span class="sub">Rolling Forecast</span></div><div class="d">The forecast reference. Activity always starts from volumes (actuals ≠ forecasts).</div></div>
+        <div class="term"><div class="t">Std 25 · 26 · N</div><div class="d">Standard cost version. Default = the current standard.</div></div>
+        <div class="term"><div class="t">Full AV vs Step STD <span class="tbc">to confirm</span></div><div class="d">A toggle in the current dashboard. What it changes exactly is a design point to pass with Taís / Kiki.</div></div>
+
+        <div class="grp2">Scope &amp; reference</div>
+        <div class="term"><div class="t">Scope AUTO</div><div class="d">Your perimeter, following the user through Row-Level Security. Site, region or group.</div></div>
+        <div class="term"><div class="t">TM1</div><div class="d">The company's monthly-close controlling reference (IBM). The dashboard is meant to feed it automatically.</div></div>
+        <div class="term"><div class="t">Activity (€) vs Quantity (volume)</div><div class="d">Activity is the <b>valuation in euros</b> — the common denominator. Quantity is the raw <b>volume in units</b>, which is heterogeneous (boxes of 1,000, semi-finished goods) and cannot be summed directly. Possibly a value/volume toggle. <span class="tbc">toggle to confirm with Kiki</span></div></div>
+        <div class="term"><div class="t">GMID</div><div class="d">Product identifier. A site's forecast is submitted GMID by GMID (product by product).</div></div>
+        <div class="term"><div class="t">MIT · Kinaxis · Meet</div><div class="d">Kinaxis computes the supply-chain forecast automatically; the MIT (manual input template), submitted through Meet, is where teams adjust it in delta, month by month.</div></div>
+        <div class="term"><div class="t">PDP <span class="sub">Plan Directeur de Production</span></div><div class="d">The production plan — a site's <b>key comparison</b>, next to budget. Activity and volumes are read vs PDP. Loaded monthly in Kinaxis; a weekly split is done by hand today. A real reference to surface (e.g. Lisieux's weekly review).</div></div>
+        <div class="term"><div class="t">GCC · Management Center</div><div class="d">GCC = regional shared-service hubs (Bogotá, Budapest, Kuala Lumpur) supporting the sites. Management Center = the code name for a site, and the floor of data access.</div></div>
+        <div class="term"><div class="t">Atina (Athena) · Polaris</div><div class="d">Atina = the manufacturing ERP (source of AV, also the “Athena” of automatic postings). Polaris = the financial ERP. In Brazil and Mexico they are <b>not integrated</b>, which creates the gap; in the US they are one system (not in this model yet).</div></div>
+        <div class="term"><div class="t">ILDA reclassification</div><div class="d">AV should be a <b>target value</b>, but the system posts the <b>actual value</b>. The difference is reclassified to ILDA — a manual monthly journal. A real driver of the AV Gap, alongside Atina↔Polaris articulation errors and PPV↔AV reclassifications.</div></div>
+      </div>
+    </div>
+  </section>
+
+      </div><!-- /rptcanvas -->
+    </div><!-- /report -->
+  </div><!-- /reportframe -->
+
+  <div class="footer">
+    Working mockup — <b>fictitious figures</b>, structure to test with site finance.
+    One visual language across all screens. · Light/dark theme via the viewer's toggle.
+  </div>
+</div>
+
+<script>
+  const tabs = document.querySelectorAll('.tab');
+  const views = document.querySelectorAll('.view');
+  function fillBars(id) {
+    document.querySelectorAll('#' + id + ' .fill[data-w]').forEach(f => { f.style.width = f.dataset.w + '%'; });
+  }
+  const reportframe = document.getElementById('reportframe');
+  function show(id) {
+    views.forEach(v => v.classList.toggle('active', v.id === id));
+    tabs.forEach(t => t.setAttribute('aria-selected', t.dataset.view === id));
+    // the working view (Logic & spec) is ours, not the report → drop the report chrome
+    reportframe.classList.toggle('working', id === 'logic');
+    requestAnimationFrame(() => fillBars(id));
+  }
+  tabs.forEach(t => t.addEventListener('click', () => show(t.dataset.view)));
+
+  requestAnimationFrame(() => requestAnimationFrame(() => fillBars('a0')));
+
+  document.querySelectorAll('.site').forEach(s => {
+    s.addEventListener('dblclick', () => show('a1'));
+    s.addEventListener('keydown', e => { if (e.key === 'Enter') show('a1'); });
+  });
+
+  // ----- Scope switcher: same screen A0, scoped to the user's perimeter -----
+  const SCOPES = {
+    site: { mtd: "34.2", scope: "Lisieux · site",
+      bud: { v: "+0.5 %", s: "+€0.2M", d: "up" }, rf: { v: "−0.3 %", s: "−€0.1M", d: "down" }, gap: "−0.2%",
+      btitle: "By line · anything off?", bcap: "€ impact vs budget, worst first — within Lisieux, by line (% shown too). Beyond ±5% flagged. Full drill in A1.",
+      vmtd: "161", vunit: "M u", vbtitle: "By line · anything off?", vbcap: "€ impact vs budget, worst first — within Lisieux, by line (% shown too). Beyond ±5% flagged. Full drill in A1.",
+      vbud: { v: "+1.9 %", s: "+3M u", d: "up" }, vrf: { v: "−0.6 %", s: "−1M u", d: "down" },
+      rows: [ { n: "Packaging PACK-02", v: "12.4", vv: "58", vsb: 2.1, evar: 0.3 }, { n: "Granulation GRAN-01", v: "9.7", vv: "44", vsb: -1.2, evar: -0.1 }, { n: "Liquids LIQ-03", v: "6.5", vv: "31", vsb: -4.0, evar: -0.3 }, { n: "Coating COAT-01", v: "4.2", vv: "22", vsb: 3.4, evar: 0.1 }, { n: "Other lines", v: "1.4", vv: "6", vsb: 0.5, evar: 0.1 } ],
+      a2landing: "405", a2actual: "230", a2remaining: "175", a2bud: { v: "+0.8 %", s: "+€3M", d: "up" }, a2rf: { v: "−0.4 %", s: "−€2M", d: "down" },
+      va2landing: "1,610", va2actual: "915", va2remaining: "695", va2bud: { v: "+2.2 %", s: "+35M u", d: "up" }, va2rf: { v: "−0.5 %", s: "−8M u", d: "down" },
+      a1dev: "0", a3total: "−0.8", a4move: "34.2", a4ledger: "34.3", a4oot: "0",
+      a1rows: [
+        { c: "lvl-line", chev: "▸", name: "Packaging PACK-02", act: "12.4", vact: "58", vs: "+0.6%", vsCls: "pos", status: "within tolerance" },
+        { c: "lvl-line", chev: "▸", name: "Granulation GRAN-01", act: "9.7", vact: "44", vs: "+0.4%", vsCls: "pos", status: "within tolerance" },
+        { c: "lvl-line", chev: "▸", name: "Liquids LIQ-03", act: "6.5", vact: "31", vs: "−0.2%", vsCls: "neg", status: "within tolerance" },
+        { c: "lvl-line", chev: "▸", name: "Coating COAT-01", act: "4.2", vact: "22", vs: "+0.1%", vsCls: "pos", status: "within tolerance" },
+        { c: "lvl-line", chev: "▸", name: "Other lines", act: "1.4", vact: "6", vs: "—", vsCls: "", status: "within tolerance" }
+      ] },
+    region: { mtd: "61.4", scope: "AMEA · region",
+      bud: { v: "−0.6 %", s: "−€0.4M", d: "down" }, rf: { v: "−1.1 %", s: "−€0.7M", d: "down" }, gap: "−0.9%",
+      btitle: "By site · anything off?", bcap: "€ impact vs budget, worst first — what's dragging the month? (% shown too). Beyond ±5% flagged. Full drill in A1.",
+      vmtd: "285", vunit: "M u", vbtitle: "By site · anything off?", vbcap: "€ impact vs budget, worst first — what's dragging the month? (% shown too). Beyond ±5% flagged. Full drill in A1.",
+      vbud: { v: "+1.2 %", s: "+3M u", d: "up" }, vrf: { v: "−1.6 %", s: "−5M u", d: "down" },
+      rows: [ { n: "Ocoyoacac", v: "24.6", vv: "118", vsb: -9.9, evar: -2.5, flag: true, cause: "Cut-off gap (GR/DLV) — not reconciled today" }, { n: "HCMC", v: "15.2", vv: "72", vsb: 1.2, evar: 0.2 }, { n: "Rzeszów", v: "11.8", vv: "54", vsb: -0.8, evar: -0.1 }, { n: "Suzano", v: "9.8", vv: "41", vsb: 0.5, evar: 0.1 } ],
+      a2landing: "728", a2actual: "413", a2remaining: "315", a2bud: { v: "−0.4 %", s: "−€3M", d: "down" }, a2rf: { v: "−0.9 %", s: "−€6M", d: "down" },
+      va2landing: "2,880", va2actual: "1,630", va2remaining: "1,250", va2bud: { v: "+1.4 %", s: "+40M u", d: "up" }, va2rf: { v: "−1.1 %", s: "−32M u", d: "down" },
+      a1dev: "1", a3total: "−1.6", a4move: "61.4", a4ledger: "62.0", a4oot: "1",
+      a1rows: [
+        { c: "lvl-site flag", chev: "▾", name: "Ocoyoacac <b>⚠</b>", act: "24.6", vact: "118", vs: "−9.9%", status: "Cut-off gap (GR/DLV) — not reconciled today" },
+        { c: "lvl-line flag", name: "Line PACK-02", act: "14.1", vact: "68", vs: "−12.3%", status: "TECO pending" },
+        { c: "lvl-line flag", name: "Line GRAN-01", act: "10.5", vact: "48", vs: "−0.4%", status: "ok" },
+        { c: "lvl-site", chev: "▸", name: "HCMC", act: "15.2", vact: "72", vs: "+1.2%", vsCls: "pos", status: "within tolerance" },
+        { c: "lvl-site", chev: "▸", name: "Rzeszów", act: "11.8", vact: "54", vs: "−0.8%", vsCls: "neg", status: "within tolerance" },
+        { c: "lvl-site", chev: "▸", name: "Suzano", act: "9.8", vact: "41", vs: "+0.5%", vsCls: "pos", status: "within tolerance" }
+      ] },
+    all: { mtd: "128.4", scope: "All sites · group",
+      bud: { v: "+2.1 %", s: "+€2.6M", d: "up" }, rf: { v: "−1.4 %", s: "−€1.8M", d: "down" }, gap: "−0.3%",
+      btitle: "By site · anything off?", bcap: "€ impact vs budget, worst first — what's dragging the month? (% shown too). Beyond ±5% flagged. Full drill in A1.",
+      vmtd: "512", vunit: "M u", vbtitle: "By site · anything off?", vbcap: "€ impact vs budget, worst first — what's dragging the month? (% shown too). Beyond ±5% flagged. Full drill in A1.",
+      vbud: { v: "+3.4 %", s: "+17M u", d: "up" }, vrf: { v: "−0.9 %", s: "−5M u", d: "down" },
+      rows: [ { n: "Lisieux", v: "34.2", vv: "141", vsb: 0.5, evar: 0.2 }, { n: "Ocoyoacac", v: "24.6", vv: "118", vsb: -9.9, evar: -2.5, flag: true, cause: "Cut-off gap (GR/DLV) — not reconciled today" }, { n: "Compiègne", v: "28.7", vv: "96", vsb: -2.5, evar: -0.7 }, { n: "Val-de-Reuil", v: "22.5", vv: "74", vsb: -0.9, evar: -0.2 }, { n: "Suzano", v: "17.8", vv: "61", vsb: 0.5, evar: 0.1 }, { n: "Other sites", v: "8.6", vv: "22", vsb: 1.1, evar: 0.1 } ],
+      a2landing: "1,522", a2actual: "863", a2remaining: "659", a2bud: { v: "+1.1 %", s: "+€17M", d: "up" }, a2rf: { v: "−0.6 %", s: "−€9M", d: "down" },
+      va2landing: "6,050", va2actual: "3,430", va2remaining: "2,620", va2bud: { v: "+2.8 %", s: "+165M u", d: "up" }, va2rf: { v: "−0.4 %", s: "−24M u", d: "down" },
+      a1dev: "1", a3total: "−3.2", a4move: "128.4", a4ledger: "128.8", a4oot: "1",
+      a1rows: [
+        { c: "lvl-site flag", chev: "▾", name: "Ocoyoacac · AMEA <b>⚠</b>", act: "24.6", vact: "118", vs: "−9.9%", status: "Cut-off gap (GR/DLV) — not reconciled today" },
+        { c: "lvl-line flag", name: "Line PACK-02", act: "14.1", vact: "68", vs: "−12.3%", status: "TECO pending" },
+        { c: "lvl-line flag", name: "Line GRAN-01", act: "10.5", vact: "48", vs: "−0.4%", status: "ok" },
+        { c: "lvl-region", chev: "▾", name: "EULA", act: "61.4", vact: "243", vs: "−0.6%", vsCls: "neg", status: "within tolerance" },
+        { c: "lvl-site", chev: "▸", name: "Lisieux", act: "34.2", vact: "141", vs: "+0.5%", vsCls: "pos", status: "within tolerance" },
+        { c: "lvl-site", chev: "▸", name: "Compiègne", act: "28.7", vact: "96", vs: "−2.5%", vsCls: "neg", status: "within tolerance" },
+        { c: "lvl-region", chev: "▸", name: "N. America", act: "42.4", vact: "168", vs: "+3.1%", vsCls: "pos", status: "" },
+        { c: "lvl-site", chev: "▸", name: "Chattanooga", act: "26.9", vact: "112", vs: "+10.9%", vsCls: "pos", status: "above budget — check" }
+      ] }
+  };
+  const g = id => document.getElementById(id);
+  let curScope = 'all', curMeas = 'val';
+  // A0 scan: a diverging bar by € impact vs budget (red left / green right), worst first; % as a secondary label.
+  function dvRow(r, maxE) {
+    const e = r.evar, neg = e < 0;
+    const w = Math.min(Math.abs(e) / maxE, 1) * 50; // % of the half-track, scaled to the worst in view
+    const kind = r.flag ? 'flag' : (neg ? 'neg' : 'pos');
+    const eur = (e < 0 ? '−' : '+') + '€' + Math.abs(e).toFixed(1) + 'M';
+    const pct = (r.vsb > 0 ? '+' : '') + r.vsb.toFixed(1) + '%';
+    const wi = r.flag ? ' <span class="warn-i">⚠</span>' : '';
+    const cause = r.cause ? '<div class="dvcause">' + r.cause + ' <span class="tbc">to confirm</span></div>' : '';
+    const side = neg ? 'right:50%' : 'left:50%';
+    return '<div class="dvrow ' + kind + '" tabindex="0"><span class="nm">' + r.n + wi + '</span>'
+      + '<span class="dvtrack"><span class="dvfill ' + kind + '" style="' + side + ';width:' + w + '%"></span></span>'
+      + '<span class="dvval ' + kind + '"><b>' + eur + '</b><span class="dvpct">' + pct + '</span></span>' + cause + '</div>';
+  }
+  function matrixRow(r, vol) {
+    const chev = r.chev ? '<span class="chev">' + r.chev + '</span>' : '';
+    const vs = r.vsCls ? '<span class="' + r.vsCls + '">' + r.vs + '</span>' : r.vs;
+    const act = vol ? (r.vact != null ? r.vact : r.act) : r.act;
+    return '<tr class="' + r.c + '"><td>' + chev + r.name + '</td><td class="num">' + act + '</td><td class="num">' + vs + '</td><td>' + r.status + '</td></tr>';
+  }
+  function setDelta(el, o) {
+    el.className = 'v ' + o.d;
+    el.innerHTML = '<span class="arrow">' + (o.d === 'up' ? '▲' : '▼') + '</span>' + o.v + '<small>·&nbsp;' + o.s + '</small>';
+  }
+  // eyebrow label + tooltip adapt to the measure (value vs volume)
+  const EYE = {
+    val: { label: 'Activity · Month to date',
+      tip: '<b>Activity (AV)</b> — the month’s industrial value added (machine and labour hours turned into value), cumulative to date. Computed from volumes × standard costs.' },
+    vol: { label: 'Volume · Month to date',
+      tip: '<b>Volume (units)</b> — the physical quantity produced this month, cumulative to date. Heterogeneous units (boxes, semi-finished) that are not summed across unlike products; read alongside value.' }
+  };
+  function renderScope(key) {
+    curScope = key;
+    const s = SCOPES[key];
+    const vol = curMeas === 'vol';
+    const eye = vol ? EYE.vol : EYE.val;
+    if (g('a0-mtd')) {
+      g('a0-mtd').textContent = vol ? s.vmtd : s.mtd;
+      g('a0-unit').textContent = vol ? s.vunit : 'M€';
+      g('a0-eyebrow').textContent = eye.label; g('a0-eyetip').innerHTML = eye.tip;
+      g('a0-scope').textContent = s.scope;
+      setDelta(g('a0-bud'), vol ? s.vbud : s.bud); setDelta(g('a0-rf'), vol ? s.vrf : s.rf);
+      g('a0-gap').textContent = s.gap;
+      g('a0-btitle').textContent = vol ? s.vbtitle : s.btitle;
+      g('a0-bcap').textContent = vol ? s.vbcap : s.bcap;
+      const scan = s.rows.slice().sort((a, b) => a.evar - b.evar); // worst € impact first
+      const maxE = Math.max(0.1, ...s.rows.map(r => Math.abs(r.evar)));
+      g('sites').innerHTML = scan.map(r => dvRow(r, maxE)).join('');
+    }
+    if (g('a1-mtd')) {
+      g('a1-mtd').textContent = vol ? s.vmtd : s.mtd;
+      g('a1-unit').textContent = vol ? s.vunit : 'M€';
+      g('a1-eyebrow').textContent = eye.label; g('a1-eyetip').innerHTML = eye.tip;
+      g('a1-actcol').textContent = vol ? 'Volume (M u)' : 'Activity (M€)';
+      setDelta(g('a1-bud'), vol ? s.vbud : s.bud);
+      g('a1-scope').textContent = s.scope; g('a1-dev').textContent = s.a1dev;
+      g('a1-matrix').innerHTML = s.a1rows.map(r => matrixRow(r, vol)).join('');
+    }
+    if (g('a2-landing')) {
+      const land = vol ? s.va2landing : s.a2landing;
+      g('a2-landing').textContent = land; g('a2-landing-res').textContent = land;
+      g('a2-actual').textContent = vol ? s.va2actual : s.a2actual;
+      g('a2-remaining').textContent = vol ? s.va2remaining : s.a2remaining;
+      g('a2-unit').textContent = vol ? 'M u' : 'M€';
+      document.querySelectorAll('.a2u').forEach(u => u.textContent = vol ? 'M u' : 'M€');
+      g('a2-chartland').textContent = 'Landing ' + land + (vol ? ' M u' : ' M€');
+      g('a2-scope').textContent = s.scope;
+      setDelta(g('a2-bud'), vol ? s.va2bud : s.a2bud); setDelta(g('a2-rf'), vol ? s.va2rf : s.a2rf);
+    }
+    if (g('a3-total')) { g('a3-total').textContent = s.a3total; g('a3-scope').textContent = s.scope; }
+    if (g('a4-move')) {
+      g('a4-move').textContent = s.a4move; g('a4-ledger').textContent = s.a4ledger;
+      g('a4-gap').textContent = s.gap; g('a4-oot').textContent = s.a4oot; g('a4-scope').textContent = s.scope;
+    }
+    requestAnimationFrame(() => { fillBars('a0'); });
+  }
+  document.querySelectorAll('.scopeseg button').forEach(b => {
+    b.addEventListener('click', () => {
+      document.querySelectorAll('.scopeseg button').forEach(x => x.setAttribute('aria-pressed', String(x.dataset.scope === b.dataset.scope)));
+      renderScope(b.dataset.scope);
+    });
+  });
+  document.querySelectorAll('.measseg button').forEach(b => {
+    b.addEventListener('click', () => {
+      document.querySelectorAll('.measseg button').forEach(x => x.setAttribute('aria-pressed', String(x.dataset.meas === b.dataset.meas)));
+      curMeas = b.dataset.meas;
+      renderScope(curScope);
+    });
+  });
+  document.getElementById('sites').addEventListener('dblclick', () => show('a1'));
+  document.querySelectorAll('.nextcard[data-goto]').forEach(b => b.addEventListener('click', () => show(b.dataset.goto)));
+
+  // A0b weekly review — the week selector drives the two headline KPIs
+  const WEEKS = {
+    W23: { va: "7.6", vol: "36", vaPdp: ["▼ −9.5 %","neg"], vaBud: ["▼ −1.3 %","neg"], volPdp: ["▼ −10.0 %","neg"], volBud: ["▼ −1.4 %","neg"] },
+    W24: { va: "8.0", vol: "37", vaPdp: ["▼ −4.8 %","neg"], vaBud: ["▲ +1.3 %","pos"], volPdp: ["▼ −7.5 %","neg"], volBud: ["▲ +0.5 %","pos"] },
+    W25: { va: "7.4", vol: "35", vaPdp: ["▼ −11.9 %","neg"], vaBud: ["▼ −3.8 %","neg"], volPdp: ["▼ −12.5 %","neg"], volBud: ["▼ −4.1 %","neg"] },
+    W26: { va: "8.3", vol: "39", vaPdp: ["▼ −1.2 %","neg"], vaBud: ["▲ +5.1 %","pos"], volPdp: ["▼ −2.5 %","neg"], volBud: ["▲ +5.4 %","pos"] },
+    W27: { va: "8.1", vol: "38", vaPdp: ["▼ −3.6 %","neg"], vaBud: ["▲ +2.5 %","pos"], volPdp: ["▼ −5.0 %","neg"], volBud: ["▲ +2.7 %","pos"] }
+  };
+  function setWk(el, pair) { el.textContent = pair[0]; el.className = pair[1]; }
+  function renderWeek(w) {
+    const d = WEEKS[w];
+    ['a0b-wk1','a0b-wk2','a0b-wk3'].forEach(id => { if (g(id)) g(id).textContent = w; });
+    g('a0b-va').textContent = d.va; g('a0b-vol').textContent = d.vol;
+    setWk(g('a0b-vapdp'), d.vaPdp); setWk(g('a0b-vabud'), d.vaBud);
+    setWk(g('a0b-volpdp'), d.volPdp); setWk(g('a0b-volbud'), d.volBud);
+  }
+  document.querySelectorAll('.weekseg button').forEach(b => {
+    b.addEventListener('click', () => {
+      document.querySelectorAll('.weekseg button').forEach(x => x.setAttribute('aria-pressed', String(x.dataset.week === b.dataset.week)));
+      renderWeek(b.dataset.week);
+    });
+  });
+  renderWeek('W27');
+
+  renderScope('all');
+
+  // design-notes toggle
+  const btn = document.getElementById('notesBtn');
+  btn.addEventListener('click', () => {
+    const on = btn.getAttribute('aria-pressed') === 'true';
+    btn.setAttribute('aria-pressed', String(!on));
+    document.body.classList.toggle('notes-off', on);
+  });
+
+  // setting chips: only one menu open at a time; close on outside click
+  const dds = document.querySelectorAll('.chip-dd');
+  dds.forEach(d => d.addEventListener('toggle', () => {
+    if (d.open) dds.forEach(o => { if (o !== d) o.open = false; });
+  }));
+  document.addEventListener('click', e => {
+    if (!e.target.closest('.chip-dd')) dds.forEach(o => { o.open = false; });
+  });
+</script>
+
+</body>
+</html>
