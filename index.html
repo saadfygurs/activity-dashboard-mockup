@@ -138,6 +138,8 @@
   .rptslicers { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; padding: 8px 18px; background: var(--surface); border-bottom: 1px solid var(--border); }
   .rptslicers .lbl { font-size: .64rem; text-transform: uppercase; letter-spacing: normal; color: var(--ink-3); font-weight: 600; margin-right: 2px; }
   .rptcanvas { padding: 16px; background: var(--surface-2); }
+  .rpthead .pgtag { font-size: .58rem; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-3); font-weight: 700; margin-right: 5px; }
+  .rpthead #rpt-page { color: var(--ink); font-weight: 700; }
   .rptcanvas .view.active { animation: none; }
   /* working view (Logic & spec) is ours, not the report → drop the report chrome */
   .reportframe.working .rptbadge, .reportframe.working .rpthead, .reportframe.working .rptslicers { display: none; }
@@ -437,9 +439,11 @@
   .mtx th { text-align: left; font-size: .6rem; text-transform: uppercase; letter-spacing: normal; color: var(--ink-3); font-weight: 600; padding: 7px 10px; border-bottom: 1px solid var(--border-2); }
   .mtx td { padding: 7px 10px; border-bottom: 1px solid var(--border); }
   .mtx td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .mtx tr.lvl-type td { font-weight: 700; background: color-mix(in srgb, var(--slate) 8%, var(--surface)); text-transform: none; }
   .mtx tr.lvl-region td { font-weight: 600; background: var(--surface-2); }
-  .mtx tr.lvl-site td:first-child { padding-left: 22px; }
-  .mtx tr.lvl-line td:first-child { padding-left: 40px; color: var(--ink-2); font-size: .78rem; }
+  .mtx tr.lvl-region td:first-child { padding-left: 22px; }
+  .mtx tr.lvl-site td:first-child { padding-left: 40px; }
+  .mtx tr.lvl-line td:first-child { padding-left: 58px; color: var(--ink-2); font-size: .78rem; }
   .mtx tr.flag td { background: var(--warn-soft); color: var(--warn); }
   .mtx .cause { font-size: .7rem; color: var(--warn); }
   .mtx .chev { color: var(--ink-3); margin-right: 6px; font-size: .7em; }
@@ -737,7 +741,7 @@
         <span class="hdiv"></span>
         <div class="brand-txt">
           <h1>Activity — Added Value</h1>
-          <p>MNS Finance · month to date</p>
+          <p><span class="pgtag">Page</span> <b id="rpt-page">Overview</b></p>
         </div>
         <span class="hspacer"></span>
         <span class="refresh">Last refresh · <b>08 Jul 2026, 06:12</b></span>
@@ -746,10 +750,13 @@
         <span class="lbl">Filters</span>
         <details class="chip-dd"><summary class="chip"><span class="k">Period</span> This month <span class="car">▾</span></summary>
           <div class="chip-menu">
+            <div class="opt">Daily</div>
+            <div class="opt">Weekly</div>
             <div class="opt sel">This month (MTD)</div>
+            <div class="opt">Year to date (YTD)</div>
             <div class="opt">Last month</div>
             <div class="opt">Custom range…</div>
-            <div class="chip-note">Default: <b>current month to date</b>. Replaces the 12 month buttons.</div>
+            <div class="chip-note"><b>Period is a toggle</b> (Daily / Weekly / MTD / YTD). Default = current month to date. The page isn't locked to one period.</div>
           </div>
         </details>
         <details class="chip-dd"><summary class="chip"><span class="k">Scope</span> AUTO <span class="car">▾</span></summary>
@@ -804,7 +811,8 @@
         <div class="ritem"><b>5 · No SAP jargon up front.</b> Business words on the surface (Activity, site, budget). GR / DLV / TECO / GMID / LMID live behind an expert reveal or in Data integrity.</div>
         <div class="ritem"><b>6 · One visual language.</b> Same card, type scale, colour semantics and layout grammar everywhere. Opella green anchors the brand and structure; amber = watch, red = critical — colour is always semantic, never decorative.</div>
         <div class="ritem"><b>7 · Smart defaults.</b> The system pre-picks period, scope, cut-off, scenario and standard for ~95% of cases, shows them read-only so you know what you’re looking at, and lets the expert expand them. Zero buttons <i>required</i>, not zero buttons <i>possible</i>.</div>
-        <div class="ritem"><b>8 · File it, don’t trash it.</b> Debug and control visuals (missing standards, refresh, transactional detail) move to a Data integrity page — out of the client path, still there for the team.</div>
+        <div class="ritem"><b>8 · File it, don’t trash it.</b> Debug and control visuals (missing standards, refresh, pipeline freshness) move to a Data integrity page — out of the client path, still there for the team. The transactional detail is <b>not</b> filed here: it's the drill endpoint (see principle 9).</div>
+        <div class="ritem"><b>9 · Traceable to source.</b> Every aggregate drills all the way to its <b>exact SAP value</b>. Progressive disclosure never stops at a summary — the deepest granularity is always reachable. This is the core value, not an option.</div>
       </div>
     </details>
 
@@ -856,8 +864,8 @@
         <div class="card trust">
           <div class="tick"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>
           <div>
-            <div class="t1">It reconciles · <b id="a0-gap">−0.3%</b><span class="ihint" tabindex="0">i<span class="tip"><b>AV Gap</b> — AV Movement (Core) minus AV Ledger (ERP), as a %. Within ±0.5% = reconciled. Drivers: cut-off, ILDA (target vs actual), Atina↔Polaris articulation, PPV↔AV reclass, local.</span></span></div>
-            <div class="t2">Movement ↔ Ledger reconciled · last refresh 06:12</div>
+            <div class="t1">It reconciles · <b id="a0-gap">−0.3%</b><span class="ihint" tabindex="0">i<span class="tip"><b>AV Gap</b> — AV Movement (Core) minus AV Ledger (ERP), as a %. Within ±0.5% = reconciled. Drivers: cut-off, ILDA (target vs actual), Atina↔Polaris articulation, PPV↔AV reclass, local. <b>Freshness-aware:</b> a site whose ledger isn't refreshed yet reads "pending", never "off" — reconciliation is checked at the right aggregation, not per-site-per-day.</span></span></div>
+            <div class="t2">Movement ↔ Ledger reconciled · all sites current as of 06:12</div>
           </div>
         </div>
       </div>
@@ -984,7 +992,7 @@
       <div class="panel-cap">Expand a row to drill down. Deviating sites are pulled to the top and flagged with the cause.</div>
       <div class="chartwrap">
         <table class="mtx">
-          <thead><tr><th>Region / site / line</th><th class="num" id="a1-actcol">Activity (M€)</th><th class="num">vs Budget</th><th>Status</th></tr></thead>
+          <thead><tr><th>Type · region · site · line</th><th class="num" id="a1-actcol">Activity (M€)</th><th class="num">vs Budget</th><th>Status</th></tr></thead>
           <tbody id="a1-matrix">
             <tr class="lvl-site flag"><td><span class="chev">▾</span>Ocoyoacac · AMEA <b>⚠</b></td><td class="num">24.6</td><td class="num">−9.9%</td><td>Cut-off gap (GR/DLV) — not reconciled today</td></tr>
             <tr class="lvl-line flag"><td>Line PACK-02</td><td class="num">14.1</td><td class="num">−12.3%</td><td>TECO pending</td></tr>
@@ -999,7 +1007,7 @@
       </div>
       <div class="discl">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
-        Double-click a line to open its transactional detail (Data integrity). The overview badge stays true here — same reconciliation logic.
+        Double-click a line to <b>drill through to the transactional detail — the exact SAP line items</b>, the finest granularity. This is a first-class endpoint of the drill, not a debug view. Every aggregate traces to its source value.
       </div>
     </div>
 
@@ -1677,11 +1685,11 @@
     <div class="card stub">
       <div class="q">Data integrity</div>
       <div class="role">Technical page — filed, not trashed</div>
-      <div class="desc">The home for debug and control visuals (missing standards, refresh, datafeed, transactional detail) — moved out of client pages. Principle: file it, don't trash it. The business user never meets it; the team finds it when needed.</div>
+      <div class="desc">The home for debug, control and <b>pipeline-freshness</b> visuals (missing standards, refresh status, datafeed, last-movement-date, the 12h-no-production flag) — moved out of client pages. <b>Not</b> the transactional detail: that's a drill endpoint (principle 9), not debug. Integrity ≠ reconciliation: freshness catches a broken pipeline even when the number would still "tie out". Ask Roland which metadata is available.</div>
       <div class="wire">
         <div class="bar w80"></div><div class="bar w60"></div><div class="bar w40"></div>
       </div>
-      <div class="todo">🖉 Destination for _STD_Missing, _Refresh, CKIS, transactional-detail visuals</div>
+      <div class="todo">🖉 Destination for _STD_Missing, _Refresh, CKIS, datafeed &amp; freshness visuals · transactional detail lives on the drill path</div>
     </div>
     <div class="note feas"><span class="tag">Power BI feasibility</span> Native tables/matrices; existing visuals relocated, not rebuilt.</div>
   </section>
@@ -1699,7 +1707,7 @@
     </div>
 
     <div class="card panel">
-      <div class="panel-h"><span class="q"><span class="secn">02</span> The eight design principles</span></div>
+      <div class="panel-h"><span class="q"><span class="secn">02</span> The design principles</span></div>
       <div class="panel-cap">The rules behind every screen, from field interviews (Adèle, Taís) and financial-dashboard best practice. The dashboard is learned once, then reused.</div>
       <ul class="checklist settled" style="margin-top:2px">
         <li style="grid-template-columns:1fr"><span><b>1 · One screen = one question.</b> Each tab answers exactly one question, in plain words at the top. Two questions → two screens. Kills the "everything on one page" reflex.</span></li>
@@ -1709,7 +1717,8 @@
         <li style="grid-template-columns:1fr"><span><b>5 · No SAP jargon up front.</b> Business words on the surface (Activity, site, budget). GR / DLV / TECO / GMID live behind an expert reveal or in Data integrity.</span></li>
         <li style="grid-template-columns:1fr"><span><b>6 · One visual language.</b> Same card, type scale, colour semantics and layout everywhere. Opella green anchors structure; amber = watch, red = critical — colour is always semantic, never decorative.</span></li>
         <li style="grid-template-columns:1fr"><span><b>7 · Smart defaults.</b> The system pre-picks period, scope, cut-off, scenario and standard for ~95% of cases, shows them read-only, and lets the expert expand. Zero buttons <i>required</i>, not zero buttons <i>possible</i>.</span></li>
-        <li style="grid-template-columns:1fr"><span><b>8 · File it, don't trash it.</b> Debug and control visuals move to the Data integrity page — out of the client path, still there for the team.</span></li>
+        <li style="grid-template-columns:1fr"><span><b>8 · File it, don't trash it.</b> Debug, refresh and pipeline-freshness visuals move to the Data integrity page — out of the client path, still there for the team. The transactional detail is not filed here.</span></li>
+        <li style="grid-template-columns:1fr"><span><b>9 · Traceable to source.</b> Every aggregate drills all the way to its <b>exact SAP value</b> (daily, volumes → TM1). Progressive disclosure never stops at a summary — the finest granularity is always reachable. It's the core value, and it's native Power BI (drillthrough), not an add-on.</span></li>
       </ul>
     </div>
 
@@ -1909,7 +1918,7 @@
             <tr class="grp"><td colspan="3">CORE_Finance — actuals AV</td></tr>
             <tr><td class="pg">Daily Overview by Site/EM Hub</td><td class="to">A0 + A1</td><td class="why">The overview, then the site drill.</td></tr>
             <tr><td class="pg">Daily Activity Resources</td><td class="to">A1 + A0b</td><td class="why">By line and machine, under the site; the weekly view for the site partner.</td></tr>
-            <tr><td class="pg">Daily Activity Detail</td><td class="to">A1 <span style="color:var(--ink-3)">+ Data integrity</span></td><td class="why">Summary in A1, raw transactional filed away.</td></tr>
+            <tr><td class="pg">Daily Activity Detail</td><td class="to">A1 <span style="color:var(--ink-3)">→ transactional drillthrough</span></td><td class="why">Summary in A1; the exact SAP line items are a drillthrough endpoint, not filed as debug.</td></tr>
             <tr><td class="pg">Daily Activity Movement vs Ledger</td><td class="to">A4</td><td class="why">Becomes the numbered reconciliation.</td></tr>
             <tr><td class="pg"><code>_STD_Missing</code> · <code>_Refresh</code> · AI_Datafeed</td><td class="to di">Data integrity</td><td class="why">Controls and feeds, out of the client path.</td></tr>
             <tr class="grp"><td colspan="3">RF Activity — forecast</td></tr>
@@ -2018,11 +2027,14 @@
     document.querySelectorAll('#' + id + ' .fill[data-w]').forEach(f => { f.style.width = f.dataset.w + '%'; });
   }
   const reportframe = document.getElementById('reportframe');
+  const PAGES = { a0: 'Overview', a0b: 'Weekly review', a1: 'Sites & detail', a2: 'Actual + forecast', a3: 'Variances', a4: 'Reconciliation', defs: 'Definitions', di: 'Data integrity' };
   function show(id) {
     views.forEach(v => v.classList.toggle('active', v.id === id));
     tabs.forEach(t => t.setAttribute('aria-selected', t.dataset.view === id));
     // the working view (Logic & spec) is ours, not the report → drop the report chrome
     reportframe.classList.toggle('working', id === 'logic');
+    const pg = document.getElementById('rpt-page');
+    if (pg && PAGES[id]) pg.textContent = PAGES[id];
     requestAnimationFrame(() => fillBars(id));
   }
   tabs.forEach(t => t.addEventListener('click', () => show(t.dataset.view)));
@@ -2082,11 +2094,13 @@
         { c: "lvl-site flag", chev: "▾", name: "Ocoyoacac · AMEA <b>⚠</b>", act: "24.6", vact: "118", vs: "−9.9%", status: "Cut-off gap (GR/DLV) — not reconciled today" },
         { c: "lvl-line flag", name: "Line PACK-02", act: "14.1", vact: "68", vs: "−12.3%", status: "TECO pending" },
         { c: "lvl-line flag", name: "Line GRAN-01", act: "10.5", vact: "48", vs: "−0.4%", status: "ok" },
+        { c: "lvl-type", chev: "▾", name: "DIR · Direct manufacturing", act: "121.3", vact: "480", vs: "+0.4%", vsCls: "pos", status: "" },
         { c: "lvl-region", chev: "▾", name: "EULA", act: "61.4", vact: "243", vs: "−0.6%", vsCls: "neg", status: "within tolerance" },
         { c: "lvl-site", chev: "▸", name: "Lisieux", act: "34.2", vact: "141", vs: "+0.5%", vsCls: "pos", status: "within tolerance" },
         { c: "lvl-site", chev: "▸", name: "Compiègne", act: "28.7", vact: "96", vs: "−2.5%", vsCls: "neg", status: "within tolerance" },
         { c: "lvl-region", chev: "▸", name: "N. America", act: "42.4", vact: "168", vs: "+3.1%", vsCls: "pos", status: "" },
-        { c: "lvl-site", chev: "▸", name: "Chattanooga", act: "26.9", vact: "112", vs: "+10.9%", vsCls: "pos", status: "above budget — check" }
+        { c: "lvl-site", chev: "▸", name: "Chattanooga", act: "26.9", vact: "112", vs: "+10.9%", vsCls: "pos", status: "above budget — check" },
+        { c: "lvl-type", chev: "▸", name: "EM · External manufacturing", act: "7.1", vact: "28", vs: "−0.3%", vsCls: "neg", status: "3 tollers · collapsed" }
       ] }
   };
   const g = id => document.getElementById(id);
