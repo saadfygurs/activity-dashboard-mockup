@@ -321,6 +321,13 @@
   .hero.even { grid-template-columns: 1fr 1fr; }
   .sitepill { display: inline-flex; padding: 5px 11px; border: 1px solid var(--border-2); border-radius: 3px; background: var(--slate-soft); color: var(--slate); font-size: .76rem; font-weight: 600; }
   .secn { color: var(--slate); font-variant-numeric: tabular-nums; font-weight: 700; margin-right: 8px; opacity: .75; }
+  /* persona tags on visuals (design layer — hidden with design notes) */
+  .serves { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 8px; }
+  .serves .sv-lbl { font-size: .6rem; text-transform: uppercase; letter-spacing: .05em; color: var(--ink-3); font-weight: 700; }
+  .ptag { display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 999px; font-weight: 700; font-size: .62rem; border: 1px solid; white-space: nowrap; }
+  .ptag.pri { background: color-mix(in srgb, var(--brand) 12%, transparent); color: var(--brand); border-color: color-mix(in srgb, var(--brand) 35%, transparent); }
+  .ptag.sec { background: var(--surface-2); color: var(--ink-3); border-color: var(--border-2); }
+  body.notes-off .serves { display: none !important; }
   .weekseg { display: inline-flex; border: 1px solid var(--border-2); border-radius: 3px; overflow: hidden; }
   .weekseg button { appearance: none; border: 0; background: var(--surface); color: var(--ink-2); font-family: inherit; font-size: .76rem; font-weight: 600; padding: 5px 10px; cursor: pointer; border-right: 1px solid var(--border-2); }
   .weekseg button:last-child { border-right: 0; }
@@ -444,6 +451,9 @@
   .mtx tr.lvl-region td:first-child { padding-left: 22px; }
   .mtx tr.lvl-site td:first-child { padding-left: 40px; }
   .mtx tr.lvl-line td:first-child { padding-left: 58px; color: var(--ink-2); font-size: .78rem; }
+  .mtx tr.mach td:first-child { font-weight: 600; }
+  .mtx tr.subday td:first-child { padding-left: 30px; color: var(--ink-3); font-size: .77rem; }
+  .mtx tr.subday td { font-size: .77rem; }
   .mtx tr.flag td { background: var(--warn-soft); color: var(--warn); }
   .mtx .cause { font-size: .7rem; color: var(--warn); }
   .mtx .chev { color: var(--ink-3); margin-right: 6px; font-size: .7em; }
@@ -798,6 +808,7 @@
     <div class="note" style="margin-bottom:14px">
       <span class="tag">Design note — not shown on the live dashboard</span>
       The question this screen answers: <b>"Does my month's activity match budget — and can I trust it?"</b> Primary user: the <b>site finance business partner</b> (e.g. Adèle, Lisieux) — a light user who must get the answer with <b>zero onboarding</b>. Toggle "Design notes" off to see exactly what ships.
+      <div class="serves"><span class="sv-lbl">Serves</span> <span class="ptag pri">FBP·site</span> <span class="ptag sec">Site lead</span> <span class="ptag sec">GCC</span> <span class="ptag sec">FBP·region</span></div>
     </div>
 
     <details class="rationale">
@@ -938,6 +949,7 @@
     <div class="note" style="margin-bottom:14px">
       <span class="tag">Design note — not shown on the live dashboard</span>
       The question this screen answers: <b>"Where does the number come from — which region, site and line, and where does it deviate?"</b> This is the <b>space axis</b>: it decomposes the A0 figure. The multi-site control surface, for the GCC insight lead (e.g. Taís) who must account for 100% of the activity — not the single-site partner, who already lives on their own site (A0 / A0b). Deviating sites float to the top, cause already qualified.
+      <div class="serves"><span class="sv-lbl">Serves</span> <span class="ptag pri">GCC</span> <span class="ptag sec">FBP·region</span> <span class="ptag sec">Central</span></div>
     </div>
 
     <details class="rationale">
@@ -1052,7 +1064,8 @@
   <section class="view" id="a0b" role="tabpanel">
     <div class="note" style="margin-bottom:14px">
       <span class="tag">Design note — not shown on the live dashboard</span>
-      The question this screen answers: <b>"Is my week on track vs the production plan (PDP) and budget — machine by machine?"</b> Built for the <b>site finance partner</b> (Adèle, Lisieux), who reviews activity <b>week by week for the Wednesday committee</b>. Her real reference is the <b>PDP (Plan Directeur de Production)</b>, not only budget — and she needs <b>value and volume together</b>, down to the machine. This is the report that lets her drop her Excel.
+      The question this screen answers: <b>"Is my week on track vs the production plan (PDP) and budget — machine by machine?"</b> Built for the <b>site finance partner</b> (Adèle, Lisieux), who reviews activity <b>week by week for the Wednesday committee</b>. Her real reference is the <b>PDP (Plan Directeur de Production)</b>, not only budget — and she needs <b>value and volume together</b>, down to the machine. This is the report that lets her drop her Excel. It's an <b>operational</b> screen, not an overview-in-weekly: it <b>drills machine → day → resource</b> to find exactly where the week slipped — a stripped design would miss what this user needs (Pierre's point, adopted).
+      <div class="serves"><span class="sv-lbl">Serves</span> <span class="ptag pri">FBP·site</span> <span class="ptag sec">Supply chain</span> <span class="ptag sec">Site lead</span></div>
     </div>
 
     <details class="rationale">
@@ -1141,21 +1154,26 @@
 
       <div class="card panel">
         <div class="panel-h"><span class="q">By machine · week <span id="a0b-wk3">W27</span></span></div>
-        <div class="panel-cap">Resource code · value and volume, each against PDP and budget. Machines below PDP rise to the top.</div>
+        <div class="panel-cap">Resource code · value and volume, each against PDP and budget. Machines below PDP rise to the top. <b>Drill a machine → per day</b> to find where it slipped (GRAN-01 expanded: Wednesday, 6h stop).</div>
         <div class="chartwrap">
           <table class="mtx">
             <thead><tr><th>Machine</th><th class="num">VA (M€)</th><th class="num">Vol (M u)</th><th class="num">vs PDP</th><th class="num">vs Bud</th><th>Status</th></tr></thead>
             <tbody>
-              <tr class="lvl-line flag"><td>GRAN-01</td><td class="num">2.4</td><td class="num">11</td><td class="num"><span class="neg">−6.0%</span></td><td class="num"><span class="neg">−1.0%</span></td><td>Below PDP — behind plan</td></tr>
-              <tr class="lvl-line"><td>PACK-02</td><td class="num">3.1</td><td class="num">15</td><td class="num"><span class="neg">−4.0%</span></td><td class="num"><span class="pos">+2.0%</span></td><td>On track</td></tr>
-              <tr class="lvl-line"><td>COAT-01</td><td class="num">0.9</td><td class="num">4</td><td class="num"><span class="neg">−2.0%</span></td><td class="num"><span class="pos">+1.0%</span></td><td>On track</td></tr>
-              <tr class="lvl-line"><td>LIQ-03</td><td class="num">1.7</td><td class="num">8</td><td class="num"><span class="pos">+1.0%</span></td><td class="num"><span class="pos">+5.0%</span></td><td>Ahead of plan</td></tr>
+              <tr class="mach flag"><td><span class="chev">▾</span>GRAN-01</td><td class="num">2.4</td><td class="num">11</td><td class="num"><span class="neg">−6.0%</span></td><td class="num"><span class="neg">−1.0%</span></td><td>Below PDP — behind plan</td></tr>
+              <tr class="subday"><td>Mon</td><td class="num">0.52</td><td class="num">2.3</td><td class="num"><span class="pos">+0.4%</span></td><td class="num">—</td><td>on plan</td></tr>
+              <tr class="subday"><td>Tue</td><td class="num">0.50</td><td class="num">2.2</td><td class="num"><span class="neg">−1.1%</span></td><td class="num">—</td><td>on plan</td></tr>
+              <tr class="subday flag"><td>Wed <b>⚠</b></td><td class="num">0.30</td><td class="num">1.4</td><td class="num"><span class="neg">−41%</span></td><td class="num">—</td><td>machine stopped ~6h</td></tr>
+              <tr class="subday"><td>Thu</td><td class="num">0.55</td><td class="num">2.5</td><td class="num"><span class="pos">+2.0%</span></td><td class="num">—</td><td>catching up</td></tr>
+              <tr class="subday"><td>Fri</td><td class="num">0.53</td><td class="num">2.6</td><td class="num"><span class="pos">+1.5%</span></td><td class="num">—</td><td>on plan</td></tr>
+              <tr class="mach"><td><span class="chev">▸</span>PACK-02</td><td class="num">3.1</td><td class="num">15</td><td class="num"><span class="neg">−4.0%</span></td><td class="num"><span class="pos">+2.0%</span></td><td>On track</td></tr>
+              <tr class="mach"><td><span class="chev">▸</span>COAT-01</td><td class="num">0.9</td><td class="num">4</td><td class="num"><span class="neg">−2.0%</span></td><td class="num"><span class="pos">+1.0%</span></td><td>On track</td></tr>
+              <tr class="mach"><td><span class="chev">▸</span>LIQ-03</td><td class="num">1.7</td><td class="num">8</td><td class="num"><span class="pos">+1.0%</span></td><td class="num"><span class="pos">+5.0%</span></td><td>Ahead of plan</td></tr>
             </tbody>
           </table>
         </div>
         <div class="discl">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
-          The per-machine level (resource code) validates A1's line level and is available in Athena / Kinaxis.
+          This is the <b>operational</b> screen, not a stripped overview: it drills machine → day → resource to find exactly where the week slipped. Resource code available in Athena / Kinaxis.
         </div>
       </div>
     </div>
@@ -1199,6 +1217,7 @@
     <div class="note" style="margin-bottom:14px">
       <span class="tag">Design note — not shown on the live dashboard</span>
       The question this screen answers: <b>"Where is the full year heading — in one continuous view, without switching report?"</b> This is the <b>time axis</b>: it extends the A0 figure forward, it doesn't drill into it (that's A1). Actuals and forecast live on two separate dashboards today; A2 merges them into one line to year-end.
+      <div class="serves"><span class="sv-lbl">Serves</span> <span class="ptag pri">FBP·region</span> <span class="ptag pri">GCC</span> <span class="ptag sec">FBP·site</span> <span class="ptag sec">Supply chain</span></div>
     </div>
 
     <details class="rationale">
@@ -1389,6 +1408,7 @@
       The question this screen answers: <b>"Which variances are moving the number — by driver and by site — before I open a single PO?"</b>
       A <b>variance</b> is the gap between standard cost (the plan) and actual, with a name for the cause. <b>Yield</b> = did we get the expected output from the inputs (process efficiency)? <b>Substitution</b> = did we use the planned materials, or swap one for another (the recipe mix)? Together (Y&amp;S) they explain how the real transformation deviated from the standard recipe — a genuine slice of the AV Movement ↔ Ledger gap. Others sit alongside: PPV (purchase price), material price, FX. <span class="tbc">exact Opella modelling to confirm with Taís / Kiki</span>
       The missing <b>summary layer</b>: today Yield &amp; Substitution exists only as raw per-PO tables. A3 adds the overview on top; the detail stays one level down.
+      <div class="serves"><span class="sv-lbl">Serves</span> <span class="ptag pri">GCC</span> <span class="ptag pri">Central</span> <span class="ptag sec">FBP·region</span></div>
     </div>
 
     <details class="rationale">
@@ -1531,6 +1551,7 @@
     <div class="note" style="margin-bottom:14px">
       <span class="tag">Design note — not shown on the live dashboard</span>
       The question this screen answers: <b>"Does Core reconcile with the ledger — and with TM1 — and if not, exactly why?"</b> This is the trust engine: it feeds the A0 badge, and once the dashboard is auto-pushed to TM1 it becomes the company reference. Layout deliberately follows the <b>numbered guided path of CORE_FCST_Control</b> — a control screen is a sequence, so numbering earns its place here.
+      <div class="serves"><span class="sv-lbl">Serves</span> <span class="ptag pri">Central</span> <span class="ptag sec">GCC</span></div>
     </div>
 
     <details class="rationale">
@@ -1733,15 +1754,15 @@
       <div class="panel-cap">Each screen answers exactly one question, for one primary reader.</div>
       <div class="chartwrap">
         <table class="mapt">
-          <thead><tr><th style="width:15%">Screen</th><th style="width:30%">Question</th><th style="width:23%">Primary reader</th><th style="width:32%">Key measures</th></tr></thead>
+          <thead><tr><th style="width:15%">Screen</th><th style="width:30%">Question</th><th style="width:23%">Reader <span style="font-weight:400;color:var(--ink-3)">(primary · secondary)</span></th><th style="width:32%">Key measures</th></tr></thead>
           <tbody>
-            <tr><td class="pg"><b>A0</b> Overview</td><td>Is my month on track, and can I trust it?</td><td>Site finance partner</td><td>Activity MTD · vs Budget / RF · reconciliation badge · VA/Vol</td></tr>
-            <tr><td class="pg"><b>A0b</b> Weekly review</td><td>Is my week on track vs PDP, machine by machine?</td><td>Site finance partner</td><td>Weekly VA &amp; Volume · vs PDP / Budget · per machine</td></tr>
-            <tr><td class="pg"><b>A1</b> Sites &amp; detail</td><td>Which site / line deviates, and why?</td><td>Insight lead (GCC)</td><td>Region → site → line · cause · VA/Vol</td></tr>
-            <tr><td class="pg"><b>A2</b> Actual + forecast</td><td>Where does the year land?</td><td>Lead + site partner</td><td>Continuous actual → forecast · estimated landing · VA/Vol</td></tr>
-            <tr><td class="pg"><b>A3</b> Y&amp;S variances</td><td>Which variances move it?</td><td>Variance analysis</td><td>PPV / Yield / Material / FX by site</td></tr>
-            <tr><td class="pg"><b>A4</b> Reconciliation</td><td>Does Core tie out with ledger &amp; TM1?</td><td>Central controlling</td><td>Movement / Ledger / TM1 · gap by driver</td></tr>
-            <tr><td class="pg"><b>DI</b> Data integrity</td><td>Are the data clean?</td><td>Data team</td><td>Missing standards · refresh · transactional</td></tr>
+            <tr><td class="pg"><b>A0</b> Overview</td><td>Is my month on track, and can I trust it?</td><td>Site finance partner<small style="display:block;color:var(--ink-3)">+ site lead · GCC · FBP region</small></td><td>Activity MTD · vs Budget / RF · reconciliation badge · VA/Vol</td></tr>
+            <tr><td class="pg"><b>A0b</b> Weekly review</td><td>Is my week on track vs PDP, machine by machine?</td><td>Site finance partner<small style="display:block;color:var(--ink-3)">+ supply chain · site lead</small></td><td>Weekly VA &amp; Volume · vs PDP / Budget · per machine</td></tr>
+            <tr><td class="pg"><b>A1</b> Sites &amp; detail</td><td>Which site / line deviates, and why?</td><td>Insight lead (GCC)<small style="display:block;color:var(--ink-3)">+ FBP region · central</small></td><td>Region → site → line · cause · VA/Vol</td></tr>
+            <tr><td class="pg"><b>A2</b> Actual + forecast</td><td>Where does the year land?</td><td>FBP region + GCC<small style="display:block;color:var(--ink-3)">+ FBP site · supply chain</small></td><td>Continuous actual → forecast · estimated landing · VA/Vol</td></tr>
+            <tr><td class="pg"><b>A3</b> Y&amp;S variances</td><td>Which variances move it?</td><td>GCC + central<small style="display:block;color:var(--ink-3)">+ FBP region</small></td><td>PPV / Yield / Material / FX by site</td></tr>
+            <tr><td class="pg"><b>A4</b> Reconciliation</td><td>Does Core tie out with ledger &amp; TM1?</td><td>Central controlling<small style="display:block;color:var(--ink-3)">+ GCC</small></td><td>Movement / Ledger / TM1 · gap by driver</td></tr>
+            <tr><td class="pg"><b>DI</b> Data integrity</td><td>Are the data clean?</td><td>Data team<small style="display:block;color:var(--ink-3)">+ GCC</small></td><td>Missing standards · refresh · pipeline freshness</td></tr>
           </tbody>
         </table>
       </div>
@@ -1891,6 +1912,10 @@
         </table>
       </div>
       <div class="usage-leg"><span><b>●</b> primary reader</span><span>○ secondary</span><span>· not used</span></div>
+      <div class="discl">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+        Each screen also carries a <b>"Serves" tag</b> on the screen itself (visible with Design notes on): the personas it serves, primary and secondary. Next step: tag at the <b>visual</b> level, and auto-link each tag to the interview that justifies it.
+      </div>
     </div>
 
     <div class="card panel">
@@ -1936,12 +1961,42 @@
     </div>
 
     <div class="card panel">
-      <div class="panel-h"><span class="q"><span class="secn">13</span> Method &amp; effort</span></div>
+      <div class="panel-h"><span class="q"><span class="secn">13</span> Drill &amp; slicer audit — nothing lost, reorganised</span></div>
+      <div class="panel-cap">The answer to "did we lose granularity?". Every control and every drill of the current dashboard, and where it now lives. Fewer slicers on the surface ≠ fewer capabilities. <span class="tbc">to complete precisely with Kiki against the live report</span></div>
+      <div class="chartwrap">
+        <table class="mapt">
+          <thead><tr><th style="width:40%">Today · control / drill</th><th style="width:28%">Where it lives now</th><th style="width:32%">Status</th></tr></thead>
+          <tbody>
+            <tr class="grp"><td colspan="3">Slicers &amp; controls (~50 on the current screen)</td></tr>
+            <tr><td class="pg">Wall of ~50 slicers &amp; toggles</td><td class="to">5 read-only chips (AUTO defaults)</td><td class="why">Kept, demoted — one click to expand, none required.</td></tr>
+            <tr><td class="pg">12 month buttons</td><td class="to">Period toggle</td><td class="why">Kept, simplified — Daily / Weekly / MTD / YTD.</td></tr>
+            <tr><td class="pg">Scope · region · 14-site tick-boxes</td><td class="to">AUTO scope + A1 drill</td><td class="why">Kept, via navigation — type → region → site → line.</td></tr>
+            <tr><td class="pg">Cut-off GR / DLV / TECO</td><td class="to">AUTO cut-off chip</td><td class="why">Kept, demoted — expert reveal, rarely touched.</td></tr>
+            <tr><td class="pg">Full AV / Step STD toggle <span class="tbc">?</span></td><td class="to">Default + expert chip</td><td class="why">Kept — exact behaviour to confirm with Kiki.</td></tr>
+            <tr><td class="pg">VA / Volume</td><td class="to">Value / Volume toggle</td><td class="why">Kept, elevated — synced across A0/A1/A2.</td></tr>
+            <tr class="grp"><td colspan="3">Drill paths — the granularity</td></tr>
+            <tr><td class="pg">By-site table</td><td class="to">A0 scan + A1 matrix</td><td class="why">Kept, split — the scan (anything off?) + the full drill.</td></tr>
+            <tr><td class="pg">By line / workshop</td><td class="to">A1 line level + A0b per machine</td><td class="why">Kept — down to the machine.</td></tr>
+            <tr><td class="pg"><b>Transactional detail (exact SAP)</b></td><td class="to">A1 drillthrough endpoint</td><td class="why"><b>Kept, first-class</b> — the deepest granularity, not a debug view.</td></tr>
+            <tr><td class="pg">Daily activity</td><td class="to">Period toggle · Daily</td><td class="why">Kept — the data is daily, the control goes down to daily.</td></tr>
+            <tr><td class="pg">Movement vs Ledger</td><td class="to">A4 reconciliation</td><td class="why">Kept, promoted — the trust engine.</td></tr>
+            <tr><td class="pg">Per-PO analysis (Yield / Subst.)</td><td class="to">A3 detail</td><td class="why">Kept — summary on top, per-PO below.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="discl">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+        Read the "Status" column: every capability is <b>Kept</b>. The redesign moved things, it deleted almost nothing — and made the deepest values traceable.
+      </div>
+    </div>
+
+    <div class="card panel">
+      <div class="panel-h"><span class="q"><span class="secn">14</span> Method &amp; effort</span></div>
       <div class="sddef" style="font-size:.84rem">Per dashboard: mockup → test with 3 users → release within the week. <b>AV first</b> as the lab: a one-week sprint, ~3 days of Kiki, four-hands. Then the next families reuse the method and templates. Reliability of the data stays a parallel workstream (Alexia, Kiki), not this scope. We decide once (KPIs of reference, template, the two lenses) and apply family by family.</div>
     </div>
 
     <div class="card panel">
-      <div class="panel-h"><span class="q"><span class="secn">14</span> Concepts to verify against the data model</span></div>
+      <div class="panel-h"><span class="q"><span class="secn">15</span> Concepts to verify against the data model</span></div>
       <div class="panel-cap">Fictitious <b>figures</b> are fine. These derived <b>concepts</b> are not confirmed as existing fields — check against dbt, or with Kiki and Roland, before promising them.</div>
       <ul class="checklist">
         <li><span><b>Estimated landing</b> (A0, A2). <span class="ask">Does a year-end projection measure (actual through close, then forecast) exist, or is it to build?</span></span></li>
