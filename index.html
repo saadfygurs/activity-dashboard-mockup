@@ -733,7 +733,7 @@
       <button class="tab" role="tab" aria-selected="false" data-view="a0b"><span class="code">A0b</span> Weekly review</button>
       <button class="tab" role="tab" aria-selected="false" data-view="a1"><span class="code">A1</span> Sites &amp; detail</button>
       <button class="tab" role="tab" aria-selected="false" data-view="a2"><span class="code">A2</span> Actual + forecast</button>
-      <button class="tab" role="tab" aria-selected="false" data-view="a3"><span class="code">A3</span> Y&amp;S variances</button>
+      <button class="tab" role="tab" aria-selected="false" data-view="a3"><span class="code">A3</span> Variances</button>
       <button class="tab" role="tab" aria-selected="false" data-view="a4"><span class="code">A4</span> Reconciliation</button>
       <button class="tab" role="tab" aria-selected="false" data-view="defs"><span class="code">≡</span> Definitions</button>
       <button class="tab" role="tab" aria-selected="false" data-view="di"><span class="code">⚙</span> Data integrity</button>
@@ -1759,7 +1759,7 @@
             <tr><td class="pg"><b>A0b</b> Weekly review</td><td>Is my week on track vs PDP, machine by machine?</td><td>Site finance partner<small style="display:block;color:var(--ink-3)">+ supply chain · site lead</small></td><td>Weekly VA &amp; Volume · vs PDP / Budget · per machine</td></tr>
             <tr><td class="pg"><b>A1</b> Sites &amp; detail</td><td>Which site / line deviates, and why?</td><td>Insight lead (GCC)<small style="display:block;color:var(--ink-3)">+ FBP region · central</small></td><td>Region → site → line · cause · VA/Vol</td></tr>
             <tr><td class="pg"><b>A2</b> Actual + forecast</td><td>Where does the year land?</td><td>FBP region + GCC<small style="display:block;color:var(--ink-3)">+ FBP site · supply chain</small></td><td>Continuous actual → forecast · estimated landing · VA/Vol</td></tr>
-            <tr><td class="pg"><b>A3</b> Y&amp;S variances</td><td>Which variances move it?</td><td>GCC + central<small style="display:block;color:var(--ink-3)">+ FBP region</small></td><td>PPV / Yield / Material / FX by site</td></tr>
+            <tr><td class="pg"><b>A3</b> Variances</td><td>Which variances move it?</td><td>GCC + central<small style="display:block;color:var(--ink-3)">+ FBP region</small></td><td>PPV / Yield / Material / FX by site</td></tr>
             <tr><td class="pg"><b>A4</b> Reconciliation</td><td>Does Core tie out with ledger &amp; TM1?</td><td>Central controlling<small style="display:block;color:var(--ink-3)">+ GCC</small></td><td>Movement / Ledger / TM1 · gap by driver</td></tr>
             <tr><td class="pg"><b>DI</b> Data integrity</td><td>Are the data clean?</td><td>Data team<small style="display:block;color:var(--ink-3)">+ GCC</small></td><td>Missing standards · refresh · pipeline freshness</td></tr>
           </tbody>
@@ -1793,7 +1793,7 @@
           </div>
           <div class="fm-branch">
             <div class="fm-axis">Why it moves &amp; does it tie <span>· cause + proof</span></div>
-            <div class="fm-node"><span class="fm-code">A3</span><div class="fm-txt"><b>Y&amp;S variances</b><small>Which variances (PPV, yield, material, FX) move it, and on which sites.</small></div></div>
+            <div class="fm-node"><span class="fm-code">A3</span><div class="fm-txt"><b>Variances</b><small>Which variances (PPV, yield, material, FX) move it, and on which sites.</small></div></div>
             <div class="fm-node"><span class="fm-code">A4</span><div class="fm-txt"><b>Reconciliation</b><small>Proof it holds — ties out with the ledger and TM1, gap by driver. <i>Central control.</i></small></div></div>
           </div>
         </div>
@@ -1834,7 +1834,7 @@
         <div class="sdrow"><div class="sdcode">A0b<small>Weekly review</small></div><div class="sddef"><b>The same number, week by week.</b> The site partner's other screen: value and volume, per machine, vs the production plan (PDP) and budget, for her Wednesday committee. Sits next to A0 — her month, then her week. Replaces her Excel.</div></div>
         <div class="sdrow"><div class="sdcode">A1<small>Sites &amp; detail</small></div><div class="sddef"><b>Where it comes from</b> <i>· space.</i> Break the number down region → site → line, deviating sites floated up with the cause. The multi-site control surface — the GCC insight lead's screen, not the single-site partner's.</div></div>
         <div class="sdrow"><div class="sdcode">A2<small>Actual + forecast</small></div><div class="sddef"><b>Where it's heading</b> <i>· time.</i> Actuals and forecast merged into one continuous line, to read the full-year landing. A different axis from A1 — it extends the number, it doesn't drill it. The redesign's key deliverable.</div></div>
-        <div class="sdrow"><div class="sdcode">A3<small>Y&amp;S variances</small></div><div class="sddef"><b>Why it moves</b> <i>· cause.</i> Which variances (PPV, yield, material price, FX) move the number and on which sites, set above the existing per-PO detail.</div></div>
+        <div class="sdrow"><div class="sdcode">A3<small>Variances</small></div><div class="sddef"><b>Why it moves</b> <i>· cause.</i> Which variances (PPV, yield, material price, FX) move the number and on which sites, set above the existing per-PO detail.</div></div>
         <div class="sdrow"><div class="sdcode">A4<small>Reconciliation</small></div><div class="sddef"><b>Proof it holds</b> <i>· trust.</i> Ties Core out with the ledger and TM1, explains the gap by driver. Feeds the A0 badge.</div></div>
         <div class="sdrow"><div class="sdcode">Data integrity<small>technical page</small></div><div class="sddef"><b>The back room.</b> Debug and control visuals (missing standards, refresh, transactional detail), off the client path. For the team, not the business user.</div></div>
       </div>
@@ -1860,7 +1860,7 @@
         <li style="grid-template-columns:1fr"><span><b>The cadence is weekly.</b> Her committee runs every Wednesday. The dashboard is monthly today — the weekly view is the gap.</span></li>
         <li style="grid-template-columns:1fr"><span><b>The reference is the PDP</b> (Plan Directeur de Production), not only budget. Both are shown; PDP first.</span></li>
         <li style="grid-template-columns:1fr"><span><b>Value and volume together,</b> not one or the other — so no toggle here, both lenses are on the page.</span></li>
-        <li style="grid-template-columns:1fr"><span><b>Down to the machine</b> (resource code, from Athena / Kinaxis). Validates A1's line level and is feasible fast.</span></li>
+        <li style="grid-template-columns:1fr"><span><b>Operational, drills deep:</b> machine → day → resource (resource code, from Athena / Kinaxis). Not a stripped overview — it finds which machine, which day slipped. Validates A1's line level, feasible fast.</span></li>
         <li style="grid-template-columns:1fr"><span><b>The dependency:</b> the PDP is loaded monthly in Kinaxis; the <b>weekly split is manual</b> today (done by supply). That split is the one thing to build.</span></li>
       </ul>
       <div class="discl">
