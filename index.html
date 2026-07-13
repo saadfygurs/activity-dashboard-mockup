@@ -761,12 +761,11 @@
         <details class="chip-dd"><summary class="chip"><span class="k">Period</span> <span id="period-label">This month</span> <span class="car">▾</span></summary>
           <div class="chip-menu">
             <div class="opt" data-period="daily">Daily</div>
-            <div class="opt" data-period="weekly">Weekly</div>
             <div class="opt sel" data-period="mtd">This month (MTD)</div>
             <div class="opt" data-period="ytd">Year to date (YTD)</div>
             <div class="opt">Last month</div>
             <div class="opt">Custom range…</div>
-            <div class="chip-note"><b>Period is a toggle</b> (Daily / Weekly / MTD / YTD). Default = current month to date. The whole page recomputes for the chosen period.</div>
+            <div class="chip-note"><b>Period is a toggle</b> (Daily / MTD / YTD). Default = current month to date. The whole page recomputes for the chosen period. <b>The week lives on A0b</b> (operational, vs PDP), not here.</div>
           </div>
         </details>
         <details class="chip-dd"><summary class="chip"><span class="k">Scope</span> AUTO <span class="car">▾</span></summary>
@@ -1806,6 +1805,28 @@
     </div>
 
     <div class="card panel">
+      <div class="panel-h"><span class="q"><span class="secn">06</span> What makes each screen distinct</span></div>
+      <div class="panel-cap">Similar-looking screens are told apart by their <b>reference</b> and their <b>granularity</b>, not by their period. A0 read weekly is <b>not</b> A0b: A0 answers "am I on track vs budget", A0b answers "operate my week vs the PDP, to the machine and day".</div>
+      <div class="chartwrap">
+        <table class="mapt">
+          <thead><tr><th style="width:14%">Screen</th><th style="width:26%">Question</th><th style="width:20%">Reference · vs</th><th style="width:24%">Granularity / axis</th><th style="width:16%">Primary persona</th></tr></thead>
+          <tbody>
+            <tr><td class="pg"><b>A0</b> Overview</td><td>Am I on track, and can I trust it?</td><td>Budget / RF + reconciliation</td><td>Total + site scan · window <b>Daily / MTD / YTD</b></td><td>FBP · site</td></tr>
+            <tr><td class="pg"><b>A0b</b> Weekly review</td><td>Where &amp; why does my week slip?</td><td><b>PDP</b> + budget</td><td><b>Per machine → day → resource</b> · weekly</td><td>FBP · site <span style="color:var(--ink-3)">(operational)</span></td></tr>
+            <tr><td class="pg"><b>A1</b> Sites &amp; detail</td><td>Where does it come from, and where does it deviate?</td><td>Budget</td><td>Type → region → site → line → <b>transaction (SAP)</b> · space</td><td>Insight lead · GCC</td></tr>
+            <tr><td class="pg"><b>A2</b> Actual + forecast</td><td>Where does the year land?</td><td>Budget FY / previous RF</td><td>Continuous month → year · <b>time</b></td><td>FBP region + GCC</td></tr>
+            <tr><td class="pg"><b>A3</b> Variances</td><td>Which variances move the number?</td><td><b>Standard vs actual</b></td><td>Driver (PPV / Yield / Subst. / FX) × site → per-PO</td><td>GCC + central</td></tr>
+            <tr><td class="pg"><b>A4</b> Reconciliation</td><td>Does Core tie out?</td><td>Movement ↔ Ledger ↔ <b>TM1</b></td><td>Gap by driver</td><td>Central controlling</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="discl">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
+        The bolded cells are the differentiators. Two screens are never redundant if their <b>reference</b> or their <b>granularity</b> differs — which is why the week belongs to A0b (vs PDP, per machine), not to A0's period toggle.
+      </div>
+    </div>
+
+    <div class="card panel">
       <div class="panel-h"><span class="q">The screens, in words</span></div>
       <div class="panel-cap">What each screen is, in one line.</div>
       <div class="screendefs">
@@ -1820,7 +1841,7 @@
     </div>
 
     <div class="card panel">
-      <div class="panel-h"><span class="q"><span class="secn">06</span> The two lenses — Value € vs Volume</span></div>
+      <div class="panel-h"><span class="q"><span class="secn">07</span> The two lenses — Value € vs Volume</span></div>
       <div class="panel-cap">The same activity, read two ways. A synced toggle on A0, A1 and A2; both shown together on A0b.</div>
       <div class="screendefs">
         <div class="sdrow"><div class="sdcode">Value €<small>the € lens</small></div><div class="sddef"><b>Industrial value added,</b> volumes × standard cost. The common denominator across unlike products, and the figure that closes against the ledger. This is what MNS "sells" to ComOps at standard.</div></div>
@@ -1833,7 +1854,7 @@
     </div>
 
     <div class="card panel">
-      <div class="panel-h"><span class="q"><span class="secn">07</span> The weekly review (A0b) — persona n°1's screen</span></div>
+      <div class="panel-h"><span class="q"><span class="secn">08</span> The weekly review (A0b) — persona n°1's screen</span></div>
       <div class="panel-cap">Why it exists, and what it needs. The site finance partner (Adèle, Lisieux) doesn't use the dashboard today — she rebuilds this weekly in Excel from Athena.</div>
       <ul class="checklist" style="margin-top:2px">
         <li style="grid-template-columns:1fr"><span><b>The cadence is weekly.</b> Her committee runs every Wednesday. The dashboard is monthly today — the weekly view is the gap.</span></li>
@@ -1849,7 +1870,7 @@
     </div>
 
     <div class="card panel">
-      <div class="panel-h"><span class="q"><span class="secn">08</span> The personas</span></div>
+      <div class="panel-h"><span class="q"><span class="secn">09</span> The personas</span></div>
       <div class="panel-cap">The full landscape, mapped with Aurélien. Users sit on a <b>granularity ladder — site → region → global</b>, which is exactly the scope switcher. It repeats across finance, operations and supply chain.</div>
       <div class="personas">
         <div class="pcard">
@@ -1896,7 +1917,7 @@
     </div>
 
     <div class="card panel">
-      <div class="panel-h"><span class="q"><span class="secn">09</span> Who uses what</span></div>
+      <div class="panel-h"><span class="q"><span class="secn">10</span> Who uses what</span></div>
       <div class="panel-cap">The same screens, read by different profiles at their own scope.</div>
       <div class="chartwrap">
         <table class="usage">
@@ -1919,12 +1940,12 @@
     </div>
 
     <div class="card panel">
-      <div class="panel-h"><span class="q"><span class="secn">10</span> Scope &amp; access</span></div>
+      <div class="panel-h"><span class="q"><span class="secn">11</span> Scope &amp; access</span></div>
       <div class="sddef" style="font-size:.84rem"><b>RLS by Management Center (site).</b> A site partner sees their own site; a region their sites; global, all. The perimeter follows the user and syncs across A0, A1 and A2. <b>No sub-site level</b> (cost centre ≈ line), to keep personnel costs private — the access floor is the site. A0b is a site-level screen by design.</div>
     </div>
 
     <div class="card panel">
-      <div class="panel-h"><span class="q"><span class="secn">11</span> Measures — native vs to build</span></div>
+      <div class="panel-h"><span class="q"><span class="secn">12</span> Measures — native vs to build</span></div>
       <ul class="checklist" style="margin-top:2px">
         <li style="grid-template-columns:1fr"><span><b>Native (reuse):</b> activity (AV), volumes, vs budget, by site &amp; by line/machine, Movement / Ledger / TM1, postings MA/MG/SA, Yield &amp; Substitution.</span></li>
         <li style="grid-template-columns:1fr"><span><b>vs PDP &amp; weekly:</b> PDP is loaded monthly in Kinaxis — the <b>weekly split</b> is manual today (supply), to build. Per-machine resource code available in Athena / Kinaxis.</span></li>
@@ -1934,7 +1955,7 @@
     </div>
 
     <div class="card panel">
-      <div class="panel-h"><span class="q"><span class="secn">12</span> Migration map — every current page → what replaces it</span></div>
+      <div class="panel-h"><span class="q"><span class="secn">13</span> Migration map — every current page → what replaces it</span></div>
       <div class="panel-cap">Family <b>Activity (AV)</b>. Around forty client pages collapse into six screens plus Data integrity; two disappear outright. Expense (GL_Based) is a separate family with its own redesign.</div>
       <div class="chartwrap">
         <table class="mapt">
@@ -1961,7 +1982,7 @@
     </div>
 
     <div class="card panel">
-      <div class="panel-h"><span class="q"><span class="secn">13</span> Drill &amp; slicer audit — nothing lost, reorganised</span></div>
+      <div class="panel-h"><span class="q"><span class="secn">14</span> Drill &amp; slicer audit — nothing lost, reorganised</span></div>
       <div class="panel-cap">The answer to "did we lose granularity?". Every control and every drill of the current dashboard, and where it now lives. Fewer slicers on the surface ≠ fewer capabilities. <span class="tbc">to complete precisely with Kiki against the live report</span></div>
       <div class="chartwrap">
         <table class="mapt">
@@ -1991,12 +2012,12 @@
     </div>
 
     <div class="card panel">
-      <div class="panel-h"><span class="q"><span class="secn">14</span> Method &amp; effort</span></div>
+      <div class="panel-h"><span class="q"><span class="secn">15</span> Method &amp; effort</span></div>
       <div class="sddef" style="font-size:.84rem">Per dashboard: mockup → test with 3 users → release within the week. <b>AV first</b> as the lab: a one-week sprint, ~3 days of Kiki, four-hands. Then the next families reuse the method and templates. Reliability of the data stays a parallel workstream (Alexia, Kiki), not this scope. We decide once (KPIs of reference, template, the two lenses) and apply family by family.</div>
     </div>
 
     <div class="card panel">
-      <div class="panel-h"><span class="q"><span class="secn">15</span> Concepts to verify against the data model</span></div>
+      <div class="panel-h"><span class="q"><span class="secn">16</span> Concepts to verify against the data model</span></div>
       <div class="panel-cap">Fictitious <b>figures</b> are fine. These derived <b>concepts</b> are not confirmed as existing fields — check against dbt, or with Kiki and Roland, before promising them.</div>
       <ul class="checklist">
         <li><span><b>Estimated landing</b> (A0, A2). <span class="ask">Does a year-end projection measure (actual through close, then forecast) exist, or is it to build?</span></span></li>
