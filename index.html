@@ -758,15 +758,15 @@
       </header>
       <div class="rptslicers">
         <span class="lbl">Filters</span>
-        <details class="chip-dd"><summary class="chip"><span class="k">Period</span> This month <span class="car">▾</span></summary>
+        <details class="chip-dd"><summary class="chip"><span class="k">Period</span> <span id="period-label">This month</span> <span class="car">▾</span></summary>
           <div class="chip-menu">
-            <div class="opt">Daily</div>
-            <div class="opt">Weekly</div>
-            <div class="opt sel">This month (MTD)</div>
-            <div class="opt">Year to date (YTD)</div>
+            <div class="opt" data-period="daily">Daily</div>
+            <div class="opt" data-period="weekly">Weekly</div>
+            <div class="opt sel" data-period="mtd">This month (MTD)</div>
+            <div class="opt" data-period="ytd">Year to date (YTD)</div>
             <div class="opt">Last month</div>
             <div class="opt">Custom range…</div>
-            <div class="chip-note"><b>Period is a toggle</b> (Daily / Weekly / MTD / YTD). Default = current month to date. The page isn't locked to one period.</div>
+            <div class="chip-note"><b>Period is a toggle</b> (Daily / Weekly / MTD / YTD). Default = current month to date. The whole page recomputes for the chosen period.</div>
           </div>
         </details>
         <details class="chip-dd"><summary class="chip"><span class="k">Scope</span> AUTO <span class="car">▾</span></summary>
@@ -859,7 +859,7 @@
       <div class="card kpi">
         <span class="eyebrow"><span id="a0-eyebrow">Activity · Month to date</span><span class="ihint" tabindex="0">i<span class="tip" id="a0-eyetip"><b>Activity (AV)</b> — the month's industrial value added (machine and labour hours turned into value), cumulative to date. Computed from volumes × standard costs.</span></span></span>
         <div class="big"><span id="a0-mtd">128.4</span><span class="cur" id="a0-unit">M€</span></div>
-        <div class="sub"><span id="a0-scope">All sites · group</span> · July 2026 · MTD</div>
+        <div class="sub"><span id="a0-scope">All sites · group</span> · <span id="a0-period-sub">July 2026 · MTD</span></div>
       </div>
       <div class="heroside">
         <div class="card compare">
@@ -2159,13 +2159,26 @@
       ] }
   };
   const g = id => document.getElementById(id);
-  let curScope = 'all', curMeas = 'val';
+  let curScope = 'all', curMeas = 'val', curPeriod = 'mtd';
+  // Period toggle: the time window the whole page reads. Figures scale to the chosen period.
+  const PERIODS = {
+    daily:  { f: 0.048, chip: 'Daily',        eye: 'Today',         sub: 'day to date',    label: 'day' },
+    weekly: { f: 0.24,  chip: 'Weekly',       eye: 'This week',     sub: 'week to date',   label: 'week' },
+    mtd:    { f: 1,      chip: 'This month',   eye: 'Month to date', sub: 'July 2026 · MTD',label: 'month' },
+    ytd:    { f: 6.72,   chip: 'Year to date', eye: 'Year to date',  sub: 'FY 2026 · YTD',  label: 'year' }
+  };
+  function fmtNum(v) {
+    let s = v.toFixed(1);
+    if (s.endsWith('.0')) s = s.slice(0, -2);
+    const p = s.split('.'); p[0] = p[0].replace(/\B(?=(\d{3})+(?!\d))/g, ','); return p.join('.');
+  }
   // A0 scan: a diverging bar by € impact vs budget (red left / green right), worst first; % as a secondary label.
-  function dvRow(r, maxE) {
+  function dvRow(r, maxE, pf) {
     const e = r.evar, neg = e < 0;
-    const w = Math.min(Math.abs(e) / maxE, 1) * 50; // % of the half-track, scaled to the worst in view
+    const w = Math.min(Math.abs(e) / maxE, 1) * 50; // % of the half-track, scaled to the worst in view (period-independent)
     const kind = r.flag ? 'flag' : (neg ? 'neg' : 'pos');
-    const eur = (e < 0 ? '−' : '+') + '€' + Math.abs(e).toFixed(1) + 'M';
+    const es = Math.abs(e) * pf;
+    const eur = (e < 0 ? '−' : '+') + '€' + (es < 1 ? es.toFixed(2) : es.toFixed(1)) + 'M';
     const pct = (r.vsb > 0 ? '+' : '') + r.vsb.toFixed(1) + '%';
     const wi = r.flag ? ' <span class="warn-i">⚠</span>' : '';
     const cause = r.cause ? '<div class="dvcause">' + r.cause + ' <span class="tbc">to confirm</span></div>' : '';
@@ -2196,10 +2209,14 @@
     const s = SCOPES[key];
     const vol = curMeas === 'vol';
     const eye = vol ? EYE.vol : EYE.val;
+    const per = PERIODS[curPeriod];
     if (g('a0-mtd')) {
-      g('a0-mtd').textContent = vol ? s.vmtd : s.mtd;
+      const base = parseFloat((vol ? s.vmtd : s.mtd).replace(/,/g, ''));
+      g('a0-mtd').textContent = fmtNum(base * per.f);
       g('a0-unit').textContent = vol ? s.vunit : 'M€';
-      g('a0-eyebrow').textContent = eye.label; g('a0-eyetip').innerHTML = eye.tip;
+      g('a0-eyebrow').textContent = (vol ? 'Volume' : 'Activity') + ' · ' + per.eye;
+      g('a0-eyetip').innerHTML = eye.tip;
+      if (g('a0-period-sub')) g('a0-period-sub').textContent = per.sub;
       g('a0-scope').textContent = s.scope;
       setDelta(g('a0-bud'), vol ? s.vbud : s.bud); setDelta(g('a0-rf'), vol ? s.vrf : s.rf);
       g('a0-gap').textContent = s.gap;
@@ -2207,7 +2224,7 @@
       g('a0-bcap').textContent = vol ? s.vbcap : s.bcap;
       const scan = s.rows.slice().sort((a, b) => a.evar - b.evar); // worst € impact first
       const maxE = Math.max(0.1, ...s.rows.map(r => Math.abs(r.evar)));
-      g('sites').innerHTML = scan.map(r => dvRow(r, maxE)).join('');
+      g('sites').innerHTML = scan.map(r => dvRow(r, maxE, per.f)).join('');
     }
     if (g('a1-mtd')) {
       g('a1-mtd').textContent = vol ? s.vmtd : s.mtd;
@@ -2246,6 +2263,16 @@
     b.addEventListener('click', () => {
       document.querySelectorAll('.measseg button').forEach(x => x.setAttribute('aria-pressed', String(x.dataset.meas === b.dataset.meas)));
       curMeas = b.dataset.meas;
+      renderScope(curScope);
+    });
+  });
+  // period toggle (Daily / Weekly / MTD / YTD) — recomputes A0 for the chosen window
+  document.querySelectorAll('.opt[data-period]').forEach(o => {
+    o.addEventListener('click', () => {
+      curPeriod = o.dataset.period;
+      document.querySelectorAll('.opt[data-period]').forEach(x => x.classList.toggle('sel', x === o));
+      const pl = document.getElementById('period-label'); if (pl) pl.textContent = PERIODS[curPeriod].chip;
+      const dd = o.closest('.chip-dd'); if (dd) dd.open = false;
       renderScope(curScope);
     });
   });
