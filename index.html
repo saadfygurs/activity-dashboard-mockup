@@ -782,7 +782,7 @@
             <div class="opt sel">AUTO</div>
             <div class="opt">GR</div><div class="opt">DLV</div><div class="opt">TECO</div>
             <div class="opt">EARLIEST</div><div class="opt">LATEST</div><div class="opt">CLOSE</div>
-            <div class="chip-note"><b>Expert setting.</b> AUTO picks the right dating basis. Rarely changed — for the GCC controller, not the site.</div>
+            <div class="chip-note"><b>Expert setting.</b> AUTO picks the right dating basis <b>per site</b> (US → Deliver, Australia → GR…), encoded in the model. Same for <b>Full vs Step</b>: Step values each transformation stage (raw → semi-finished → finished, each at its own rate); Full sums them; the correct one depends on the site's real process. AUTO applies the right method per site — the only default that is <b>semantically correct</b> with zero clicks. Rarely changed — for the GCC controller, not the site.</div>
           </div>
         </details>
         <details class="chip-dd"><summary class="chip"><span class="k">Scenario</span> Bud26 <span class="car">▾</span></summary>
@@ -821,7 +821,7 @@
         <div class="ritem"><b>5 · No SAP jargon up front.</b> Business words on the surface (Activity, site, budget). GR / DLV / TECO / GMID / LMID live behind an expert reveal or in Data integrity.</div>
         <div class="ritem"><b>6 · One visual language.</b> Same card, type scale, colour semantics and layout grammar everywhere. Opella green anchors the brand and structure; amber = watch, red = critical — colour is always semantic, never decorative.</div>
         <div class="ritem"><b>7 · Smart defaults.</b> The system pre-picks period, scope, cut-off, scenario and standard for ~95% of cases, shows them read-only so you know what you’re looking at, and lets the expert expand them. Zero buttons <i>required</i>, not zero buttons <i>possible</i>.</div>
-        <div class="ritem"><b>8 · File it, don’t trash it.</b> Debug and control visuals (missing standards, refresh, pipeline freshness) move to a Data integrity page — out of the client path, still there for the team. The transactional detail is <b>not</b> filed here: it's the drill endpoint (see principle 9).</div>
+        <div class="ritem"><b>8 · File it, don’t trash it.</b> Debug and control visuals (missing standards, refresh, pipeline freshness) move to a Data integrity page — out of the client path, still there for the team. Kiki already keeps a <b>standard / price-missing page</b> (confirmed 15 July) — we relocate it, we don't invent it. The transactional detail is <b>not</b> filed here: it's the drill endpoint (see principle 9).</div>
         <div class="ritem"><b>9 · Traceable to source.</b> Every aggregate drills all the way to its <b>exact SAP value</b>. Progressive disclosure never stops at a summary — the deepest granularity is always reachable. This is the core value, not an option.</div>
       </div>
     </details>
@@ -1000,19 +1000,26 @@
 
     <div class="card panel">
       <div class="panel-h"><span class="q">Region → site → line</span></div>
-      <div class="panel-cap">Expand a row to drill down. Deviating sites are pulled to the top and flagged with the cause.</div>
+      <div class="panel-cap"><b>Click a row to expand</b> region → site → line. <b>Double-click a line</b> to drill through to the exact SAP transactions. Deviating sites are pulled to the top and flagged with the cause.</div>
       <div class="chartwrap">
         <table class="mtx">
           <thead><tr><th>Type · region · site · line</th><th class="num" id="a1-actcol">Activity (M€)</th><th class="num">vs Budget</th><th>Status</th></tr></thead>
           <tbody id="a1-matrix">
-            <tr class="lvl-site flag"><td><span class="chev">▾</span>Ocoyoacac · AMEA <b>⚠</b></td><td class="num">24.6</td><td class="num">−9.9%</td><td>Cut-off gap (GR/DLV) — not reconciled today</td></tr>
-            <tr class="lvl-line flag"><td>Line PACK-02</td><td class="num">14.1</td><td class="num">−12.3%</td><td>TECO pending</td></tr>
-            <tr class="lvl-line flag"><td>Line GRAN-01</td><td class="num">10.5</td><td class="num">−0.4%</td><td>ok</td></tr>
-            <tr class="lvl-region"><td><span class="chev">▾</span>EULA</td><td class="num">61.4</td><td class="num"><span class="neg">−0.6%</span></td><td>within tolerance</td></tr>
-            <tr class="lvl-site"><td><span class="chev">▸</span>Lisieux</td><td class="num">34.2</td><td class="num"><span class="pos">+0.5%</span></td><td>within tolerance</td></tr>
-            <tr class="lvl-site"><td><span class="chev">▸</span>Compiègne</td><td class="num">28.7</td><td class="num"><span class="neg">−2.5%</span></td><td>within tolerance</td></tr>
-            <tr class="lvl-region"><td><span class="chev">▸</span>N. America</td><td class="num">42.4</td><td class="num"><span class="pos">+3.1%</span></td><td></td></tr>
-            <tr class="lvl-site"><td><span class="chev">▸</span>Chattanooga</td><td class="num">26.9</td><td class="num"><span class="pos">+10.9%</span></td><td>above budget — check</td></tr>
+            <tr class="lvl-region flag exp" data-id="amea"><td><span class="chev">▾</span>AMEA <b>⚠</b></td><td class="num">24.6</td><td class="num"><span class="neg">−9.9%</span></td><td>deviating — see below</td></tr>
+            <tr class="lvl-site flag exp" data-id="oco" data-parent="amea"><td><span class="chev">▾</span>Ocoyoacac</td><td class="num">24.6</td><td class="num"><span class="neg">−9.9%</span></td><td>Cut-off gap (GR/DLV) — not reconciled today</td></tr>
+            <tr class="lvl-line flag" data-id="oco_pack" data-parent="oco" data-txn="1" data-line="Ocoyoacac · PACK-02"><td>Line PACK-02</td><td class="num">14.1</td><td class="num"><span class="neg">−12.3%</span></td><td>TECO pending</td></tr>
+            <tr class="lvl-line" data-id="oco_gran" data-parent="oco" data-txn="1" data-line="Ocoyoacac · GRAN-01"><td>Line GRAN-01</td><td class="num">10.5</td><td class="num">−0.4%</td><td>ok</td></tr>
+            <tr class="lvl-region exp" data-id="eula"><td><span class="chev">▾</span>EULA</td><td class="num">61.4</td><td class="num"><span class="neg">−0.6%</span></td><td>within tolerance</td></tr>
+            <tr class="lvl-site" data-id="lis" data-parent="eula"><td><span class="chev">▸</span>Lisieux</td><td class="num">34.2</td><td class="num"><span class="pos">+0.5%</span></td><td>within tolerance</td></tr>
+            <tr class="lvl-line" data-id="lis_l1" data-parent="lis" data-txn="1" data-line="Lisieux · COMP-01" style="display:none"><td>Line COMP-01</td><td class="num">19.0</td><td class="num"><span class="pos">+0.8%</span></td><td>ok</td></tr>
+            <tr class="lvl-line" data-id="lis_l2" data-parent="lis" data-txn="1" data-line="Lisieux · PACK-01" style="display:none"><td>Line PACK-01</td><td class="num">15.2</td><td class="num">+0.1%</td><td>ok</td></tr>
+            <tr class="lvl-site" data-id="comp" data-parent="eula"><td><span class="chev">▸</span>Compiègne</td><td class="num">28.7</td><td class="num"><span class="neg">−2.5%</span></td><td>within tolerance</td></tr>
+            <tr class="lvl-line" data-id="comp_l1" data-parent="comp" data-txn="1" data-line="Compiègne · GRAN-02" style="display:none"><td>Line GRAN-02</td><td class="num">16.0</td><td class="num"><span class="neg">−3.1%</span></td><td>watch</td></tr>
+            <tr class="lvl-line" data-id="comp_l2" data-parent="comp" data-txn="1" data-line="Compiègne · PACK-03" style="display:none"><td>Line PACK-03</td><td class="num">12.7</td><td class="num">−1.6%</td><td>ok</td></tr>
+            <tr class="lvl-region" data-id="nam"><td><span class="chev">▸</span>N. America</td><td class="num">42.4</td><td class="num"><span class="pos">+3.1%</span></td><td></td></tr>
+            <tr class="lvl-site flag" data-id="chat" data-parent="nam" style="display:none"><td><span class="chev">▸</span>Chattanooga</td><td class="num">26.9</td><td class="num"><span class="pos">+10.9%</span></td><td>above budget — check</td></tr>
+            <tr class="lvl-line" data-id="chat_l1" data-parent="chat" data-txn="1" data-line="Chattanooga · COAT-01" style="display:none"><td>Line COAT-01</td><td class="num">15.5</td><td class="num"><span class="pos">+14.0%</span></td><td>above budget</td></tr>
+            <tr class="lvl-line" data-id="chat_l2" data-parent="chat" data-txn="1" data-line="Chattanooga · PACK-05" style="display:none"><td>Line PACK-05</td><td class="num">11.4</td><td class="num"><span class="pos">+6.8%</span></td><td>watch</td></tr>
           </tbody>
         </table>
       </div>
@@ -1021,6 +1028,87 @@
         Double-click a line to <b>drill through to the transactional detail — the exact SAP line items</b>, the finest granularity. This is a first-class endpoint of the drill, not a debug view. Every aggregate traces to its source value.
       </div>
     </div>
+
+    <div class="card panel" id="a1-txn" style="display:none;border:1.5px solid var(--brand)">
+      <div class="panel-h" style="display:flex;align-items:center;gap:8px"><span class="q">Transaction detail — <span id="a1-txn-line" style="color:var(--brand)">…</span></span><span id="a1-txn-close" style="margin-left:auto;cursor:pointer;color:var(--ink-3);font-size:.8rem">✕ close</span></div>
+      <div class="panel-cap">The exact SAP line items behind this line — the finest granularity, the endpoint of the drill (traceable to source, principle 9). <i>Illustrative figures.</i></div>
+      <div class="chartwrap">
+        <table class="mtx">
+          <thead><tr><th>Process order</th><th>Material · GMID</th><th class="num">Posting date</th><th class="num">Qty (u)</th><th class="num">Mach. h</th><th class="num">AV (€)</th><th>Cut-off</th></tr></thead>
+          <tbody>
+            <tr><td>PO-4471902</td><td>GMID 80231 · Doliprane 1000</td><td class="num">05 Jun</td><td class="num">210 400</td><td class="num">38.2</td><td class="num">1.42 M</td><td>GR</td></tr>
+            <tr><td>PO-4471915</td><td>GMID 80231 · Doliprane 1000</td><td class="num">07 Jun</td><td class="num">184 900</td><td class="num">33.6</td><td class="num">1.25 M</td><td>GR</td></tr>
+            <tr><td>PO-4472043</td><td>GMID 80774 · Doliprane 500</td><td class="num">11 Jun</td><td class="num">156 200</td><td class="num">29.1</td><td class="num">0.98 M</td><td>DLV</td></tr>
+            <tr><td>PO-4472110</td><td>GMID 81002 · Aspégic 500</td><td class="num">14 Jun</td><td class="num">98 700</td><td class="num">21.4</td><td class="num">0.71 M</td><td>GR</td></tr>
+            <tr><td>PO-4472188</td><td>GMID 81002 · Aspégic 500</td><td class="num">18 Jun</td><td class="num">72 300</td><td class="num">16.8</td><td class="num">0.54 M</td><td class="num">TECO pending</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="discl">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+        This is what "nothing is lost" means concretely: from the headline number down to the exact SAP posting, in three clicks. In Power BI this is a native <b>drillthrough</b> page.
+      </div>
+    </div>
+
+    <script>
+    (function(){
+      var mtx = document.getElementById('a1-matrix');
+      if(!mtx) return;
+      var panel = document.getElementById('a1-txn');
+      var ttl = document.getElementById('a1-txn-line');
+      function openTxn(line){ if(!panel) return; ttl.textContent = line; panel.style.display=''; panel.scrollIntoView({behavior:'smooth', block:'nearest'}); }
+      var closeBtn = document.getElementById('a1-txn-close');
+      if(closeBtn) closeBtn.addEventListener('click', function(){ if(panel) panel.style.display='none'; });
+      function q(sel){ return Array.prototype.slice.call(mtx.querySelectorAll(sel)); }
+      function childrenOf(idx){ return q('tr[data-parent="'+idx+'"]'); }
+      function levelOf(tr){ var c=tr.className; return c.indexOf('lvl-type')>-1?0:c.indexOf('lvl-region')>-1?1:c.indexOf('lvl-site')>-1?2:3; }
+      function setVisible(idx, vis){
+        childrenOf(idx).forEach(function(c){
+          c.style.display = vis ? '' : 'none';
+          if(!vis){
+            var ch=c.querySelector('.chev'); if(ch && ch.textContent==='▾') ch.textContent='▸';
+            c.dataset.exp='0'; setVisible(c.dataset.idx, false);
+          } else if(c.dataset.exp==='1'){ setVisible(c.dataset.idx, true); }
+        });
+      }
+      window.initA1Matrix = function(){
+        var rows = q('tr'), stack=[];
+        rows.forEach(function(tr,i){
+          var lvl=levelOf(tr); tr.dataset.idx=i; tr.dataset.level=lvl;
+          while(stack.length && stack[stack.length-1].lvl>=lvl) stack.pop();
+          tr.dataset.parent = stack.length ? stack[stack.length-1].i : -1;
+          var ch=tr.querySelector('.chev');
+          tr.dataset.exp = (ch && ch.textContent==='▾') ? '1':'0';
+          if(lvl===3){ tr.dataset.txn='1'; tr.style.cursor='pointer'; }
+          else if(ch){ tr.style.cursor='pointer'; }
+          stack.push({i:i, lvl:lvl});
+        });
+        rows.forEach(function(tr){
+          var vis=true, p=tr.dataset.parent;
+          while(p!=='-1' && p!=null){
+            var pr=mtx.querySelector('tr[data-idx="'+p+'"]'); if(!pr) break;
+            if(pr.dataset.exp!=='1'){ vis=false; break; } p=pr.dataset.parent;
+          }
+          tr.style.display = vis ? '' : 'none';
+        });
+      };
+      mtx.addEventListener('click', function(e){
+        var tr=e.target.closest('tr'); if(!tr) return;
+        if(childrenOf(tr.dataset.idx).length===0) return;
+        var exp = tr.dataset.exp!=='1'; tr.dataset.exp = exp?'1':'0';
+        var ch=tr.querySelector('.chev'); if(ch) ch.textContent = exp?'▾':'▸';
+        setVisible(tr.dataset.idx, exp);
+      });
+      mtx.addEventListener('dblclick', function(e){
+        var tr=e.target.closest('tr'); if(!tr || tr.dataset.txn!=='1') return;
+        e.preventDefault();
+        var cell=tr.querySelector('td'), label = cell ? cell.textContent.trim() : 'line';
+        var p=tr.dataset.parent;
+        while(p!=='-1' && p!=null){ var pr=mtx.querySelector('tr[data-idx="'+p+'"]'); if(!pr) break; if(pr.dataset.level==='2'){ var t=pr.querySelector('td'); label=t.textContent.trim().replace(/^[▸▾]\s*/,'').replace(/\s*⚠\s*/,' ') + ' · ' + label; break; } p=pr.dataset.parent; }
+        openTxn(label);
+      });
+    })();
+    </script>
 
     <div class="note feas">
       <span class="tag">Power BI feasibility — this screen</span>
@@ -1076,6 +1164,7 @@
         <div class="ritem"><b>Value and volume side by side.</b> She reads both at once, not one or the other — so no toggle here, both lenses are on the page. <span class="pr">One visual language</span></div>
         <div class="ritem"><b>Down to the machine.</b> Per machine (resource code, available in Athena / Kinaxis) — this validates the "line/machine" level and is feasible fast. <span class="pr">Progressive disclosure</span></div>
         <div class="ritem"><b>Site-level by design.</b> This is the site FBP's screen (RLS floor = Management Center). Example shown: Lisieux.</div>
+        <div class="ritem"><b>⚠ Data reality (Kiki call, 15 July) — to confirm.</b> In the finance model, the only plan data is a <b>monthly budget</b>, in a separate table <b>not yet integrated</b>, and there is <b>no daily/weekly plan anywhere</b> ("budget is monthly, be careful"). The <b>PDP / Kinaxis</b> source above is <b>[?]</b> — Kiki never named it; it may be a supply-side plan Adèle uses in Excel, distinct from the finance budget. So "weekly vs plan" is a <b>data dependency to resolve before build</b>, not something the model serves today: clarify which plan table, its grain, and its integration. <span class="pr">Mark [?], don't assert</span></div>
       </div>
     </details>
 
@@ -1718,7 +1807,7 @@
     <div class="wv"><span class="tagc">◇ Working view · the spec</span> <span><b>For us</b>, not a live dashboard page. The single design-and-spec layer: the logic, the personas, the two lenses, the weekly screen, the migration map, and what stays to confirm. This is the view to present — and to hand to Kiki &amp; Roland.</span></div>
     <div class="note" style="margin-bottom:14px">
       <span class="tag">How to read this</span>
-      Everything the redesign decides, in one place. Numbered sections, top to bottom: what it is and the principles, how the mockup is built, the screens and how they relate, the two lenses and the weekly screen, who reads what, scope and measures, the migration and the method, and the open points to confirm.
+      Everything the redesign decides, in one place. Numbered sections, top to bottom: what it is and the principles, how the mockup is built, the screens and how they relate, the two lenses and the weekly screen, who reads what, scope and measures, <b>the drill path (general → particular)</b>, the migration and the method, and the open points to confirm. <b>Updated after the Kiki call (15 July)</b> — the AUTO per-site method, the reconciliation drivers, and the weekly-plan data reality are folded in.
     </div>
 
     <div class="card panel">
@@ -1736,7 +1825,7 @@
         <li style="grid-template-columns:1fr"><span><b>4 · Progressive disclosure.</b> General → specific. Big number first, drill for detail. Nothing is deleted; it moves one level down.</span></li>
         <li style="grid-template-columns:1fr"><span><b>5 · No SAP jargon up front.</b> Business words on the surface (Activity, site, budget). GR / DLV / TECO / GMID live behind an expert reveal or in Data integrity.</span></li>
         <li style="grid-template-columns:1fr"><span><b>6 · One visual language.</b> Same card, type scale, colour semantics and layout everywhere. Opella green anchors structure; amber = watch, red = critical — colour is always semantic, never decorative.</span></li>
-        <li style="grid-template-columns:1fr"><span><b>7 · Smart defaults.</b> The system pre-picks period, scope, cut-off, scenario and standard for ~95% of cases, shows them read-only, and lets the expert expand. Zero buttons <i>required</i>, not zero buttons <i>possible</i>.</span></li>
+        <li style="grid-template-columns:1fr"><span><b>7 · Smart defaults.</b> The system pre-picks period, scope, cut-off, method and standard for ~95% of cases, shows them read-only, and lets the expert expand. Zero buttons <i>required</i>, not zero buttons <i>possible</i>. The default is <b>AUTO on both expert selectors</b> — Full-vs-Step <b>and</b> cut-off (GR/DLV/Close) — and AUTO applies the <b>correct method per site, encoded in the model</b> (call, 15 July: "Auto is the same method, I control it inside the DAX"). It's the only default that is <i>semantically</i> right, not just non-blank.</span></li>
         <li style="grid-template-columns:1fr"><span><b>8 · File it, don't trash it.</b> Debug, refresh and pipeline-freshness visuals move to the Data integrity page — out of the client path, still there for the team. The transactional detail is not filed here.</span></li>
         <li style="grid-template-columns:1fr"><span><b>9 · Traceable to source.</b> Every aggregate drills all the way to its <b>exact SAP value</b> (daily, volumes → TM1). Progressive disclosure never stops at a summary — the finest granularity is always reachable. It's the core value, and it's native Power BI (drillthrough), not an add-on.</span></li>
       </ul>
@@ -1812,7 +1901,7 @@
           <thead><tr><th style="width:14%">Screen</th><th style="width:26%">Question</th><th style="width:20%">Reference · vs</th><th style="width:24%">Granularity / axis</th><th style="width:16%">Primary persona</th></tr></thead>
           <tbody>
             <tr><td class="pg"><b>A0</b> Overview</td><td>Am I on track, and can I trust it?</td><td>Budget / RF + reconciliation</td><td>Total + site scan · window <b>Daily / MTD / YTD</b></td><td>FBP · site</td></tr>
-            <tr><td class="pg"><b>A0b</b> Weekly · vs Plan</td><td>Where &amp; why does my week slip?</td><td><b>PDP</b> + budget</td><td><b>Per machine → day → resource</b> · weekly</td><td>FBP · site <span style="color:var(--ink-3)">(operational)</span></td></tr>
+            <tr><td class="pg"><b>A0b</b> Weekly · vs Plan</td><td>Where &amp; why does my week slip?</td><td>plan <span class="tbc">[?]</span> + budget <span style="color:var(--ink-3)">(monthly)</span></td><td><b>Per machine → day → resource</b> · weekly</td><td>FBP · site <span style="color:var(--ink-3)">(operational)</span></td></tr>
             <tr><td class="pg"><b>A1</b> Sites &amp; detail</td><td>Where does it come from, and where does it deviate?</td><td>Budget</td><td>Type → region → site → line → <b>transaction (SAP)</b> · space</td><td>Insight lead · GCC</td></tr>
             <tr><td class="pg"><b>A2</b> Actual + forecast</td><td>Where does the year land?</td><td>Budget FY / previous RF</td><td>Continuous month → year · <b>time</b></td><td>FBP region + GCC</td></tr>
             <tr><td class="pg"><b>A3</b> Variances</td><td>Which variances move the number?</td><td><b>Standard vs actual</b></td><td>Driver (PPV / Yield / Subst. / FX) × site → per-PO</td><td>GCC + central</td></tr>
@@ -1862,6 +1951,7 @@
         <li style="grid-template-columns:1fr"><span><b>Value and volume together,</b> not one or the other — so no toggle here, both lenses are on the page.</span></li>
         <li style="grid-template-columns:1fr"><span><b>Operational, drills deep:</b> machine → day → resource (resource code, from Athena / Kinaxis). Not a stripped overview — it finds which machine, which day slipped. Validates A1's line level, feasible fast.</span></li>
         <li style="grid-template-columns:1fr"><span><b>The dependency:</b> the PDP is loaded monthly in Kinaxis; the <b>weekly split is manual</b> today (done by supply). That split is the one thing to build.</span></li>
+        <li style="grid-template-columns:1fr"><span><b>⚠ Data reality to confirm (call, 15 July).</b> In the <b>finance</b> model the only plan is a <b>monthly budget</b>, in a <b>separate, not-yet-integrated</b> table — and there is <b>no daily/weekly plan anywhere</b> ("budget is monthly, be careful"). Kiki <b>never named PDP/Kinaxis</b>: the production plan may be a supply-side artefact Adèle uses in Excel, distinct from finance budget. So "weekly vs plan" is a <b>data dependency to resolve before build</b>, marked <b>[?]</b> — clarify the plan table, its grain and its integration.</span></li>
       </ul>
       <div class="discl">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
@@ -1947,10 +2037,10 @@
     <div class="card panel">
       <div class="panel-h"><span class="q"><span class="secn">12</span> Measures — native vs to build</span></div>
       <ul class="checklist" style="margin-top:2px">
-        <li style="grid-template-columns:1fr"><span><b>Native (reuse):</b> activity (AV), volumes, vs budget, by site &amp; by line/machine, Movement / Ledger / TM1, postings MA/MG/SA, Yield &amp; Substitution.</span></li>
-        <li style="grid-template-columns:1fr"><span><b>vs PDP &amp; weekly:</b> PDP is loaded monthly in Kinaxis — the <b>weekly split</b> is manual today (supply), to build. Per-machine resource code available in Athena / Kinaxis.</span></li>
+        <li style="grid-template-columns:1fr"><span><b>Native (reuse):</b> activity (AV), volumes, vs budget, by site &amp; by line/machine, Movement / Ledger / TM1, postings MA/MG/SA, Yield &amp; Substitution. Confirmed 15 July: the <b>AUTO per-site method</b> (Full/Step + cut-off, in the DAX), the <b>reconciliation tool</b> (gap → transaction / manual journal) and the <b>standard/price-missing page</b> already exist — we reuse and reframe, not rebuild.</span></li>
+        <li style="grid-template-columns:1fr"><span><b>vs plan &amp; weekly <span class="tbc">[?]</span>:</b> the only finance plan is a <b>monthly budget</b>, in a separate <b>not-yet-integrated</b> table; <b>no daily/weekly plan exists</b> (call, 15 July). The "PDP / Kinaxis" source is unconfirmed — resolve the plan table &amp; its grain before building A0b's vs-plan. Per-machine resource code available in Athena.</span></li>
         <li style="grid-template-columns:1fr"><span><b>VA ⇄ Volume:</b> both exist natively; the synced toggle and its adaptive definition are the build.</span></li>
-        <li style="grid-template-columns:1fr"><span><b>To build / confirm:</b> estimated landing · actual→forecast switch · cause-per-site · gap-by-driver (cut-off / ILDA / Atina↔Polaris / PPV reclass) · PPV / Material / FX split.</span></li>
+        <li style="grid-template-columns:1fr"><span><b>To build / confirm:</b> estimated landing · actual→forecast switch · cause-per-site · <b>gap-by-driver</b> — drivers confirmed 15 July: <b>site cut-off differences · manual journals · late / prior-year bookings</b> (the gap is small in general, occasionally large on one isolated journal) · PPV / Material / FX split.</span></li>
       </ul>
     </div>
 
@@ -1982,7 +2072,48 @@
     </div>
 
     <div class="card panel">
-      <div class="panel-h"><span class="q"><span class="secn">14</span> Drill &amp; slicer audit — nothing lost, reorganised</span></div>
+      <div class="panel-h"><span class="q"><span class="secn">14</span> The drill path — general to particular</span></div>
+      <div class="panel-cap">The redesign's promise in one line: <b>the headline number first, the exact SAP transaction at the end</b>, in a few clicks down. This is precisely what Kiki's users ask for — <i>"more detail, from the general to the particular"</i> (call, 15 July) — and what Pierre made <b>non-negotiable</b> ("traceable to the source"). Same capability, one continuous descent, native Power BI drillthrough.</div>
+      <div style="display:flex;flex-wrap:wrap;align-items:stretch;gap:7px;margin:10px 0 2px;overflow-x:auto">
+        <div style="flex:1 1 128px;min-width:128px;border:1px solid var(--ink-3);border-radius:6px;padding:9px 11px">
+          <div style="font-size:.68rem;letter-spacing:.4px;color:var(--brand);font-weight:700">A0</div>
+          <div style="font-weight:600;color:var(--ink);font-size:.85rem">Total activity</div>
+          <div style="color:var(--ink-3);font-size:.75rem">“Am I on track?” · <i>general</i></div>
+        </div>
+        <div style="display:flex;align-items:center;color:var(--ink-3);font-weight:700">▸</div>
+        <div style="flex:1 1 128px;min-width:128px;border:1px solid var(--ink-3);border-radius:6px;padding:9px 11px">
+          <div style="font-size:.68rem;letter-spacing:.4px;color:var(--brand);font-weight:700">A1</div>
+          <div style="font-weight:600;color:var(--ink);font-size:.85rem">Type → region → site</div>
+          <div style="color:var(--ink-3);font-size:.75rem">where it deviates · <i>space</i></div>
+        </div>
+        <div style="display:flex;align-items:center;color:var(--ink-3);font-weight:700">▸</div>
+        <div style="flex:1 1 128px;min-width:128px;border:1px solid var(--ink-3);border-radius:6px;padding:9px 11px">
+          <div style="font-size:.68rem;letter-spacing:.4px;color:var(--brand);font-weight:700">A1</div>
+          <div style="font-weight:600;color:var(--ink);font-size:.85rem">Line / machine</div>
+          <div style="color:var(--ink-3);font-size:.75rem">the resource</div>
+        </div>
+        <div style="display:flex;align-items:center;color:var(--ink-3);font-weight:700">▸</div>
+        <div style="flex:1 1 128px;min-width:128px;border:1px solid var(--ink-3);border-radius:6px;padding:9px 11px">
+          <div style="font-size:.68rem;letter-spacing:.4px;color:var(--brand);font-weight:700">A1</div>
+          <div style="font-weight:600;color:var(--ink);font-size:.85rem">Process order</div>
+          <div style="color:var(--ink-3);font-size:.75rem">the batch</div>
+        </div>
+        <div style="display:flex;align-items:center;color:var(--brand);font-weight:700">▸</div>
+        <div style="flex:1 1 140px;min-width:140px;border:2px solid var(--brand);border-radius:6px;padding:9px 11px">
+          <div style="font-size:.68rem;letter-spacing:.4px;color:var(--brand);font-weight:700">DRILLTHROUGH</div>
+          <div style="font-weight:700;color:var(--ink);font-size:.85rem">Exact SAP transaction</div>
+          <div style="color:var(--ink-3);font-size:.75rem">finest grain · <i>particular</i></div>
+        </div>
+      </div>
+      <div class="panel-cap" style="margin-top:8px">The same descent lives on the other screens: <b>A0b</b> drills machine → day → resource (which machine, which day slipped) · <b>A3</b> drills driver → per-PO · <b>A4</b> drills the gap → the exact transaction / manual journal behind it (Kiki's own reconciliation tool, kept). Each audience reaches its native grain — supply chain to material/GMID, production to line/work-center, finance to the GL-matched transaction (call, 15 July).</div>
+      <div class="discl">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+        The surface got simpler; the depth did not. <b>"Figure before filter" is not "less detail"</b> — it's the same detail, re-sequenced: general first, the exact value one descent away. That is the answer to Aurélien (a <i>finished</i> screen, not a dumbed-down one) and to Kiki's users (more detail, and reachable). The audit below proves it line by line.
+      </div>
+    </div>
+
+    <div class="card panel">
+      <div class="panel-h"><span class="q"><span class="secn">15</span> Drill &amp; slicer audit — nothing lost, reorganised</span></div>
       <div class="panel-cap">The answer to "did we lose granularity?". Every control and every drill of the current dashboard, and where it now lives. Fewer slicers on the surface ≠ fewer capabilities. <span class="tbc">to complete precisely with Kiki against the live report</span></div>
       <div class="chartwrap">
         <table class="mapt">
@@ -1992,8 +2123,8 @@
             <tr><td class="pg">Wall of ~50 slicers &amp; toggles</td><td class="to">5 read-only chips (AUTO defaults)</td><td class="why">Kept, demoted — one click to expand, none required.</td></tr>
             <tr><td class="pg">12 month buttons</td><td class="to">Period toggle</td><td class="why">Kept, simplified — Daily / Weekly / MTD / YTD.</td></tr>
             <tr><td class="pg">Scope · region · 14-site tick-boxes</td><td class="to">AUTO scope + A1 drill</td><td class="why">Kept, via navigation — type → region → site → line.</td></tr>
-            <tr><td class="pg">Cut-off GR / DLV / TECO</td><td class="to">AUTO cut-off chip</td><td class="why">Kept, demoted — expert reveal, rarely touched.</td></tr>
-            <tr><td class="pg">Full AV / Step STD toggle <span class="tbc">?</span></td><td class="to">Default + expert chip</td><td class="why">Kept — exact behaviour to confirm with Kiki.</td></tr>
+            <tr><td class="pg">Cut-off GR / DLV / Close</td><td class="to">AUTO cut-off chip</td><td class="why">Kept, demoted — AUTO applies the per-site cut-off (US → Deliver, AU → GR), in the DAX.</td></tr>
+            <tr><td class="pg">Full AV / Step STD toggle</td><td class="to">AUTO method + expert chip</td><td class="why">Kept — Step values each stage (raw → semi → finished, own rate); Full sums them; AUTO picks the site's real method.</td></tr>
             <tr><td class="pg">VA / Volume</td><td class="to">Value / Volume toggle</td><td class="why">Kept, elevated — synced across A0/A1/A2.</td></tr>
             <tr class="grp"><td colspan="3">Drill paths — the granularity</td></tr>
             <tr><td class="pg">By-site table</td><td class="to">A0 scan + A1 matrix</td><td class="why">Kept, split — the scan (anything off?) + the full drill.</td></tr>
@@ -2012,20 +2143,20 @@
     </div>
 
     <div class="card panel">
-      <div class="panel-h"><span class="q"><span class="secn">15</span> Method &amp; effort</span></div>
+      <div class="panel-h"><span class="q"><span class="secn">16</span> Method &amp; effort</span></div>
       <div class="sddef" style="font-size:.84rem">Per dashboard: mockup → test with 3 users → release within the week. <b>AV first</b> as the lab: a one-week sprint, ~3 days of Kiki, four-hands. Then the next families reuse the method and templates. Reliability of the data stays a parallel workstream (Alexia, Kiki), not this scope. We decide once (KPIs of reference, template, the two lenses) and apply family by family.</div>
     </div>
 
     <div class="card panel">
-      <div class="panel-h"><span class="q"><span class="secn">16</span> Concepts to verify against the data model</span></div>
+      <div class="panel-h"><span class="q"><span class="secn">17</span> Concepts to verify against the data model</span></div>
       <div class="panel-cap">Fictitious <b>figures</b> are fine. These derived <b>concepts</b> are not confirmed as existing fields — check against dbt, or with Kiki and Roland, before promising them.</div>
       <ul class="checklist">
         <li><span><b>Estimated landing</b> (A0, A2). <span class="ask">Does a year-end projection measure (actual through close, then forecast) exist, or is it to build?</span></span></li>
         <li><span><b>The “cause” per deviating site</b> (A0, A1). <span class="ask">Is there a field or rule that attributes each gap to a cause (cut-off, PPV, adjustment), or is it derived?</span></span></li>
-        <li><span><b>AV Gap decomposed by driver</b> (A4 waterfall). <span class="ask">The drivers are named officially, but is the gap split by driver actually modeled?</span></span></li>
+        <li><span><b>AV Gap decomposed by driver</b> (A4 waterfall). <span class="ask">Kiki's reconciliation tool already lists the gap per transaction / manual journal; drivers confirmed = site cut-off, manual journals, late/prior-year bookings. To confirm: is the gap pre-<b>split by driver</b> as a measure, or only drillable transaction-by-transaction?</span></span></li>
         <li><span><b>Variances PPV / Material Price / FX</b> (A3). <span class="ask">Yield &amp; Substitution exist in the report. Are PPV, Material Price and FX modeled per site too?</span></span></li>
         <li><span><b>Actual → forecast switch</b> (A2). <span class="ask">Buildable from existing series. Confirm the handover logic (which month closes actual).</span></span></li>
-        <li><span><b>Weekly PDP split &amp; per-machine</b> (A0b). <span class="ask">PDP is monthly in Kinaxis; the weekly split is manual (supply) — can it be sourced? Is the per-machine resource code clean in Athena / Kinaxis?</span></span></li>
+        <li><span><b>Weekly plan &amp; per-machine</b> (A0b). <span class="ask">⚠ Reframed 15 July: the only finance plan is a <b>monthly budget</b> in a separate, not-yet-integrated table; <b>no daily/weekly plan exists</b>. Is "PDP/Kinaxis" a real supply-side source, at what grain, and can it be integrated? Is the per-machine resource code clean in Athena? Nothing to build on vs-plan until this is answered.</span></span></li>
         <li><span><b>VA ⇄ Volume toggle</b> (A0, A1, A2). <span class="ask">Both measures exist; confirm the volume aggregation rule and that the toggle is wanted (with Kiki).</span></span></li>
       </ul>
     </div>
@@ -2173,9 +2304,15 @@
         { c: "lvl-type", chev: "▾", name: "DIR · Direct manufacturing", act: "121.3", vact: "480", vs: "+0.4%", vsCls: "pos", status: "" },
         { c: "lvl-region", chev: "▾", name: "EULA", act: "61.4", vact: "243", vs: "−0.6%", vsCls: "neg", status: "within tolerance" },
         { c: "lvl-site", chev: "▸", name: "Lisieux", act: "34.2", vact: "141", vs: "+0.5%", vsCls: "pos", status: "within tolerance" },
+        { c: "lvl-line", name: "Line COMP-01", act: "19.0", vact: "80", vs: "+0.8%", vsCls: "pos", status: "ok" },
+        { c: "lvl-line", name: "Line PACK-01", act: "15.2", vact: "61", vs: "+0.1%", vsCls: "pos", status: "ok" },
         { c: "lvl-site", chev: "▸", name: "Compiègne", act: "28.7", vact: "96", vs: "−2.5%", vsCls: "neg", status: "within tolerance" },
+        { c: "lvl-line", name: "Line GRAN-02", act: "16.0", vact: "54", vs: "−3.1%", vsCls: "neg", status: "watch" },
+        { c: "lvl-line", name: "Line PACK-03", act: "12.7", vact: "42", vs: "−1.6%", vsCls: "neg", status: "ok" },
         { c: "lvl-region", chev: "▸", name: "N. America", act: "42.4", vact: "168", vs: "+3.1%", vsCls: "pos", status: "" },
         { c: "lvl-site", chev: "▸", name: "Chattanooga", act: "26.9", vact: "112", vs: "+10.9%", vsCls: "pos", status: "above budget — check" },
+        { c: "lvl-line", name: "Line COAT-01", act: "15.5", vact: "64", vs: "+14.0%", vsCls: "pos", status: "above budget" },
+        { c: "lvl-line", name: "Line PACK-05", act: "11.4", vact: "48", vs: "+6.8%", vsCls: "pos", status: "watch" },
         { c: "lvl-type", chev: "▸", name: "EM · External manufacturing", act: "7.1", vact: "28", vs: "−0.3%", vsCls: "neg", status: "3 tollers · collapsed" }
       ] }
   };
@@ -2255,6 +2392,7 @@
       setDelta(g('a1-bud'), vol ? s.vbud : s.bud);
       g('a1-scope').textContent = s.scope; g('a1-dev').textContent = s.a1dev;
       g('a1-matrix').innerHTML = s.a1rows.map(r => matrixRow(r, vol)).join('');
+      if (window.initA1Matrix) window.initA1Matrix();
     }
     if (g('a2-landing')) {
       const land = vol ? s.va2landing : s.a2landing;
