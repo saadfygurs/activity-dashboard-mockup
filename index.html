@@ -765,7 +765,7 @@
             <div class="opt" data-period="ytd">Year to date (YTD)</div>
             <div class="opt">Last month</div>
             <div class="opt">Custom range…</div>
-            <div class="chip-note"><b>Period is a toggle</b> (Daily / MTD / YTD). Default = current month to date. The whole page recomputes for the chosen period. <b>The week lives on A0b</b> (operational, vs PDP), not here.</div>
+            <div class="chip-note"><b>Period is a toggle</b> (Daily / MTD / YTD). Default = current month to date. The whole page recomputes for the chosen period — <b>and the comparison adapts</b>: budget and forecast exist at monthly grain, so in <b>Daily</b> the tiles and scan switch to a <b>week-over-week trend</b> (no daily budget), with the month vs budget kept as an anchor. <b>The week lives on A0b</b> (operational), not here.</div>
           </div>
         </details>
         <details class="chip-dd"><summary class="chip"><span class="k">Scope</span> AUTO <span class="car">▾</span></summary>
@@ -833,6 +833,7 @@
         <div class="ritem"><b>The “it reconciles −0.3%” badge.</b> The single most important addition. The current screen has two 97–99% gauges that never answer “does it tie out?”. This does — and it’s what wins back the users who fled to their ERP. <span class="pr">Visible trust</span></div>
         <div class="ritem"><b>Settings collapsed to chips.</b> The ~50-control wall of the current screen becomes five read-only chips (top-right), each expandable. The choice is deferred, not removed. <span class="pr">Smart defaults</span></div>
         <div class="ritem"><b>A0 stays the answer, not a mini-A1/A2.</b> No forecast curve, no full breakdown here — those are A2 (time) and A1 (space). A0 keeps one job: the figure and the trust. Explicit cards point one level down. <span class="pr">One screen = one question</span></div>
+        <div class="ritem"><b>Period-aware comparison.</b> Budget and forecast exist only at <b>monthly grain</b> — so comparing "vs budget" in Daily is meaningless. The rule: <b>you only compare to a reference that exists at that grain</b>. In Daily the tiles and the scan switch to a <b>week-over-week trend</b> (the live pulse), with the month vs budget kept as an anchor; MTD / YTD compare vs budget and forecast. This is also why Weekly was pulled from A0's toggle. <span class="pr">No fake reference</span></div>
         <div class="ritem"><b>Sites, deviating first + cause.</b> Ocoyoacac is surfaced with its reason, not buried in an alphabetical list. <span class="pr">Figure before filter</span></div>
         <div class="ritem"><b>“Est. landing [?]”.</b> The [?] flags an open question — does this measure exist? We mark assumptions rather than fake certainty.</div>
         <div class="ritem"><b>Deliberately left out:</b> the gauges (precision theatre without an answer) and the slicer bandeau — moved or removed.</div>
@@ -863,11 +864,11 @@
       <div class="heroside">
         <div class="card compare">
           <div class="cmp">
-            <div class="k">vs Budget 26<span class="ihint" tabindex="0">i<span class="tip"><b>vs Budget 26</b> — this month's activity against the 2026 budget for the same perimeter, in % and absolute.</span></span></div>
+            <div class="k"><span id="a0-bud-lbl">vs Budget 26</span><span class="ihint" tabindex="0">i<span class="tip"><b>vs Budget 26</b> — this month's activity against the 2026 budget for the same perimeter, in % and absolute. <b>Budget exists at monthly grain only</b> — in Daily this tile becomes a week-over-week trend.</span></span></div>
             <div class="v up" id="a0-bud"><span class="arrow">▲</span>+2.1 %<small>·&nbsp;+€2.6M</small></div>
           </div>
           <div class="cmp">
-            <div class="k">vs Forecast RF<span class="ihint" tabindex="0">i<span class="tip"><b>vs Forecast RF</b> — activity against the latest rolling forecast (RF). Shows whether the month is tracking the most recent expectation, not just the annual budget.</span></span></div>
+            <div class="k"><span id="a0-rf-lbl">vs Forecast RF</span><span class="ihint" tabindex="0">i<span class="tip"><b>vs Forecast RF</b> — activity against the latest rolling forecast (RF, monthly grain). In Daily this tile shows where the month stands vs budget, as an anchor.</span></span></div>
             <div class="v down" id="a0-rf"><span class="arrow">▼</span>−1.4 %<small>·&nbsp;−€1.8M</small></div>
           </div>
         </div>
@@ -886,7 +887,7 @@
         <div class="panel-h"><span class="q" id="a0-btitle">By site · anything off?</span></div>
         <div class="panel-cap" id="a0-bcap">€ impact vs budget, worst first — what's dragging the month? (% shown too). Beyond ±5% flagged. Full drill in A1.</div>
         <div class="dvscan" id="sites"></div>
-        <div class="dvaxis"><span></span><span class="ax"><span>unfavorable ◀</span><b>0 · € vs budget</b><span>▶ favorable</span></span><span></span></div>
+        <div class="dvaxis"><span></span><span class="ax"><span>unfavorable ◀</span><b id="a0-axis">0 · € vs budget</b><span>▶ favorable</span></span><span></span></div>
         <div class="discl">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
           A scan, not the investigation. Double-click a row, or open <b>A1</b> for the full region → site → line drill with causes.
@@ -2256,7 +2257,7 @@
   // ----- Scope switcher: same screen A0, scoped to the user's perimeter -----
   const SCOPES = {
     site: { mtd: "34.2", scope: "Lisieux · site",
-      bud: { v: "+0.5 %", s: "+€0.2M", d: "up" }, rf: { v: "−0.3 %", s: "−€0.1M", d: "down" }, gap: "−0.2%",
+      bud: { v: "+0.5 %", s: "+€0.2M", d: "up" }, rf: { v: "−0.3 %", s: "−€0.1M", d: "down" }, gap: "−0.2%", dtrend: { v: "+0.9 %", s: "vs last wk", d: "up" },
       btitle: "By line · anything off?", bcap: "€ impact vs budget, worst first — within Lisieux, by line (% shown too). Beyond ±5% flagged. Full drill in A1.",
       vmtd: "161", vunit: "M u", vbtitle: "By line · anything off?", vbcap: "€ impact vs budget, worst first — within Lisieux, by line (% shown too). Beyond ±5% flagged. Full drill in A1.",
       vbud: { v: "+1.9 %", s: "+3M u", d: "up" }, vrf: { v: "−0.6 %", s: "−1M u", d: "down" },
@@ -2272,7 +2273,7 @@
         { c: "lvl-line", chev: "▸", name: "Other lines", act: "1.4", vact: "6", vs: "—", vsCls: "", status: "within tolerance" }
       ] },
     region: { mtd: "61.4", scope: "AMEA · region",
-      bud: { v: "−0.6 %", s: "−€0.4M", d: "down" }, rf: { v: "−1.1 %", s: "−€0.7M", d: "down" }, gap: "−0.9%",
+      bud: { v: "−0.6 %", s: "−€0.4M", d: "down" }, rf: { v: "−1.1 %", s: "−€0.7M", d: "down" }, gap: "−0.9%", dtrend: { v: "−1.8 %", s: "vs last wk", d: "down" },
       btitle: "By site · anything off?", bcap: "€ impact vs budget, worst first — what's dragging the month? (% shown too). Beyond ±5% flagged. Full drill in A1.",
       vmtd: "285", vunit: "M u", vbtitle: "By site · anything off?", vbcap: "€ impact vs budget, worst first — what's dragging the month? (% shown too). Beyond ±5% flagged. Full drill in A1.",
       vbud: { v: "+1.2 %", s: "+3M u", d: "up" }, vrf: { v: "−1.6 %", s: "−5M u", d: "down" },
@@ -2289,7 +2290,7 @@
         { c: "lvl-site", chev: "▸", name: "Suzano", act: "9.8", vact: "41", vs: "+0.5%", vsCls: "pos", status: "within tolerance" }
       ] },
     all: { mtd: "128.4", scope: "All sites · group",
-      bud: { v: "+2.1 %", s: "+€2.6M", d: "up" }, rf: { v: "−1.4 %", s: "−€1.8M", d: "down" }, gap: "−0.3%",
+      bud: { v: "+2.1 %", s: "+€2.6M", d: "up" }, rf: { v: "−1.4 %", s: "−€1.8M", d: "down" }, gap: "−0.3%", dtrend: { v: "+2.4 %", s: "vs last wk", d: "up" },
       btitle: "By site · anything off?", bcap: "€ impact vs budget, worst first — what's dragging the month? (% shown too). Beyond ±5% flagged. Full drill in A1.",
       vmtd: "512", vunit: "M u", vbtitle: "By site · anything off?", vbcap: "€ impact vs budget, worst first — what's dragging the month? (% shown too). Beyond ±5% flagged. Full drill in A1.",
       vbud: { v: "+3.4 %", s: "+17M u", d: "up" }, vrf: { v: "−0.9 %", s: "−5M u", d: "down" },
@@ -2376,10 +2377,25 @@
       g('a0-eyetip').innerHTML = eye.tip;
       if (g('a0-period-sub')) g('a0-period-sub').textContent = per.sub;
       g('a0-scope').textContent = s.scope;
-      setDelta(g('a0-bud'), vol ? s.vbud : s.bud); setDelta(g('a0-rf'), vol ? s.vrf : s.rf);
       g('a0-gap').textContent = s.gap;
       g('a0-btitle').textContent = vol ? s.vbtitle : s.btitle;
-      g('a0-bcap').textContent = vol ? s.vbcap : s.bcap;
+      // Period-aware comparison: budget/RF exist only at monthly grain. In Daily (or Weekly), show a trend instead, with the month vs budget as an anchor.
+      const noBudget = (curPeriod === 'daily' || curPeriod === 'weekly');
+      if (noBudget) {
+        if (g('a0-bud-lbl')) g('a0-bud-lbl').textContent = (curPeriod === 'weekly' ? 'vs last week' : 'vs same day last week');
+        setDelta(g('a0-bud'), s.dtrend);
+        if (g('a0-rf-lbl')) g('a0-rf-lbl').textContent = 'Month vs budget';
+        setDelta(g('a0-rf'), vol ? s.vbud : s.bud);
+        g('a0-bcap').textContent = "The " + per.label + "'s activity by site, biggest movers. Budget is monthly — tracked on MTD / YTD.";
+        if (g('a0-axis')) g('a0-axis').textContent = '0 · vs same ' + per.label + ' last week';
+      } else {
+        if (g('a0-bud-lbl')) g('a0-bud-lbl').textContent = 'vs Budget 26';
+        setDelta(g('a0-bud'), vol ? s.vbud : s.bud);
+        if (g('a0-rf-lbl')) g('a0-rf-lbl').textContent = 'vs Forecast RF';
+        setDelta(g('a0-rf'), vol ? s.vrf : s.rf);
+        g('a0-bcap').textContent = vol ? s.vbcap : s.bcap;
+        if (g('a0-axis')) g('a0-axis').textContent = '0 · € vs budget';
+      }
       const scan = s.rows.slice().sort((a, b) => a.evar - b.evar); // worst € impact first
       const maxE = Math.max(0.1, ...s.rows.map(r => Math.abs(r.evar)));
       g('sites').innerHTML = scan.map(r => dvRow(r, maxE, per.f)).join('');
