@@ -2159,6 +2159,8 @@
         <li><span><b>Actual → forecast switch</b> (A2). <span class="ask">Buildable from existing series. Confirm the handover logic (which month closes actual).</span></span></li>
         <li><span><b>Weekly plan &amp; per-machine</b> (A0b). <span class="ask">⚠ Reframed 15 July: the only finance plan is a <b>monthly budget</b> in a separate, not-yet-integrated table; <b>no daily/weekly plan exists</b>. Is "PDP/Kinaxis" a real supply-side source, at what grain, and can it be integrated? Is the per-machine resource code clean in Athena? Nothing to build on vs-plan until this is answered.</span></span></li>
         <li><span><b>VA ⇄ Volume toggle</b> (A0, A1, A2). <span class="ask">Both measures exist; confirm the volume aggregation rule and that the toggle is wanted (with Kiki).</span></span></li>
+        <li><span><b>Line / machine drill</b> (A1, 4th level). <span class="ask">⚠ Mapped 16 July: type → region → site is solid (all in <code>_S_MC_LE</code>), but the <b>line / work-centre link is fragile</b> — it hangs off the product via a <code>_tmp_</code> M:M column, very likely the join bug Kiki is fixing. <b>A1 drill stops at site for v1</b>; the line level is deferred until Kiki confirms (alt: <code>_A_ORDER_ACT[RESOURCE]</code>).</span></span></li>
+        <li><span><b>No "hours" in the model.</b> <span class="ask">Mapped 16 July: AV is <b>volume × standard rate</b>. "Machine + labour hours" is the business definition, but the model exposes no hours measure (<code>Hour_GR</code> is a system entry-time field for freshness, not worked hours). So no hours visual.</span></span></li>
       </ul>
     </div>
   </section>
