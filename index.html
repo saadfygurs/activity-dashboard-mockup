@@ -1,12 +1,4 @@
-<!doctype html>
-<html lang="en" data-theme="light">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="color-scheme" content="light">
 <title>Cordata · AV Mockup — Overview</title>
-</head>
-<body>
 <style>
   :root {
     --bg: #E5E8EC;
@@ -1808,7 +1800,7 @@
     <div class="wv"><span class="tagc">◇ Working view · the spec</span> <span><b>For us</b>, not a live dashboard page. The single design-and-spec layer: the logic, the personas, the two lenses, the weekly screen, the migration map, and what stays to confirm. This is the view to present — and to hand to Kiki &amp; Roland.</span></div>
     <div class="note" style="margin-bottom:14px">
       <span class="tag">How to read this</span>
-      Everything the redesign decides, in one place. Numbered sections, top to bottom: what it is and the principles, how the mockup is built, the screens and how they relate, the two lenses and the weekly screen, who reads what, scope and measures, <b>the drill path (general → particular)</b>, the migration and the method, and the open points to confirm. <b>Updated after the Kiki call (15 July)</b> — the AUTO per-site method, the reconciliation drivers, and the weekly-plan data reality are folded in.
+      Everything the redesign decides, in one place. Numbered sections, top to bottom: what it is and the principles, how the mockup is built, the screens and how they relate, the two lenses and the weekly screen, who reads what, scope and measures, <b>the drill path (general → particular)</b>, the migration and the method, the open points to confirm, and the <b>backlog (§18)</b>. <b>Updated after the Kiki call (15 July) and the Aurélien call (17 July)</b> — the AUTO per-site method, the reconciliation drivers and their calibration, the forecast-scenario scope, and the weekly-plan data reality are folded in.
     </div>
 
     <div class="card panel">
@@ -2163,6 +2155,56 @@
         <li><span><b>No "hours" in the model.</b> <span class="ask">Mapped 16 July: AV is <b>volume × standard rate</b>. "Machine + labour hours" is the business definition, but the model exposes no hours measure (<code>Hour_GR</code> is a system entry-time field for freshness, not worked hours). So no hours visual.</span></span></li>
       </ul>
     </div>
+
+    <div class="card panel">
+      <div class="panel-h"><span class="q"><span class="secn">18</span> Backlog — what's left to build &amp; to weigh</span></div>
+      <div class="panel-cap">The running to-do behind the redesign, in one place. Updated after the Aurélien call (17 July): the reconciliation calibration, the forecast-scenario ask, and the lineage visual are folded in. <span class="ask">⚠ marks an open question owned by someone on the project — not ours to settle alone.</span></div>
+
+      <div class="sddef" style="font-weight:600;margin:8px 0 2px">Finish A0 (in flight)</div>
+      <ul class="checklist">
+        <li><span><b>Value / Volume toggle.</b> The volume lens wraps Kiki's <code>_Quantity_Selected</code> (GUoM + AUTO cut-off) — single source, cut-off aligned with the value. Left to do: the hero switch, the dynamic number format, the tile slicer, and the by-site scan following the toggle. vs Budget / vs RF and reconciliation stay <b>Value-only</b> (TM1 and the ledger are monetary).</span></li>
+        <li><span><b>A0 chrome.</b> The "From here" drill cards; the read-only context chips harmonised with the mockup labels (SCENARIO Bud26 · STANDARD current); the <b>(i)</b> note by MEASURE for the volume-additivity caveat.</span></li>
+      </ul>
+
+      <div class="sddef" style="font-weight:600;margin:12px 0 2px">Reconciliation — calibrate (Aurélien call, 17 July)</div>
+      <ul class="checklist">
+        <li><span><b>Tolerance → 1 %.</b> Aurélien: under 1 % is aligned, above is too significant, under 0.5 % is excellent. Currently 5 % — tighten to 1 %. <span class="ask">⚠ His rule was stated for TM1 ↔ ledger; our badge is Movement ↔ Ledger — reconfirm it transfers.</span></span></li>
+        <li><span><b>J+4 guard-rail.</b> The ledger only becomes authoritative ~J+4 after month close (manual closing entries over the first days, then a day to land in Snowflake) — true for every site. Tune <code>_A0_ReconMonth</code> (today: step back 2 months if day ≤ 5; exact rule = ≤ 4).</span></li>
+        <li><span><b>Which sites' ledger is integrated?</b> <span class="ask">⚠ Taís. Needed to separate "Pending — no ledger" from a real "Off". Aurélien said "all sites", but about TM1, not the ledger integration into Core Data (Atina / Polaris still open).</span></span></li>
+        <li><span><b>Reconcile on volume too.</b> The ledger side carries <code>_Quantity_Ledger_in_Scope</code> — a volume reconciliation (Movement units vs Ledger units) is possible alongside the € one. To explore.</span></li>
+      </ul>
+
+      <div class="sddef" style="font-weight:600;margin:12px 0 2px">New scope — Aurélien's Friday ask (17 July)</div>
+      <ul class="checklist">
+        <li><span><b>Compare forecast scenarios.</b> The analysis missing on Activity: compare two scenarios (budget vs current, or day vs day — the supply forecast changes daily, and real production nets out of the year-to-go). The <i>added value forecast control</i> tab exists but is a control tool, not analysis, and drops straight into GMID detail (no general-to-particular). His literal wish: "a button that gives the volumes and the added value of every site matching a real scenario, good numbers." Folds into the AV chantier — <b>actuals + forecast in one continuous view</b> ("two pages today, but really one subject").</span></li>
+        <li><span><b>A deeper added-value analysis</b> beyond the forecast-control page.</span></li>
+      </ul>
+
+      <div class="sddef" style="font-weight:600;margin:12px 0 2px">Data lineage &amp; freshness — Pierre's ask</div>
+      <ul class="checklist">
+        <li><span><b>A lineage / freshness visual</b> so a user sees where each figure comes from and how fresh it is. dbt already exposes lineage (<code>manifest.json</code>). Plus a small agent running on the repo to keep the visual current. Scoped after A0.</span></li>
+      </ul>
+
+      <div class="sddef" style="font-weight:600;margin:12px 0 2px">Open model / business questions</div>
+      <ul class="checklist">
+        <li><span><b>Volume product scope.</b> <span class="ask">⚠ Kiki. <code>_Quantity_Selected</code> carries no Full/Step notion, so GUoM makes units homogeneous but summing a semi-finished + the finished good it feeds double-counts throughput. Additive only at a coherent GMID scope — does A0's default product scope already exclude semi-finished?</span></span></li>
+        <li><span><b>FX scenario.</b> <span class="ask">⚠ Confirm "Bud26" (budget FX) vs "Act26" (actual FX) in the activity measure with Kiki.</span></span></li>
+        <li><span><b>Line / work-centre join</b> (see §17) — fragile <code>_tmp_</code> M:M, deferred until Kiki confirms.</span></li>
+      </ul>
+
+      <div class="sddef" style="font-weight:600;margin:12px 0 2px">Handover docs to keep current</div>
+      <ul class="checklist">
+        <li><span><b>Register of technical findings</b> — add tolerance 1 %, the J+4 rule, LUoM/GUoM decoded, and findings #1 / #2 validated by the client.</span></li>
+        <li><span><b>Measure dictionary</b> — add the reconciliation calculated table and the volume measures.</span></li>
+      </ul>
+
+      <div class="sddef" style="font-weight:600;margin:12px 0 2px">Deferred to later</div>
+      <ul class="checklist">
+        <li><span><b>A0b · Weekly vs Plan</b> — held until the plan-data reality is answered (no daily / weekly finance plan today).</span></li>
+        <li><span><b>Per-site reconciliation detail → A4</b> once A4 is built (lives on A0 for now).</span></li>
+        <li><span><b>Pill-style chips</b> — a template decision for S3, applied once and reused, not fought visual by visual.</span></li>
+      </ul>
+    </div>
   </section>
 
   <section class="view" id="defs" role="tabpanel">
@@ -2499,6 +2541,3 @@
     if (!e.target.closest('.chip-dd')) dds.forEach(o => { o.open = false; });
   });
 </script>
-
-</body>
-</html>
