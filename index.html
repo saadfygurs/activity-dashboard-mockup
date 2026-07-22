@@ -731,6 +731,7 @@
       <button class="tab" role="tab" aria-selected="false" data-view="di"><span class="code">⚙</span> Data integrity</button>
       <span class="tabgrp wvg">For us · working view</span>
       <button class="tab wvtab" role="tab" aria-selected="false" data-view="logic"><span class="code">▤</span> Logic &amp; spec</button>
+      <button class="tab wvtab" role="tab" aria-selected="false" data-view="landscape"><span class="code">🗺</span> Landscape</button>
     </nav>
   </div>
 
@@ -2272,6 +2273,162 @@
     </div>
   </section>
 
+  <section class="view" id="landscape" role="tabpanel">
+    <style>
+      .tlmap{--paper:#F7EFE6;--card:#FFFFFF;--tink:#263F26;--tink2:#546955;--tmut:#859486;
+        --tgreen:#042B0B;--tgreen2:#3D553E;--tline:#CED5CE;--tsoft:#E7EAE7;
+        --tamber:#C77700;--tamber-soft:#F6E4CC;--tslate:#5B6B78;--tslate-soft:#E2E8EC;--tpink:#FF78D2;
+        background:var(--paper);color:var(--tink);border-radius:12px;padding:28px 26px;
+        font-family:"Segoe UI",system-ui,-apple-system,sans-serif;line-height:1.45;}
+      .tlmap *{box-sizing:border-box;margin:0;padding:0}
+      .tlmap .tl-eyebrow{font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--tgreen2);font-weight:700}
+      .tlmap .tl-h1{font-size:1.5rem;color:var(--tgreen);letter-spacing:-.01em;margin:4px 0 6px;font-weight:700}
+      .tlmap .tl-sub{color:var(--tink2);font-size:.92rem;max-width:74ch}
+      .tlmap .tl-rule{height:2px;background:var(--tgreen);width:52px;margin:14px 0 24px;border-radius:2px}
+      .tlmap .tl-h2{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--tmut);font-weight:700;margin:28px 0 12px}
+      .tlmap .tl-streams{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+      .tlmap .tl-track{display:flex;flex-direction:column;gap:8px}
+      .tlmap .tl-tag{font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;padding:4px 9px;border-radius:999px;align-self:flex-start}
+      .tlmap .tt-act{background:var(--tsoft);color:var(--tgreen2)}
+      .tlmap .tt-fc{background:var(--tamber-soft);color:var(--tamber)}
+      .tlmap .tt-ref{background:var(--tslate-soft);color:var(--tslate)}
+      .tlmap .tl-box{background:var(--card);border:1px solid var(--tsoft);border-radius:9px;padding:11px 13px;box-shadow:0 2px 8px -6px rgba(38,63,38,.35)}
+      .tlmap .tl-box .n{font-weight:700;font-size:.9rem;color:var(--tink)}
+      .tlmap .tl-box .d{font-size:.76rem;color:var(--tink2);margin-top:2px}
+      .tlmap .tl-box .lbl{font-size:.58rem;letter-spacing:.04em;text-transform:uppercase;color:var(--tmut);font-weight:700;margin-top:5px}
+      .tlmap .tl-box.mit{border:1.5px solid var(--tamber);box-shadow:0 3px 14px -6px rgba(199,119,0,.5)}
+      .tlmap .tl-box.mit .n{color:var(--tamber)}
+      .tlmap .tl-box.tm1{border-color:var(--tslate)}
+      .tlmap .tl-arrow{color:var(--tmut);text-align:center;font-size:.9rem;line-height:1.1}
+      .tlmap .tl-arrow small{display:block;font-size:.58rem;letter-spacing:.03em;color:var(--tmut);margin-top:1px}
+      .tlmap .tl-converge{display:grid;grid-template-columns:repeat(3,1fr);margin:10px 0 2px}
+      .tlmap .tl-converge span{text-align:center;color:var(--tmut);font-size:.7rem}
+      .tlmap .tl-band{background:var(--card);border:1px solid var(--tsoft);border-radius:11px;padding:15px 18px;box-shadow:0 3px 12px -7px rgba(38,63,38,.4)}
+      .tlmap .tl-band .n{font-weight:700;color:var(--tgreen);font-size:1rem}
+      .tlmap .tl-band .flow{font-family:ui-monospace,"Cascadia Mono",monospace;font-size:.76rem;color:var(--tink2);margin-top:6px;background:var(--tsoft);padding:7px 10px;border-radius:6px;display:inline-block}
+      .tlmap .tl-band .d{font-size:.8rem;color:var(--tink2);margin-top:7px}
+      .tlmap .tl-down{text-align:center;color:var(--tmut);font-size:1.1rem;margin:8px 0}
+      .tlmap .tl-core{background:var(--tgreen);color:#EAF0EA;border-radius:12px;padding:17px 20px;box-shadow:0 6px 22px -10px rgba(4,43,11,.6);position:relative}
+      .tlmap .tl-core .here{position:absolute;top:-11px;right:16px;background:var(--tpink);color:#3a0d29;font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;font-weight:800;padding:3px 9px;border-radius:999px}
+      .tlmap .tl-core .n{font-weight:700;font-size:1.05rem}
+      .tlmap .tl-core .d{font-size:.82rem;color:#C9D6C9;margin-top:4px}
+      .tlmap .tl-core .recon{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+      .tlmap .tl-core .recon .r{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:9px 11px}
+      .tlmap .tl-core .recon .rt{font-weight:700;font-size:.8rem;color:#EAF0EA}
+      .tlmap .tl-core .recon .rd{font-size:.7rem;color:#B9C7B9;margin-top:2px}
+      .tlmap .tl-panel{background:var(--card);border:1px solid var(--tsoft);border-radius:11px;padding:18px 20px;box-shadow:0 3px 12px -7px rgba(38,63,38,.4)}
+      .tlmap .tl-panel.mitp{border-left:4px solid var(--tamber)}
+      .tlmap .tl-panel .tl-h3{font-size:1rem;color:var(--tink);margin-bottom:4px}
+      .tlmap .tl-panel .tl-h3 .k{color:var(--tamber)}
+      .tlmap .tl-chain{list-style:none;counter-reset:s;margin:12px 0 4px}
+      .tlmap .tl-chain li{counter-increment:s;position:relative;padding:6px 0 6px 34px;font-size:.85rem;color:var(--tink2)}
+      .tlmap .tl-chain li::before{content:counter(s);position:absolute;left:0;top:5px;width:22px;height:22px;background:var(--tamber-soft);color:var(--tamber);font-weight:800;font-size:.72rem;border-radius:50%;display:grid;place-items:center}
+      .tlmap .tl-chain li b{color:var(--tink)}
+      .tlmap .tl-why{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:14px}
+      .tlmap .tl-why .w{background:var(--tsoft);border-radius:8px;padding:10px 12px}
+      .tlmap .tl-why .w .t{font-weight:700;font-size:.76rem;color:var(--tgreen2)}
+      .tlmap .tl-why .w .x{font-size:.73rem;color:var(--tink2);margin-top:3px}
+      .tlmap ol.tl-q{list-style:none;counter-reset:q;margin-top:6px}
+      .tlmap ol.tl-q li{counter-increment:q;position:relative;padding:9px 0 9px 40px;font-size:.88rem;border-bottom:1px solid var(--tsoft)}
+      .tlmap ol.tl-q li:last-child{border-bottom:0}
+      .tlmap ol.tl-q li::before{content:"Q"counter(q);position:absolute;left:0;top:9px;font-weight:800;font-size:.68rem;color:#fff;background:var(--tgreen2);padding:2px 6px;border-radius:5px}
+      .tlmap ol.tl-q li b{color:var(--tink)}
+      .tlmap .who{font-size:.66rem;color:var(--tmut);font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-left:6px}
+      .tlmap .tl-legend{display:flex;flex-wrap:wrap;gap:14px;font-size:.72rem;color:var(--tink2);margin-top:8px}
+      .tlmap .tl-legend span{display:inline-flex;align-items:center;gap:6px}
+      .tlmap .tl-dot{width:10px;height:10px;border-radius:3px;flex:none}
+      .tlmap .tl-foot{margin-top:24px;font-size:.72rem;color:var(--tmut);font-style:italic}
+      @media(max-width:760px){.tlmap .tl-streams,.tlmap .tl-converge,.tlmap .tl-why{grid-template-columns:1fr}.tlmap .tl-core .recon{grid-template-columns:1fr}}
+    </style>
+    <div class="tlmap">
+      <div class="tl-eyebrow">Cordata · Opella Finance MNS</div>
+      <div class="tl-h1">The tool landscape, and where the MIT fits</div>
+      <p class="tl-sub">Three streams feed the Core Data dashboards: what happened (actuals), what's planned (forecast, via Kinaxis → MIT), and the official reference (TM1). The MIT turns the plan into a real, per-product, monthly figure — and it's what most "brand-level" and "forecast" asks depend on.</p>
+      <div class="tl-rule"></div>
+
+      <div class="tl-legend">
+        <span><span class="tl-dot" style="background:var(--tgreen2)"></span> Actuals (what happened)</span>
+        <span><span class="tl-dot" style="background:var(--tamber)"></span> Forecast / plan (Kinaxis → MIT)</span>
+        <span><span class="tl-dot" style="background:var(--tslate)"></span> Reference &amp; consolidation (TM1)</span>
+      </div>
+
+      <div class="tl-h2">The three streams</div>
+      <div class="tl-streams">
+        <div class="tl-track">
+          <span class="tl-tag tt-act">Actuals</span>
+          <div class="tl-box"><div class="n">SAP ×10 + Oracle</div><div class="d">Transactional systems — GR movements, GL ledger.</div></div>
+          <div class="tl-box"><div class="n">Site ERPs</div><div class="d">Athena (Lisieux, Origgio) · SAP Vision (Compiègne).</div></div>
+          <div class="tl-arrow">▼<small>Sanofi Hub → Opella Hub</small></div>
+          <div class="tl-box"><div class="n">SAP Hubs</div><div class="d">Sanofi → Opella shared views.</div></div>
+        </div>
+        <div class="tl-track">
+          <span class="tl-tag tt-fc">Forecast / plan</span>
+          <div class="tl-box"><div class="n">Kinaxis</div><div class="d">Supply-chain forecast (Rapid Response).</div><div class="lbl">changes daily</div></div>
+          <div class="tl-arrow">▼<small>delta adjustments</small></div>
+          <div class="tl-box mit"><div class="n">MIT · Manual Input Template</div><div class="d">Supply commits <b>volumes</b> + finance commits <b>Added Value (€)</b>. The human hand on top of Kinaxis.</div><div class="lbl">monthly · per GMID · app: Forecast Admin</div></div>
+          <div class="tl-arrow">▼<small>the monthly plan (per-GMID)</small></div>
+        </div>
+        <div class="tl-track">
+          <span class="tl-tag tt-ref">Reference</span>
+          <div class="tl-box tm1"><div class="n">TM1</div><div class="d">IBM Planning Analytics. Budget · Rolling Forecast (RF) · official actuals at close.</div><div class="lbl">monthly · AV high-level only</div></div>
+          <div class="tl-arrow">▼<small>budget / RF + the recon reference</small></div>
+          <div class="tl-box" style="background:var(--tslate-soft);border-color:var(--tslate)"><div class="n">The official truth</div><div class="d">What Cordata must tie out against at close.</div></div>
+        </div>
+      </div>
+
+      <div class="tl-converge"><span>▼</span><span>▼ via Airflow DAG</span><span>▼</span></div>
+
+      <div class="tl-h2">The data platform</div>
+      <div class="tl-band">
+        <div class="n">Snowflake + Airflow + dbt</div>
+        <div class="flow">seeds → staging → AGG → intermediate (ledger · movements · business partner) → marts</div>
+        <div class="d">Snowflake holds the shared views (UAT). Airflow orchestrates non-SAP sources. dbt turns ~700 source tables into 10 masters (5 facts + 5 dims). This is where the <b>ledger</b> the reconciliation uses lives.</div>
+      </div>
+
+      <div class="tl-down">▼</div>
+
+      <div class="tl-core">
+        <span class="here">You are here</span>
+        <div class="n">Core Data · Power BI</div>
+        <div class="d">The Activity / Added Value dashboards. Consumes all three streams.</div>
+        <div class="recon">
+          <div class="r"><div class="rt">Movement ↔ Ledger</div><div class="rd">Production vs accounting — the trust check, inside Core Data.</div></div>
+          <div class="r"><div class="rt">Cordata ↔ TM1</div><div class="rd">At close — the official reconciliation (the S8 recette).</div></div>
+        </div>
+      </div>
+
+      <div class="tl-h2">Zoom · the MIT</div>
+      <div class="tl-panel mitp">
+        <div class="tl-h3"><span class="k">MIT</span> — Manual Input Template</div>
+        <p style="font-size:.85rem;color:var(--tink2)">Where the plan becomes real: monthly, per product, volumes and Added Value in €, by adjusting Kinaxis by hand.</p>
+        <ol class="tl-chain">
+          <li><b>Kinaxis calculates</b> the base forecast from demand — it changes every day.</li>
+          <li><b>Supply chain enters delta adjustments</b> in the MIT — they correct Kinaxis by exception, not re-type everything.</li>
+          <li><b>The MIT locks monthly, per GMID</b> (product) — the plan becomes fixed at month grain.</li>
+          <li><b>Site finance valorises in €</b> — turns the committed volumes into Added Value.</li>
+        </ol>
+        <div class="tl-why">
+          <div class="w"><div class="t">Why the monthly grain</div><div class="x">The plan is <b>born monthly, per GMID</b>. That's why there is no daily / weekly budget — hence "No daily budget" in the dashboard.</div></div>
+          <div class="w"><div class="t">Why brand-level needs it</div><div class="x">TM1 holds AV <b>high-level only</b>. The per-brand (GMID) budget + AV lives in the MIT — Shane's "brand vs budget" ask depends on it.</div></div>
+          <div class="w"><div class="t">The catch</div><div class="x">MIT integration into Core Data is <b>progressive, not mature</b>. So brand-level and the production-plan link are "next step".</div></div>
+        </div>
+      </div>
+
+      <div class="tl-h2">Questions to close this afternoon</div>
+      <div class="tl-panel">
+        <ol class="tl-q">
+          <li><b>Integration state:</b> where is MIT → Core Data today? Is the per-GMID budget / AV already <b>queryable in the model</b>, or still Roland's pipeline work? <span class="who">Aurélien / Roland</span></li>
+          <li><b>Ownership:</b> who owns the MIT — data and process? Supply chain, finance, or a named person? <span class="who">Aurélien</span></li>
+          <li><b>Available grain now:</b> do we have the GMID-monthly budget <b>today</b>, or only high-level via TM1? Realistic date for per-brand? <span class="who">Aurélien / Roland</span></li>
+          <li><b>Same subject?</b> is the MIT the same thing as the <b>forecast-scenario comparison</b> you asked me to fold into scope, or two tracks? <span class="who">Aurélien</span></li>
+          <li><b>Kinaxis daily vs MIT monthly:</b> for the sites' daily view, do we read Kinaxis directly, or only the MIT once locked? (freshness angle) <span class="who">Aurélien / supply</span></li>
+        </ol>
+      </div>
+
+      <div class="tl-foot">Working note — piloting aid, internal. Structure only, no figures. [?] on anything not yet confirmed with the team.</div>
+    </div>
+  </section>
+
       </div><!-- /rptcanvas -->
     </div><!-- /report -->
   </div><!-- /reportframe -->
@@ -2294,7 +2451,7 @@
     views.forEach(v => v.classList.toggle('active', v.id === id));
     tabs.forEach(t => t.setAttribute('aria-selected', t.dataset.view === id));
     // the working view (Logic & spec) is ours, not the report → drop the report chrome
-    reportframe.classList.toggle('working', id === 'logic');
+    reportframe.classList.toggle('working', id === 'logic' || id === 'landscape');
     const pg = document.getElementById('rpt-page');
     if (pg && PAGES[id]) pg.textContent = PAGES[id];
     requestAnimationFrame(() => fillBars(id));
