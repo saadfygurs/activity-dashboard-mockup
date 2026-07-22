@@ -2158,9 +2158,19 @@
 
     <div class="card panel">
       <div class="panel-h"><span class="q"><span class="secn">18</span> Backlog — what's left to build &amp; to weigh</span></div>
-      <div class="panel-cap">The running to-do behind the redesign, in one place. Updated after the Aurélien call (17 July): the reconciliation calibration, the forecast-scenario ask, and the lineage visual are folded in. <span class="ask">⚠ marks an open question owned by someone on the project — not ours to settle alone.</span></div>
+      <div class="panel-cap">The running to-do behind the redesign, in one place. Updated after the Aurélien call (17 July) and the Shane / AMEA call (22 July): reconciliation calibration, the forecast-scenario ask, the lineage visual, and the daily-freshness / brand-level field input are folded in. <span class="ask">⚠ marks an open question owned by someone on the project — not ours to settle alone.</span></div>
 
-      <div class="sddef" style="font-weight:600;margin:8px 0 2px">Finish A0 (in flight)</div>
+      <div class="sddef" style="font-weight:600;margin:8px 0 2px">Field input — Shane, Head of Finance Performance AMEA (22 July)</div>
+      <ul class="checklist">
+        <li><span><b>Daily freshness is the adoption make-or-break.</b> The primary use is the sites' daily QDCI stand-up (~11am–12pm Manila, "Paris is sleeping"): the previous day's added value + volume, ready and up to date. When the data is 2 days stale, teams abandon the dashboard and rebuild in Excel. <span class="ask">⚠ Fixing the daily refresh (D-2 → D-1) is the condition for site adoption — Pierre (Snowflake) + Roland (pipeline).</span></span></li>
+        <li><span><b>Region use is secondary.</b> At region level Shane reads the full P&amp;L first; the AV report is a monthly cross-check (the mix per month). The daily-for-sites view is the value, not the monthly overview.</span></li>
+        <li><span><b>Brand (GMID) actual vs budget / RF.</b> Actual AV per brand exists; the comparison to budget / RF does not — sites do it manually today. Wanted: "where are we lacking vs budget, per brand?". <span class="ask">⚠ Gated on MIT maturity (TM1 holds AV at high level only; per-brand budget/AV comes from MIT). Next step.</span></span></li>
+        <li><span><b>Link AV to the monthly production expectation.</b> Budget and RF are in the system; the monthly production plan (varies month to month, locks at month grain, from MIT) should link to AV. Same MIT dependency — folds into the actuals + forecast chantier.</span></li>
+        <li><span><b>EM sites are Mauricio Sabatini's, not Shane's.</b> Shane owns the DIRECT AMEA sites (Megrine, Australia, Virginia, Ho Chi Minh, Narita). Mauricio handles the entire EM (and EM data is harder to source). <span class="ask">⚠ For the EM ledger-integration / reconciliation question, contact Mauricio Sabatini — not Taís.</span></span></li>
+        <li><span><b>Shane = potential AMEA champion.</b> Not a Core Data user today, but agreed to review v1 and iterate. Keep her in the loop for site-level testing.</span></li>
+      </ul>
+
+      <div class="sddef" style="font-weight:600;margin:12px 0 2px">Finish A0 (in flight)</div>
       <ul class="checklist">
         <li><span><b>Value / Volume toggle.</b> The volume lens wraps Kiki's <code>_Quantity_Selected</code> (GUoM + AUTO cut-off) — single source, cut-off aligned with the value. Left to do: the hero switch, the dynamic number format, the tile slicer, and the by-site scan following the toggle. vs Budget / vs RF and reconciliation stay <b>Value-only</b> (TM1 and the ledger are monetary).</span></li>
         <li><span><b>A0 chrome.</b> The "From here" drill cards; the read-only context chips harmonised with the mockup labels (SCENARIO Bud26 · STANDARD current); the <b>(i)</b> note by MEASURE for the volume-additivity caveat.</span></li>
@@ -2170,7 +2180,7 @@
       <ul class="checklist">
         <li><span><b>Tolerance → 1 %.</b> Aurélien: under 1 % is aligned, above is too significant, under 0.5 % is excellent. Currently 5 % — tighten to 1 %. <span class="ask">⚠ His rule was stated for TM1 ↔ ledger; our badge is Movement ↔ Ledger — reconfirm it transfers.</span></span></li>
         <li><span><b>J+4 guard-rail.</b> The ledger only becomes authoritative ~J+4 after month close (manual closing entries over the first days, then a day to land in Snowflake) — true for every site. Tune <code>_A0_ReconMonth</code> (today: step back 2 months if day ≤ 5; exact rule = ≤ 4).</span></li>
-        <li><span><b>Which sites' ledger is integrated?</b> <span class="ask">⚠ Taís. Needed to separate "Pending — no ledger" from a real "Off". Aurélien said "all sites", but about TM1, not the ledger integration into Core Data (Atina / Polaris still open).</span></span></li>
+        <li><span><b>Which sites' ledger is integrated?</b> <span class="ask">⚠ Needed to separate "Pending — no ledger" from a real "Off". Aurélien said "all sites", but about TM1, not the ledger integration into Core Data (Atina / Polaris still open). Route by ownership: <b>Direct</b> sites via Taís; <b>EM</b> sites via <b>Mauricio Sabatini</b> (he owns the entire EM, and EM data is sourced differently).</span></span></li>
         <li><span><b>Reconcile on volume too.</b> The ledger side carries <code>_Quantity_Ledger_in_Scope</code> — a volume reconciliation (Movement units vs Ledger units) is possible alongside the € one. To explore.</span></li>
       </ul>
 
