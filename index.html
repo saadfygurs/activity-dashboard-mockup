@@ -743,7 +743,7 @@
         <span class="opella">Opella</span>
         <span class="hdiv"></span>
         <div class="brand-txt">
-          <h1>Activity — Added Value</h1>
+          <h1>Actual Added Value</h1>
           <p><span class="pgtag">Page</span> <b id="rpt-page">Overview</b></p>
         </div>
         <span class="hspacer"></span>
@@ -823,7 +823,7 @@
       <summary>This screen (A0), decision by decision <span class="car">▸</span></summary>
       <div class="rbody">
         <div class="ritem"><b>The big “128.4 M€” first.</b> Month-to-date activity is the largest thing on the screen; everything else clusters around it. <span class="pr">Figure before filter</span></div>
-        <div class="ritem"><b>The honest reconciliation badge.</b> The single most important addition. The current screen has two 97–99% gauges that never answer “does it tie out?”. This does — Movement vs Ledger, calibrated to Kiki's page (Step STD · Local Currency), on the last closed month (YTD cumulative), with a per-site table showing what reconciles, what's off, and what's still pending integration. We <b>show what doesn't tie out</b> rather than fake a green. <span class="pr">Visible trust</span></div>
+        <div class="ritem"><b>Top products, where the trust badge used to be.</b> The reconciliation badge (Movement vs Ledger, calibrated to Kiki at the cent) was built and lived here — but <b>Aurélien (22 Jul) decided it moves to A4</b>: at close, a <b>plug entry is pushed per site</b> to force every site onto TM1, so on a client page the check reads ~0 by construction and stops informing. Its slot now holds a <b>Top-products (GMID) card</b> — the brand-level read Shane manages by hand today. The recon keeps its full value on A4, and intra-month before the plug. <span class="pr">Visible trust</span></div>
         <div class="ritem"><b>Settings collapsed to chips.</b> The ~50-control wall of the current screen becomes five read-only chips (top-right), each expandable. The choice is deferred, not removed. <span class="pr">Smart defaults</span></div>
         <div class="ritem"><b>A0 stays the answer, not a mini-A1/A2.</b> No forecast curve, no full breakdown here — those are A2 (time) and A1 (space). A0 keeps one job: the figure and the trust. Explicit cards point one level down. <span class="pr">One screen = one question</span></div>
         <div class="ritem"><b>Period-aware comparison.</b> Budget and forecast exist only at <b>monthly grain</b> — so comparing "vs budget" in Daily is meaningless. The rule: <b>you only compare to a reference that exists at that grain</b>. In Daily the tiles and the scan switch to a <b>week-over-week trend</b> (the live pulse), with the month vs budget kept as an anchor; MTD / YTD compare vs budget and forecast. This is also why Weekly was pulled from A0's toggle. <span class="pr">No fake reference</span></div>
@@ -865,12 +865,14 @@
             <div class="v down" id="a0-rf"><span class="arrow">▼</span>−1.4 %<small>·&nbsp;−€1.8M</small></div>
           </div>
         </div>
-        <div class="card trust">
-          <div class="tick"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>
-          <div>
-            <div class="t1"><b>June 2026</b> · Movement vs Ledger <b id="a0-gap">−1.2%</b><span class="ihint" tabindex="0">i<span class="tip"><b>Movement vs Ledger</b> — two independent measures of AV: production (Movement) vs accounting (Ledger), calibrated to Kiki's page at the cent (Step STD · Local Currency). Shown on the last CLOSED month (the ledger settles ~J+4); in YTD, the cumulative year. Within 1% = green, close = amber, beyond = red. Per-site detail (Reconciles / Off / Pending) on A4 — a site whose ledger isn't integrated reads "pending", never "off".</span></span></div>
-            <div class="t2">Last closed month · honest per-site coverage · period-aware (YTD = cumulative)</div>
+        <div class="card" style="padding:11px 13px 12px">
+          <div style="display:flex;align-items:center;gap:5px;font-size:.68rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-3);margin-bottom:8px">Top products · Value<span class="ihint" tabindex="0">i<span class="tip"><b>Top products (by GMID)</b> — the biggest brands by added value, following the Value | Volume toggle. Budget-by-GMID lives in the MIT; this is the brand-level read Shane manages by hand today. It takes the slot the reconciliation badge held: per Aurélien (22 Jul), once the closing plug forces every site onto TM1 the Movement-vs-Ledger check is always ~0 on a client page, so it <b>moves to A4</b>. <span style="opacity:.75">Fictitious figures · MIT-gated.</span></span></span></div>
+          <div style="display:grid;gap:7px">
+            <div style="display:grid;grid-template-columns:74px 1fr auto;align-items:center;gap:9px;font-size:.78rem"><span style="color:var(--ink)">Doliprane</span><span style="height:6px;border-radius:3px;background:var(--brand);width:100%"></span><b style="color:var(--ink);font-variant-numeric:tabular-nums">41.2M€</b></div>
+            <div style="display:grid;grid-template-columns:74px 1fr auto;align-items:center;gap:9px;font-size:.78rem"><span style="color:var(--ink)">Aspirin</span><span style="height:6px;border-radius:3px;background:var(--brand);opacity:.7;width:62%"></span><b style="color:var(--ink);font-variant-numeric:tabular-nums">25.6M€</b></div>
+            <div style="display:grid;grid-template-columns:74px 1fr auto;align-items:center;gap:9px;font-size:.78rem"><span style="color:var(--ink)">Magne B6</span><span style="height:6px;border-radius:3px;background:var(--brand);opacity:.45;width:44%"></span><b style="color:var(--ink);font-variant-numeric:tabular-nums">18.1M€</b></div>
           </div>
+          <div style="font-size:.66rem;color:var(--ink-3);margin-top:8px">by GMID · from the MIT · follows the Value | Volume toggle</div>
         </div>
       </div>
     </div>
@@ -892,7 +894,7 @@
         <div class="panel-cap">A0 is the answer. If it's green, you're done. Go one level down for the parts, or the trajectory.</div>
         <button class="nextcard" data-goto="a1"><span class="nc-code">A1</span><span class="nc-txt"><b>Where it comes from</b><small>Region → site → line, find where it deviates. <i>· space</i></small></span><span class="nc-arr">→</span></button>
         <button class="nextcard" data-goto="a2"><span class="nc-code">A2</span><span class="nc-txt"><b>Where it's heading</b><small>Actual + forecast to the full-year landing. <i>· time</i></small></span><span class="nc-arr">→</span></button>
-        <button class="nextcard" data-goto="a4"><span class="nc-code">A4</span><span class="nc-txt"><b>Does it tie out</b><small>The proof behind the badge — ledger &amp; TM1. <i>· trust</i></small></span><span class="nc-arr">→</span></button>
+        <button class="nextcard" data-goto="a4"><span class="nc-code">A4</span><span class="nc-txt"><b>Does it tie out</b><small>Reconciliation &amp; TM1 alignment — the trust engine, now on its own page. <i>· trust</i></small></span><span class="nc-arr">→</span></button>
       </div>
     </div>
 
@@ -1838,7 +1840,7 @@
         <table class="mapt">
           <thead><tr><th style="width:15%">Screen</th><th style="width:30%">Question</th><th style="width:23%">Reader <span style="font-weight:400;color:var(--ink-3)">(primary · secondary)</span></th><th style="width:32%">Key measures</th></tr></thead>
           <tbody>
-            <tr><td class="pg"><b>A0</b> Overview</td><td>Is my month on track, and can I trust it?</td><td>Site finance partner<small style="display:block;color:var(--ink-3)">+ site lead · GCC · FBP region</small></td><td>Activity MTD · vs Budget / RF · reconciliation badge · VA/Vol</td></tr>
+            <tr><td class="pg"><b>A0</b> Overview</td><td>Is my month on track, and can I trust it?</td><td>Site finance partner<small style="display:block;color:var(--ink-3)">+ site lead · GCC · FBP region</small></td><td>Activity MTD · vs Budget / RF · top products · VA/Vol</td></tr>
             <tr><td class="pg"><b>A0b</b> Weekly · vs Plan</td><td>Is my week on track vs PDP, machine by machine?</td><td>Site finance partner<small style="display:block;color:var(--ink-3)">+ supply chain · site lead</small></td><td>Weekly VA &amp; Volume · vs PDP / Budget · per machine</td></tr>
             <tr><td class="pg"><b>A1</b> Sites &amp; detail</td><td>Which site / line deviates, and why?</td><td>Insight lead (GCC)<small style="display:block;color:var(--ink-3)">+ FBP region · central</small></td><td>Region → site → line · cause · VA/Vol</td></tr>
             <tr><td class="pg"><b>A2</b> Actual + forecast</td><td>Where does the year land?</td><td>FBP region + GCC<small style="display:block;color:var(--ink-3)">+ FBP site · supply chain</small></td><td>Continuous actual → forecast · estimated landing · VA/Vol</td></tr>
@@ -1894,7 +1896,7 @@
         <table class="mapt">
           <thead><tr><th style="width:14%">Screen</th><th style="width:26%">Question</th><th style="width:20%">Reference · vs</th><th style="width:24%">Granularity / axis</th><th style="width:16%">Primary persona</th></tr></thead>
           <tbody>
-            <tr><td class="pg"><b>A0</b> Overview</td><td>Am I on track, and can I trust it?</td><td>Budget / RF + reconciliation</td><td>Total + site scan · window <b>Daily / MTD / YTD</b></td><td>FBP · site</td></tr>
+            <tr><td class="pg"><b>A0</b> Overview</td><td>Am I on track, and can I trust it?</td><td>Budget / RF + top products</td><td>Total + site scan · window <b>Daily / MTD / YTD</b></td><td>FBP · site</td></tr>
             <tr><td class="pg"><b>A0b</b> Weekly · vs Plan</td><td>Where &amp; why does my week slip?</td><td>plan <span class="tbc">[?]</span> + budget <span style="color:var(--ink-3)">(monthly)</span></td><td><b>Per machine → day → resource</b> · weekly</td><td>FBP · site <span style="color:var(--ink-3)">(operational)</span></td></tr>
             <tr><td class="pg"><b>A1</b> Sites &amp; detail</td><td>Where does it come from, and where does it deviate?</td><td>Budget</td><td>Type → region → site → line → <b>transaction (SAP)</b> · space</td><td>Insight lead · GCC</td></tr>
             <tr><td class="pg"><b>A2</b> Actual + forecast</td><td>Where does the year land?</td><td>Budget FY / previous RF</td><td>Continuous month → year · <b>time</b></td><td>FBP region + GCC</td></tr>
@@ -1913,7 +1915,7 @@
       <div class="panel-h"><span class="q">The screens, in words</span></div>
       <div class="panel-cap">What each screen is, in one line.</div>
       <div class="screendefs">
-        <div class="sdrow"><div class="sdcode">A0<small>Overview</small></div><div class="sddef"><b>The answer.</b> Your month's Activity at a glance, and whether it reconciles — the headline figure, the gap to budget and forecast, the trust badge. Scoped to your perimeter. The screen most site users start and end on.</div></div>
+        <div class="sdrow"><div class="sdcode">A0<small>Overview</small></div><div class="sddef"><b>The answer.</b> Your month's Activity at a glance — the headline figure, the gap to budget and forecast, and the top products by GMID. Scoped to your perimeter. The screen most site users start and end on. (Reconciliation moved to A4 per Aurélien, 22 Jul.)</div></div>
         <div class="sdrow"><div class="sdcode">A0b<small>Weekly · vs Plan</small></div><div class="sddef"><b>The production view, vs the plan.</b> The site partner's operating screen: value and volume, per machine, day by day, <b>vs the PDP</b> (production plan) and budget, for her Wednesday committee. A different reference from A0 (budget). Replaces her Excel.</div></div>
         <div class="sdrow"><div class="sdcode">A1<small>Sites &amp; detail</small></div><div class="sddef"><b>Where it comes from</b> <i>· space.</i> Break the number down region → site → line, deviating sites floated up with the cause. The multi-site control surface — the GCC insight lead's screen, not the single-site partner's.</div></div>
         <div class="sdrow"><div class="sdcode">A2<small>Actual + forecast</small></div><div class="sddef"><b>Where it's heading</b> <i>· time.</i> Actuals and forecast merged into one continuous line, to read the full-year landing. A different axis from A1 — it extends the number, it doesn't drill it. The redesign's key deliverable.</div></div>
@@ -2159,15 +2161,17 @@
 
     <div class="card panel">
       <div class="panel-h"><span class="q"><span class="secn">18</span> Backlog — what's left to build &amp; to weigh</span></div>
-      <div class="panel-cap">The running to-do behind the redesign, organised by <b>theme</b> so we never mix apples and oranges — each theme states its intent in one line. Updated after the Aurélien (17 July) and Shane / AMEA (22 July) calls. <span class="ask">⚠ marks an open question owned by someone on the project — not ours to settle alone.</span></div>
+      <div class="panel-cap">The running to-do behind the redesign, organised by <b>theme</b> so we never mix apples and oranges — each theme states its intent in one line. Updated after the Aurélien (17 July), Shane / AMEA (22 July) and Aurélien daily (22 July) calls. <span class="ask">⚠ marks an open question owned by someone on the project — not ours to settle alone.</span></div>
 
       <div style="margin-top:24px;padding-top:13px;border-top:2px solid var(--brand-soft)">
         <div style="display:flex;align-items:center;gap:9px">
           <span style="background:var(--brand);color:#fff;font-size:.64rem;font-weight:800;padding:2px 8px;border-radius:5px;letter-spacing:.04em">A</span>
           <span style="font-weight:800;font-size:.98rem;color:var(--brand-ink)">Finish A0 for the 24 July demo</span>
         </div>
-        <div style="font-size:.78rem;color:var(--ink-2);margin:4px 0 9px">The demo-critical remaining build. Most of A0 is done — Value/Volume, reconciliation, Opella charter, € tiles, YTD recon, the chip bar.</div>
+        <div style="font-size:.78rem;color:var(--ink-2);margin:4px 0 9px">The demo-critical remaining build. Most of A0 is done — Value/Volume, Opella charter, € tiles, MTD/YTD, the chip bar. After the Aurélien daily (22 Jul), the reconciliation badge moves to A4 and a Top-products card takes its place.</div>
         <ul class="checklist">
+        <li><span><b>Swap the reconciliation badge for a Top-products (GMID) card.</b> Aurélien (22 Jul): the closing plug forces every site onto TM1, so Movement-vs-Ledger reads ~0 on a client page → the badge <b>moves to A4</b>. Its slot shows the <b>top brands by Value | Volume</b> (Doliprane, etc.) — the brand-level read Shane manages by hand. <span class="ask">⚠ Source = MIT (per-GMID); confirm the field is queryable in Core Data before wiring.</span></span></li>
+        <li><span><b>Title the page "Actual Added Value".</b> Aurélien: mark clearly that A0 pilots the <b>real activity</b> (not a scenario), so a user never confuses the scenario selector with the reference. Two personas share it — daily/monthly operators and scenario planners.</span></li>
         <li><span><b>Finalise the (i) tooltips.</b> tt_hero works; size it to the text (~340×fit) with a #E7EAE7 canvas, then let the VM replicate on the 7 others and strip any em dash from the text.</span></li>
         <li><span><b>ⓘ-cards for the static chips &amp; the Basis slicer.</b> Report-page tooltips do not fire on text boxes or slicers, so add one small ⓘ-card carrying <code>tt_lens</code> next to Cut-off/Scenario/Standard, and one carrying <code>tt_measure</code> next to Basis.</span></li>
         <li><span><b>Refresh the data before the demo</b> (see theme B) so the figures are current on the day.</span></li>
@@ -2194,9 +2198,10 @@
           <span style="background:var(--brand);color:#fff;font-size:.64rem;font-weight:800;padding:2px 8px;border-radius:5px;letter-spacing:.04em">C</span>
           <span style="font-weight:800;font-size:.98rem;color:var(--brand-ink)">Reconciliation &amp; trust</span>
         </div>
-        <div style="font-size:.78rem;color:var(--ink-2);margin:4px 0 9px">The trust story. The core is done (calibrated to Kiki at the cent, Step STD / Local Currency, honest badge, YTD period-aware); calibration remains.</div>
+        <div style="font-size:.78rem;color:var(--ink-2);margin:4px 0 9px">The trust story. The core is done (calibrated to Kiki at the cent, Step STD / Local Currency, YTD period-aware). Per Aurélien (22 Jul) it now lives on A4, not the front page.</div>
         <ul class="checklist">
-        <li><span><b>Tolerance → 1 %.</b> Aurélien: under 1 % aligned, under 0.5 % excellent. Currently 5 %. <span class="ask">⚠ His rule was for TM1 ↔ ledger; our badge is Movement ↔ Ledger — reconfirm.</span></span></li>
+        <li><span><b>Recon moves off page 1 → the A4 alignment page.</b> Aurélien (22 Jul): at close, Kiki pushes a <b>plug entry per site</b> to force each site exactly onto its expected TM1 value, so <b>100 % reconcile by construction</b> and the check stops informing on a client page. Keep it on A4 (Movement ↔ Ledger ↔ TM1) where it's the reference, and where it still matters <b>intra-month, before the plug</b>. <span class="ask">⚠ Sequence with Kiki: the plug is his to implement.</span></span></li>
+        <li><span><b>Tolerance → 1 %.</b> Aurélien: under 1 % aligned, under 0.5 % excellent. Currently 5 %. <span class="ask">⚠ His rule was for TM1 ↔ ledger; our check is Movement ↔ Ledger — reconfirm.</span></span></li>
         <li><span><b>J+4 guard-rail.</b> The ledger is only authoritative ~J+4 after close. Tune <code>_A0_ReconMonth</code> (today ≤ 5; exact rule = ≤ 4).</span></li>
         <li><span><b>Which sites' ledger is integrated?</b> To separate "Pending" from a real "Off". <span class="ask">⚠ Route by ownership: Direct sites via Taís; EM sites via Mauricio Sabatini.</span></span></li>
         <li><span><b>Reconcile on volume too.</b> The ledger carries <code>_Quantity_Ledger_in_Scope</code> — a units reconciliation alongside the € one. To explore.</span></li>
@@ -2211,7 +2216,7 @@
         <div style="font-size:.78rem;color:var(--ink-2);margin:4px 0 9px">The analytical roadmap. Most of it depends on the MIT (the monthly, per-GMID plan) maturing in Core Data — see the Landscape tab.</div>
         <ul class="checklist">
         <li><span><b>Compare forecast scenarios</b> (Aurélien): two scenarios side by side (budget vs current, or day vs day). Folds into <b>actuals + forecast in one continuous view</b>. His wish: "a button that gives volumes and AV for every site matching a real scenario, good numbers".</span></li>
-        <li><span><b>Brand (GMID) actual vs budget / RF</b> (Shane): actual per brand exists, the comparison does not — sites do it by hand. <span class="ask">⚠ Gated on MIT (TM1 holds AV high-level only; per-brand comes from MIT).</span></span></li>
+        <li><span><b>Brand (GMID) actual vs budget / RF</b> (Shane): actual per brand exists, the comparison does not — sites do it by hand. Now gets a first home on <b>A0's Top-products card</b> (theme A); the full vs-budget/RF comparison follows. <span class="ask">⚠ Gated on MIT (TM1 holds AV high-level only; per-brand budget comes from the MIT).</span></span></li>
         <li><span><b>Link AV to the monthly production expectation</b> (Shane): the monthly plan, from MIT, linked to AV. Same MIT dependency.</span></li>
         <li><span><b>Cumulative day + MTD-line curve</b> (Aurélien): "am I on pace to deliver the month?" — day-by-day bars + a cumulative line, in volume and €. The single last-day view is low value at group level.</span></li>
         <li><span><b>Direct vs IM (EM) split</b> (Aurélien): the <code>MC_type</code> = DIR / EM axis, as a sub-split in the scan or a filter.</span></li>
@@ -2229,6 +2234,7 @@
         <li><span><b>The three lenses, today forced (smart defaults):</b> <b>Cut-off</b> (which date counts — AUTO/GR/DLV/TECO/CLOSE; a date basis, the safest to expose), <b>Standard</b> (the yearly standard cost rate — Std 25 vs Std 26 lets a controller isolate the annual re-costing impact), <b>FX scenario</b> (which exchange rates — Bud 26 for a change-neutral budget comparison, Local Currency for reconciliation, Actual for the real € value).</span></li>
         <li><span><b>Who needs the alternatives:</b> controllers / analysts doing variance analysis (standard-revision impact, FX effect, cut-off debugging). The site FBP wants the default and only the default.</span></li>
         <li><span><b>Making them overridable = a measure rewrite</b>, not just a slicer: forced <code>TREATAS({"AUTO"}…)</code> → <code>SELECTEDVALUE(___Selectors[…], "AUTO")</code>. <span class="ask">⚠ The FX one carries a silent trap (Act28 → rate 1); the reconciliation must STAY forced (Step STD / Local Currency). Expose Cut-off first (safe), keep FX/Standard forced.</span></span></li>
+        <li><span><b>Standard selector ready for Std 27.</b> Aurélien (22 Jul): the Standard lens (Std 25 / 26 / N) must let a controller switch N → N+1. Std 27 is <b>in calculation, not yet available</b> — be ready to add it the moment it lands, without a rework. <span class="ask">⚠ Don't wire Std 27 today (too early); design the selector so it drops in.</span></span></li>
       </ul>
       </div>
 
@@ -2243,7 +2249,7 @@
         <li><span><b>FX scenario</b> — confirm "Bud26" vs "Act26" in the activity measure — <span class="ask">⚠ Kiki.</span></span></li>
         <li><span><b>Line / work-centre join</b> — fragile <code>_tmp_</code> M:M (see §17) — <span class="ask">⚠ Kiki.</span></span></li>
         <li><span><b>Integrated sites</b> — <span class="ask">⚠ Taís (Direct) / Mauricio Sabatini (EM).</span></span></li>
-        <li><span><b>The MIT</b> — integration state (per-GMID budget queryable in <code>DMT_MIT_CORE</code>?), ownership, available grain, is it the same track as the forecast-scenario ask, and Kinaxis-daily vs MIT-monthly for the daily view — <span class="ask">⚠ Aurélien / Roland. See the 🗺 Landscape tab for the five questions.</span></span></li>
+        <li><span><b>The MIT</b> — mechanics now confirmed by Aurélien (22 Jul): Kinaxis (live supply demand) → <b>daily snapshot</b> site × GMID → a <b>Pierre-built Excel add-in</b> that pulls from Snowflake → supply adjusts in delta &amp; <b>commits ~20th</b> → <b>finance commits volumes + €</b> (the AV valorisation) → the MIT holds the year's forecast. It <b>is</b> the same track as the forecast-scenario ask (plug-and-play, GMID/product grain). <span class="ask">⚠ Remaining: is the per-GMID budget already queryable in <code>DMT_MIT_CORE</code>, at what grain, and for the daily view — Kinaxis-actuals (D-1) vs MIT-forecast. Aurélien / Roland.</span></span></li>
       </ul>
       </div>
 
@@ -2325,7 +2331,7 @@
         <div class="term"><div class="t">TM1</div><div class="d">The company's monthly-close controlling reference (IBM). The dashboard is meant to feed it automatically.</div></div>
         <div class="term"><div class="t">Activity (€) vs Quantity (volume)</div><div class="d">Activity is the <b>valuation in euros</b> — the common denominator. Quantity is the raw <b>volume in units</b>, which is heterogeneous (boxes of 1,000, semi-finished goods) and cannot be summed directly. Possibly a value/volume toggle. <span class="tbc">toggle to confirm with Kiki</span></div></div>
         <div class="term"><div class="t">GMID</div><div class="d">Product identifier. A site's forecast is submitted GMID by GMID (product by product).</div></div>
-        <div class="term"><div class="t">MIT · Kinaxis · Meet</div><div class="d">Kinaxis computes the supply-chain forecast automatically; the MIT (manual input template), submitted through Meet, is where teams adjust it in delta, month by month.</div></div>
+        <div class="term"><div class="t">MIT · Kinaxis</div><div class="d">Kinaxis (the live supply-chain system) computes the forecast. The <b>MIT (Manual Input Template)</b> is a Pierre-built Excel add-in that pulls a <b>daily Kinaxis snapshot</b> (site × GMID, month by month) from Snowflake; supply adjusts it in delta and commits ~the 20th, then <b>finance commits volumes + € (the AV valorisation)</b>. The committed MIT is the year's forecast, at GMID grain.</div></div>
         <div class="term"><div class="t">PDP <span class="sub">Plan Directeur de Production</span></div><div class="d">The production plan — a site's <b>key comparison</b>, next to budget. Activity and volumes are read vs PDP. Loaded monthly in Kinaxis; a weekly split is done by hand today. A real reference to surface (e.g. Lisieux's weekly review).</div></div>
         <div class="term"><div class="t">GCC · Management Center</div><div class="d">GCC = regional shared-service hubs (Bogotá, Budapest, Kuala Lumpur) supporting the sites. Management Center = the code name for a site, and the floor of data access.</div></div>
         <div class="term"><div class="t">Atina (Athena) · Polaris</div><div class="d">Atina = the manufacturing ERP (source of AV, also the “Athena” of automatic postings). Polaris = the financial ERP. In Brazil and Mexico they are <b>not integrated</b>, which creates the gap; in the US they are one system (not in this model yet).</div></div>
@@ -2649,7 +2655,7 @@
       g('a0-eyetip').innerHTML = eye.tip;
       if (g('a0-period-sub')) g('a0-period-sub').textContent = per.sub;
       g('a0-scope').textContent = s.scope;
-      g('a0-gap').textContent = s.gap;
+      if (g('a0-gap')) g('a0-gap').textContent = s.gap;
       g('a0-btitle').textContent = vol ? s.vbtitle : s.btitle;
       // Period-aware comparison: budget/RF exist only at monthly grain. In Daily (or Weekly), show a trend instead, with the month vs budget as an anchor.
       const noBudget = (curPeriod === 'daily' || curPeriod === 'weekly');
