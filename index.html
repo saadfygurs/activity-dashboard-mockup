@@ -2161,7 +2161,7 @@
 
     <div class="card panel">
       <div class="panel-h"><span class="q"><span class="secn">18</span> Backlog — what's left to build &amp; to weigh</span></div>
-      <div class="panel-cap">The running to-do behind the redesign, organised by <b>theme</b> so we never mix apples and oranges — each theme states its intent in one line. Updated after the Aurélien (17 July), Shane / AMEA (22 July) and Aurélien daily (22 July) calls. <span class="ask">⚠ marks an open question owned by someone on the project — not ours to settle alone.</span></div>
+      <div class="panel-cap">The running to-do behind the redesign, organised by <b>theme</b> so we never mix apples and oranges — each theme states its intent in one line. Updated after the Aurélien (17 July), Shane / AMEA (22 July), Aurélien daily (22 July) and team daily (23 July) calls. <span class="ask">⚠ marks an open question owned by someone on the project — not ours to settle alone.</span></div>
 
       <div style="margin-top:24px;padding-top:13px;border-top:2px solid var(--brand-soft)">
         <div style="display:flex;align-items:center;gap:9px">
@@ -2186,10 +2186,10 @@
         <div style="font-size:.78rem;color:var(--ink-2);margin:4px 0 9px">The #1 site-adoption factor (Shane) and the refresh blocker. Get this right or the sites stay on Excel.</div>
         <ul class="checklist">
         <li><span><b>Daily freshness is the adoption make-or-break.</b> The sites' daily QDCI stand-up (~11am–12pm Manila) needs the previous day's AV + volume, ready. When data is 2 days stale, teams abandon the dashboard and rebuild in Excel. <span class="ask">⚠ Fixing the daily refresh (D-2 → D-1) is the condition for site adoption.</span></span></li>
-        <li><span><b>Refresh blocker: a 2nd Snowflake account.</b> dev_ao pulls from <code>sz22277</code> (DF_CHC SAP Hub, no access for Saad) via ONE table <code>_S_SAP_GMID</code> — a Kiki workaround whose queryGroup is mislabeled "DATA CORE". <span class="ask">⚠ Pierre to decide: grant sz22277, or reroute _S_SAP_GMID through the CORE marts (dwh_core, where GMID already exists).</span></span></li>
-        <li><span><b>Workaround for now:</b> exclude <code>_S_SAP_GMID</code> from report refresh → fresh CORE data without the SAP-Hub access (a product mapping is stable day to day).</span></li>
-        <li><span><b>Budget/RF come from a SharePoint Parquet</b> (TM1_AV_Refresh.parquet), not the CORE marts — <span class="ask">⚠ freezes silently if the export is not regenerated.</span></span></li>
-        <li><span><b>Pipeline D-2 → D-1</b> is Roland's work; Snowflake access is via Microsoft SSO (done).</span></li>
+        <li><span><b>SAP Hub table — settled: run on the snapshot.</b> dev_ao pulls one table <code>_S_SAP_GMID</code> (GMID mapping) from <code>sz22277</code> (DF_CHC SAP Hub, no access) — a Kiki workaround, queryGroup mislabeled "DATA CORE". Daily (23 Jul): the team <b>accepted Saad using the frozen snapshot</b> (Option B — exclude it from refresh; a product mapping barely moves). <span class="ask">Durable cleanup, not urgent: reroute <code>_S_SAP_GMID</code> through the CORE marts (dwh_core) — Pierre.</span></span></li>
+        <li><span><b>SharePoint (budget/RF) — access being granted by Kiki.</b> The org-account auth was failing; Kiki owns the CORE SharePoint and is sharing it (daily, 23 Jul). Once granted, the Parquet refreshes and the vs-Budget/RF tiles come alive.</span></li>
+        <li><span><b>The Parquet is temporary — TM1 → Snowflake is the target.</b> Budget/RF come today from <code>TM1_AV_Refresh.parquet</code> (a TM1 export that freezes silently). But <b>TM1 is pushed to Snowflake several times a day</b>; the plan (daily, 23 Jul) is to <b>drop the Parquet and read TM1 from Snowflake directly</b>. <span class="ask">Access being arranged via Aurélien (support in India; Saad's name provided); needs testing before the switch.</span></span></li>
+        <li><span><b>Pipeline D-2 → D-1</b> is Roland's work — the daily-freshness half of adoption; Snowflake CORE access is via Microsoft SSO (done).</span></li>
       </ul>
       </div>
 
