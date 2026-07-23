@@ -2175,6 +2175,7 @@
         <li><span><b>Finalise the (i) tooltips.</b> tt_hero works; size it to the text (~340×fit) with a #E7EAE7 canvas, then let the VM replicate on the 7 others and strip any em dash from the text.</span></li>
         <li><span><b>ⓘ-cards for the static chips &amp; the Basis slicer.</b> Report-page tooltips do not fire on text boxes or slicers, so add one small ⓘ-card carrying <code>tt_lens</code> next to Cut-off/Scenario/Standard, and one carrying <code>tt_measure</code> next to Basis.</span></li>
         <li><span><b>Refresh the data before the demo</b> (see theme B) so the figures are current on the day.</span></li>
+        <li><span><b>Force A0 activity to Step STD (fixes the vs-Budget).</b> The hero was on <b>Full AV</b> (<code>__Std_AV</code>, direct) while the budget/RF are calibrated to <b>Step STD</b> — so vs Budget read a fake <b>144%</b>. Verified against Kiki's dashboard (Step STD 238M vs budget 256M = 93%, per-site reconciles). Fix: <code>_A0_Activity</code> → <code>_AV_disp</code> forced Step STD. Effect: hero 368M → <b>~238M</b>, vs Budget 144% → <b>~93%</b> = Kiki. <span class="ask">⚠ Changes the flagship number — give Kiki a heads-up (relationship n°1).</span></span></li>
       </ul>
       </div>
 
@@ -2235,6 +2236,7 @@
         <li><span><b>Who needs the alternatives:</b> controllers / analysts doing variance analysis (standard-revision impact, FX effect, cut-off debugging). The site FBP wants the default and only the default.</span></li>
         <li><span><b>Making them overridable = a measure rewrite</b>, not just a slicer: forced <code>TREATAS({"AUTO"}…)</code> → <code>SELECTEDVALUE(___Selectors[…], "AUTO")</code>. <span class="ask">⚠ The FX one carries a silent trap (Act28 → rate 1); the reconciliation must STAY forced (Step STD / Local Currency). Expose Cut-off first (safe), keep FX/Standard forced.</span></span></li>
         <li><span><b>Standard selector ready for Std 27.</b> Aurélien (22 Jul): the Standard lens (Std 25 / 26 / N) must let a controller switch N → N+1. Std 27 is <b>in calculation, not yet available</b> — be ready to add it the moment it lands, without a rework. <span class="ask">⚠ Don't wire Std 27 today (too early); design the selector so it drops in.</span></span></li>
+        <li><span><b>Full AV / Step STD toggle (Activity displayed), like Kiki.</b> A0 is <b>forced to Step STD</b> (the budget/ledger basis) for the demo. Full AV (total industrial VA, ~0.8 Md€ headline) becomes an expert lens via <code>_AV_disp</code>, default Step STD. <span class="ask">⚠ Trap: in Full AV mode the vs-Budget has no like-for-like budget (reads ~144%) — expose it only with a "budget reads in Step STD" note, or keep the budget tiles on Step STD regardless of the toggle.</span></span></li>
       </ul>
       </div>
 
@@ -2262,7 +2264,7 @@
         <ul class="checklist">
         <li><span><b>Reroute <code>_S_SAP_GMID</code> through CORE</b> — the SAP-Hub workaround (see B) — <span class="ask">⚠ Pierre.</span></span></li>
         <li><span><b>Dormant TM1-live code</b> (Playwright login to Boost/Polo gateways, <code>Python.Execute</code> in the shared expressions) — not wired, but executable — <span class="ask">⚠ flag Roland (a tenant security audit could object).</span></span></li>
-        <li><span><b>Register of technical findings</b> — keep current: tolerance 1 %, J+4, LUoM/GUoM decoded, findings validated by the client, and the SAP-Hub / Parquet / dormant-Python items above.</span></li>
+        <li><span><b>Register of technical findings</b> — keep current: tolerance 1 %, J+4, LUoM/GUoM decoded, findings validated by the client, the SAP-Hub / Parquet / dormant-Python items above, and the <b>Full-AV-vs-Step-STD basis finding</b> (vs-Budget read a fake 144% because the hero was Full AV while the budget is Step-STD-calibrated; diagnosed against Kiki's dashboard, fixed by forcing A0 activity to Step STD).</span></li>
         <li><span><b>Measure dictionary</b> — add the reconciliation calculated table and the volume measures.</span></li>
         <li><span><b>Data lineage / freshness visual</b> (Pierre): where each figure comes from and how fresh, from dbt <code>manifest.json</code>, plus a repo agent to keep it current.</span></li>
         <li><span><b>STANDARDS.md + CI</b> — lint TMDL, naming conventions, anti-patterns.</span></li>
