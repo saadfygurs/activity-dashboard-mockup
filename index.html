@@ -2311,6 +2311,27 @@
         <li><span><b>Cross-cutting.</b> <code>___DateSelector_FCST</code> is incomplete scaffolding <span class="ask">[?] meant for a separate forecast axis?</span> Saad's Desktop-validation review list — to detail and fold here.</span></li>
       </ul>
       </div>
+
+      <div style="margin-top:24px;padding-top:13px;border-top:2px solid var(--brand-soft)">
+        <div style="display:flex;align-items:center;gap:9px">
+          <span style="background:var(--brand);color:#fff;font-size:.64rem;font-weight:800;padding:2px 8px;border-radius:5px;letter-spacing:.04em">J</span>
+          <span style="font-weight:800;font-size:.98rem;color:var(--brand-ink)">Aurélien AV review (25 Jul) — the Monday list</span>
+        </div>
+        <div style="font-size:.78rem;color:var(--ink-2);margin:4px 0 9px">Live UAT with Aurélien. He is happy with the direction ("t'es bien parti, it's taking shape"); these are the fixes and calls that came out of clicking through it. To do Monday.</div>
+        <ul class="checklist">
+        <li><span><b>BUG · Top-products scale.</b> Normally ~44M€ (fine), but in some states (a drill, or Volume?) it jumps to ~10 billion ("choux et carottes"). Likely a currency/unit mix or the raw-material family leaking. <span class="ask">Reproduce and fix.</span></span></li>
+        <li><span><b>BUG · Product cross-filter vs Budget is misleading.</b> Clicking a product (Doliprane) filters the activity but the budget does not follow at GMID grain, so the % reads ~18% of the <b>total</b> budget, not of Doliprane's. <span class="ask">Needs the per-GMID budget (from the MIT), or suppress the product-level % until then.</span></span></li>
+        <li><span><b>BUG · The ±5% red flag does not fire</b> on the site scan / matrix (conditional formatting). Fix so beyond ±5% flags red.</span></li>
+        <li><span><b>BUG · The Region dimension is messy.</b> It mixes real regions (NA / EULA / AMEA) with MC_type-like values (DIR / EM / IBP / IM) — "IBP, what is this?". <span class="ask">Clean a proper geographic region — Kiki's region/site table.</span></span></li>
+        <li><span><b>Daily view goes on A1 (site detail), not A2.</b> Aurélien: the daily day-by-day is where it earns its place — on the detail page, to see <b>why</b> a site is behind (e.g. "stopped for 2 days"). Revises the earlier A2 placement. (A2 keeps the year landing.)</span></li>
+        <li><span><b>vs Budget %/€ must tell the same story.</b> Today the % is full-month (64%) and the € is prorated (−3.7M) — they contradict. Reconcile them, and show both readings (on-pace and month-to-go) without overloading.</span></li>
+        <li><span><b>vs RF toggle on the site scan</b> (today it is only vs Budget) — let the user switch the scan to vs RF.</span></li>
+        <li><span><b>A2 must show the past, not just the future.</b> Add actual vs budget for the elapsed months (Jan–June), not only the forecast. Plus <b>multi-scenario comparison, by product</b> (beef it up with the forecast-control analyses; not by machine, too fine).</span></li>
+        <li><span><b>"Sequence" / flexible pivot</b> (seen on the Expenses dashboard, Bowen): a power-user control to add/remove dimensions in a pivot without exporting to Excel. Idea for A1.</span></li>
+        <li><span><b>Coordinate with Pierre / Christina on PV/PPV.</b> Pierre is adding PV/PPV to the forecast-control page — avoid duplication, make it integrate with the AV work. <span class="ask">Cross-visit next week.</span></span></li>
+        <li><span>Confirmed in the review: <b>PPV is not AV</b> (done, corrected) · the <b>Step STD</b> basis (238M) validated · the A0 → A1 → A2 flow ("is there a problem, where/why, the future") lands well.</span></li>
+      </ul>
+      </div>
     </div>
   </section>
 
