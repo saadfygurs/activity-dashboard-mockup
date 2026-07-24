@@ -2161,7 +2161,7 @@
 
     <div class="card panel">
       <div class="panel-h"><span class="q"><span class="secn">18</span> Backlog — what's left to build &amp; to weigh</span></div>
-      <div class="panel-cap">The running to-do behind the redesign, organised by <b>theme</b> so we never mix apples and oranges — each theme states its intent in one line. Updated after the Aurélien (17 July), Shane / AMEA (22 July), Aurélien daily (22 July) and team daily (23 July) calls. <span class="ask">⚠ marks an open question owned by someone on the project — not ours to settle alone.</span></div>
+      <div class="panel-cap">The running to-do behind the redesign, organised by <b>theme</b> so we never mix apples and oranges — each theme states its intent in one line. Updated after the Aurélien (17 July), Shane / AMEA (22 July), Aurélien daily (22 July) and team daily (23 July) calls, and the A1–A4 build (24 July — the drill-page skeleton, see theme I). <span class="ask">⚠ marks an open question owned by someone on the project — not ours to settle alone.</span></div>
 
       <div style="margin-top:24px;padding-top:13px;border-top:2px solid var(--brand-soft)">
         <div style="display:flex;align-items:center;gap:9px">
@@ -2170,7 +2170,7 @@
         </div>
         <div style="font-size:.78rem;color:var(--ink-2);margin:4px 0 9px">The demo-critical remaining build. Most of A0 is done — Value/Volume, Opella charter, € tiles, MTD/YTD, the chip bar. After the Aurélien daily (22 Jul), the reconciliation badge moves to A4 and a Top-products card takes its place.</div>
         <ul class="checklist">
-        <li><span><b>Swap the reconciliation badge for a Top-products (GMID) card.</b> Aurélien (22 Jul): the closing plug forces every site onto TM1, so Movement-vs-Ledger reads ~0 on a client page → the badge <b>moves to A4</b>. Its slot shows the <b>top brands by Value | Volume</b> (Doliprane, etc.) — the brand-level read Shane manages by hand. <span class="ask">⚠ Source = MIT (per-GMID); confirm the field is queryable in Core Data before wiring.</span></span></li>
+        <li><span><b>Swap the reconciliation badge for a Top-products card — DONE (24 Jul).</b> A0's recon slot now shows the top brands by Value | Volume, grouped by readable product <b>family (SMARTFAMILY_DESC</b>, from the <code>_S_SAP_GMID</code> snapshot). The recon moved to A4. Details &amp; the "(Vide)" watch → theme I.</span></li>
         <li><span><b>Title the page "Actual Added Value".</b> Aurélien: mark clearly that A0 pilots the <b>real activity</b> (not a scenario), so a user never confuses the scenario selector with the reference. Two personas share it — daily/monthly operators and scenario planners.</span></li>
         <li><span><b>Finalise the (i) tooltips.</b> tt_hero works; size it to the text (~340×fit) with a #E7EAE7 canvas, then let the VM replicate on the 7 others and strip any em dash from the text.</span></li>
         <li><span><b>ⓘ-cards for the static chips &amp; the Basis slicer.</b> Report-page tooltips do not fire on text boxes or slicers, so add one small ⓘ-card carrying <code>tt_lens</code> next to Cut-off/Scenario/Standard, and one carrying <code>tt_measure</code> next to Basis.</span></li>
@@ -2282,6 +2282,22 @@
         <li><span><b>Per-site reconciliation detail → A4</b> once A4 is built (lives on A0 for now).</span></li>
         <li><span><b>Pill-style chips</b> — a template decision for S3, applied once and reused.</span></li>
         <li><span><b>Web-app horizon</b> — the digital team's stack, once the org is ready. The front is swappable on a strong semantic layer; that is the durable bet, not the front itself.</span></li>
+      </ul>
+      </div>
+
+      <div style="margin-top:24px;padding-top:13px;border-top:2px solid var(--brand-soft)">
+        <div style="display:flex;align-items:center;gap:9px">
+          <span style="background:var(--brand);color:#fff;font-size:.64rem;font-weight:800;padding:2px 8px;border-radius:5px;letter-spacing:.04em">I</span>
+          <span style="font-weight:800;font-size:.98rem;color:var(--brand-ink)">The drill pages A1–A4 — built, and what's left</span>
+        </div>
+        <div style="font-size:.78rem;color:var(--ink-2);margin:4px 0 9px">The skeleton is up (24 July): A0 finished, A1 / A2 / A4 built from the mockup, recon relocated to A4. What each page still needs — cosmetic toggles, and the [?] enrichments to scope with Kiki / Taís.</div>
+        <ul class="checklist">
+        <li><span><b>A0 · Top-products by family — done.</b> Groups by readable <b>SMARTFAMILY_DESC</b> (from the <code>_S_SAP_GMID</code> snapshot; clean join <code>_S_PRODUCT.GMID → _S_SAP_GMID</code>, additive, no M:M), follows the Value | Volume toggle and the site scope. <span class="ask">⚠ Watch the "(Vide)" bar (GMIDs without a family mapping) — if it dominates, a real mapping gap. Verify Top-N = 10.</span> Optional: family → product drill.</span></li>
+        <li><span><b>A1 · Region → Site matrix — built.</b> Gap-coloured, sorted worst-first, MC_type / cut-off slicers. <b>Deferred:</b> the Work Centre / line level (fragile <code>_tmp_</code> M:M, double-counts € → a separate "routing" lens); the <b>"cause" column</b> (drivers to create: cut-off Step/Full via <code>__Std_AV</code>/<code>__Std_Step_AV</code>, FX effect). Cosmetic: data bars on Gap € (Desktop toggle), a precise ±5% colour measure. <span class="ask">⚠ Cause drivers = Kiki / Taís. The gap ignores the Period slicer (fixed to last closed month) — confirm intended.</span></span></li>
+        <li><span><b>A2 · Actual + forecast — built</b> (the key deliverable). Continuous line + Landing + the "Actual to date + Remaining = Landing" strip. <b>To fix:</b> <b>2026 is hardcoded</b> in the year filter → make dynamic (relative "this year"); the dashed forecast line (Desktop toggle if not rendered); the <b>Volume-lens forecast</b> (<code>_A_ORDER_ACT[QUANTITY_FCST]</code>) is not wired yet.</span></li>
+        <li><span><b>A4 · Reconciliation — built</b> (per-site table + control tiles: Sites out of tolerance, Coverage — currency-safe). <b>To build (FX-sensitive):</b> a <b>€-converted recon</b> (Movement_EUR / Ledger_EUR) for group amount tiles; the <b>TM1 3rd leg</b> tie-out (Movement ≈ Ledger ≈ TM1 via <code>__Amount_TM1_ACT</code>); the <b>waterfall by driver</b> (cut-off / ILDA / PPV reclass / Polaris / Atina). <span class="ask">⚠ FX choice + driver list &amp; grain = Kiki / Taís. Recon is Local Currency per-site (can't sum across currencies) — the € conversion is what unlocks totals.</span></span></li>
+        <li><span><b>A3 · Variances — not built.</b> "Why it moves" (PPV, yield, material price, FX) needs variance measures that don't exist yet. <span class="ask">⚠ Same driver-scoping as A4 — Kiki / Taís.</span></span></li>
+        <li><span><b>Cross-cutting.</b> <code>___DateSelector_FCST</code> is incomplete scaffolding <span class="ask">[?] meant for a separate forecast axis?</span> Saad's Desktop-validation review list — to detail and fold here.</span></li>
       </ul>
       </div>
     </div>
